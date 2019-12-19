@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cogent</groupId>
-	<artifactId>edge-server</artifactId>
+	<artifactId>admin-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>edge-server</name>
-	<description>Edge Server  for Cogent's EMR Project</description>
+	<name>admin-service</name>
+	<description>The Project includes all admin service</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -27,10 +27,6 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

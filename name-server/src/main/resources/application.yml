@@ -7,14 +7,15 @@ server:
   port: 8761
 
 eureka:
+  instance:
+    hostname: localhost
   client:
     registerWithEureka: false
     fetchRegistry: false
-  server:
-    waitTimeInMsWhenSyncEmpty: 0
-    enable-self-preservation: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 
-logging:
-  level:
-    com.netflix: 'WARN'
-    org.springframework.cloud: 'WARN'
+
+#---REF ---#
+
+#https://dzone.com/articles/the-mystery-of-eurekas-self-preservation
