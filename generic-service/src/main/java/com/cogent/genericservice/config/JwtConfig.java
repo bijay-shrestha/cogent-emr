@@ -1,9 +1,10 @@
 package com.cogent.genericservice.config;
+
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 
 @Getter
-public class JwtConfiguration {
+public class JwtConfig {
     @Value("${security.jwt.uri:/auth/**}")
     private String Uri;
 

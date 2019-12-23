@@ -1,10 +1,9 @@
 package com.cogent.contextserver;
 
 import com.cogent.contextserver.filter.UserContextFilter;
-import com.cogent.genericservice.config.JwtConfiguration;
+import com.cogent.genericservice.config.JwtConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 
@@ -25,7 +24,7 @@ public class ContextServerApplication {
 	}
 
 	@Bean
-	public JwtConfiguration jwtConfig(){
-		return new JwtConfiguration();
+	public JwtConfig jwtConfig(){
+		return new JwtConfig();
 	}
 }

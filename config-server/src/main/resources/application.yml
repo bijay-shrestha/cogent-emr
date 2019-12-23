@@ -1,0 +1,18 @@
+server:
+  port: 8888
+spring:
+  config:
+    name: config-server
+  profiles:
+    include: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config-repo
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -1,6 +1,6 @@
 package com.cogent.contextserver.filter;
 
-import com.cogent.genericservice.config.JwtConfiguration;
+import com.cogent.genericservice.config.JwtConfig;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -12,9 +12,9 @@ import java.io.IOException;
 public class UserContextInterceptor implements ClientHttpRequestInterceptor {
 
 
-    private final JwtConfiguration jwtConfig;
+    private final JwtConfig jwtConfig;
 
-    public UserContextInterceptor(JwtConfiguration jwtConfig) {
+    public UserContextInterceptor(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
     }
 

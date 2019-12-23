@@ -1,6 +1,6 @@
 package com.cogent.contextserver.filter;
 
-import com.cogent.genericservice.config.JwtConfiguration;
+import com.cogent.genericservice.config.JwtConfig;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -10,9 +10,9 @@ import java.io.IOException;
 @Component
 public class UserContextFilter implements Filter {
 
-    private final JwtConfiguration jwtConfig;
+    private final JwtConfig jwtConfig;
 
-    public UserContextFilter(JwtConfiguration jwtConfig) {
+    public UserContextFilter(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
     }
 
