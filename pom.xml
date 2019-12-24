@@ -12,12 +12,12 @@
     <modules>
         <module>name-server</module> <!-- 8761 -->
         <module>config-server</module> <!-- 8888 -->
-        <module>context-server</module> <!-- 8092 -->
+        <module>generic-service</module> <!-- 8888 -->
+        <module>edge-server</module> <!-- 8889 -->
         <module>persistence</module>
-        <module>generic-service</module> <!-- 8091 -->
-        <module>edge-server</module> <!-- 8762 -->
-        <module>auth-service</module> <!-- 8094 -->
-        <module>admin-service</module> <!-- 8761 -->
+        <module>context-server</module> <!-- 8081 -->
+        <module>auth-service</module> <!-- 8082 -->
+        <module>admin-service</module> <!-- 8083 -->
     </modules>
 
 
