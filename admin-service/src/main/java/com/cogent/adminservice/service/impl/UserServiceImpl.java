@@ -2,7 +2,7 @@ package com.cogent.adminservice.service.impl;
 
 import com.cogent.adminservice.repository.UserRepository;
 import com.cogent.adminservice.service.UserService;
-import com.cogent.persistence.model.User;
+import com.cogent.genericservice.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

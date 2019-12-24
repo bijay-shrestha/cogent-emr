@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: edge-server
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: development
   main:
     allow-bean-definition-overriding: true
 

@@ -1,5 +1,5 @@
 server:
-  port: 8093
+  port: 8094
 
 spring:
   application:
@@ -7,7 +7,7 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      name: localhost
+      name: development
 
 eureka:
   instance:

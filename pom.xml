@@ -10,14 +10,14 @@
     <description>Backend for Cogent's EMR Project</description>
     <packaging>pom</packaging>
     <modules>
-        <module>name-server</module>
-        <module>generic-service</module>
-        <module>config-server</module>
-        <module>context-server</module>
-        <module>edge-server</module>
+        <module>name-server</module> <!-- 8761 -->
+        <module>config-server</module> <!-- 8888 -->
+        <module>context-server</module> <!-- 8092 -->
         <module>persistence</module>
-        <module>auth-service</module>
-        <module>admin-service</module>
+        <module>generic-service</module> <!-- 8091 -->
+        <module>edge-server</module> <!-- 8762 -->
+        <module>auth-service</module> <!-- 8094 -->
+        <module>admin-service</module> <!-- 8761 -->
     </modules>
 
 

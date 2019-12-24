@@ -1,10 +1,15 @@
 server:
   port: 8888
+
 spring:
+  application:
+    name: config-server
   config:
     name: config-server
+
   profiles:
     include: native
+
   cloud:
     config:
       server:
@@ -15,4 +20,15 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: "*"
+
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+    secure-port: 8761
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.secure-port}/eureka/

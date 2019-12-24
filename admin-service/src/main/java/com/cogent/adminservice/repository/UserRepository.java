@@ -1,6 +1,6 @@
 package com.cogent.adminservice.repository;
 
-import com.cogent.persistence.model.User;
+import com.cogent.genericservice.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

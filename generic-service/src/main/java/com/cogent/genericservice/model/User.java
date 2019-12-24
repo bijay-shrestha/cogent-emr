@@ -1,6 +1,6 @@
-package com.cogent.persistence.model;
+package com.cogent.genericservice.model;
 
-import com.cogent.persistence.config.Auditable;
+import com.cogent.genericservice.config.Auditable;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: generic-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: development
 
 eureka:
   instance:

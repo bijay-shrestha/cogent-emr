@@ -1,6 +1,5 @@
 package com.cogent.persistence.model;
 
-import com.cogent.persistence.model.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

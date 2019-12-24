@@ -4,7 +4,7 @@ import com.cogent.adminservice.service.AdminService;
 import com.cogent.adminservice.service.UserService;
 import com.cogent.contextserver.filter.UserContext;
 import com.cogent.persistence.model.ProfileMenu;
-import com.cogent.persistence.model.User;
+import com.cogent.genericservice.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
