@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+		<tests.skip>true</tests.skip>
 	</properties>
 
 	<dependencies>
@@ -73,7 +74,6 @@
 			<groupId>com.cogent</groupId>
 			<artifactId>context-server</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.cogent</groupId>

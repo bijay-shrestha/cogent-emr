@@ -31,7 +31,8 @@ public class AdminResource {
     }
 
     @GetMapping("/")
-    public ResponseEntity<?> index(HttpServletRequest request, HttpServletResponse servletResponse) {
+    public ResponseEntity<?> index(HttpServletRequest request,
+                                   HttpServletResponse servletResponse) {
 
         System.out.println("inside gallery controller-------------------" + request.getHeader("username"));
         List<ProfileMenu> profileMenu = adminService.getAdminByUsername(request.getHeader("username"));

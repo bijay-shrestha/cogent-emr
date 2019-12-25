@@ -1,6 +1,7 @@
 package com.cogent.authservice.configuration;
 
 import com.cogent.genericservice.config.JwtConfig;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
@@ -16,16 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 
-
     private final UserDetailsService userDetailsService;
 
     private final JwtConfig jwtConfig;
 
-    public SecurityCredentialsConfig(@Lazy UserDetailsService userDetailsService,
-                                     @Lazy JwtConfig jwtConfig) {
+    public SecurityCredentialsConfig(@Lazy @Qualifier("userDetailServiceImpl") UserDetailsService userDetailsService,
+                                      @Lazy JwtConfig jwtConfig) {
         this.userDetailsService = userDetailsService;
         this.jwtConfig = jwtConfig;
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
