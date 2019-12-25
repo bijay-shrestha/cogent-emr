@@ -1,12 +1,13 @@
-package com.cogent.edgeserver;
+package com.cogent.edgeserver.filter;
 
 import com.cogent.genericservice.config.JwtConfig;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
-
+@Slf4j
 public class AddRequestHeaderFilter extends ZuulFilter {
 
     private final JwtConfig jwtConfig;
@@ -32,6 +33,7 @@ public class AddRequestHeaderFilter extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
+        log.info("ZUUL FILTER ---- ZUUL FILTER ---- ZUUL FILTER");
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
         String username = (String) request.getAttribute("username");

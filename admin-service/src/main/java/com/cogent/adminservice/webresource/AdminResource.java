@@ -30,11 +30,11 @@ public class AdminResource {
         this.adminService = adminService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/test")
     public ResponseEntity<?> index(HttpServletRequest request,
                                    HttpServletResponse servletResponse) {
 
-        System.out.println("inside gallery controller-------------------" + request.getHeader("username"));
+        System.out.println(" INSIDE ADMIN RESOURCE -------------------" + request.getHeader("username"));
         List<ProfileMenu> profileMenu = adminService.getAdminByUsername(request.getHeader("username"));
 
         return ok().body(profileMenu);

@@ -1,5 +1,6 @@
 package com.cogent.edgeserver;
 
+import com.cogent.edgeserver.filter.AddRequestHeaderFilter;
 import com.cogent.genericservice.config.JwtConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
