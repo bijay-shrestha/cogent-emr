@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/hello_development
+    url: jdbc:mysql://localhost:3306/microservice-filter-project
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver

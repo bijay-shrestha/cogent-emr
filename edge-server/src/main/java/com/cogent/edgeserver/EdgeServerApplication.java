@@ -17,15 +17,15 @@ public class EdgeServerApplication {
         SpringApplication.run(EdgeServerApplication.class, args);
     }
 
-    @Bean
-    public AddRequestHeaderFilter addRequestHeaderFilter(JwtConfig jwtConfig) {
-        return new AddRequestHeaderFilter(jwtConfig);
-    }
-
-    @Bean
-    public JwtConfig jwtConfig() {
-        return new JwtConfig();
-    }
+//    @Bean
+//    public AddRequestHeaderFilter addRequestHeaderFilter(JwtConfig jwtConfig) {
+//        return new AddRequestHeaderFilter(jwtConfig);
+//    }
+//
+//    @Bean
+//    public JwtConfig jwtConfig() {
+//        return new JwtConfig();
+//    }
 
 
 }
