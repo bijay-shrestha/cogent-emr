@@ -21,3 +21,15 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${eureka.instance.secure-port}/eureka/
+
+zuul:
+  routes:
+    auth-service:
+      path: /auth/**
+      service-id: auth-service
+    admin-service:
+      path: /admin/**
+      service-id: admin-service
+    cogent-server:
+      path: /**
+      service-id: cogent-server
