@@ -1,6 +1,6 @@
 package com.cogent.contextserver.filter;
 
-import com.cogent.contextserver.config.JwtConfig;
+import com.cogent.genericservice.security.JwtConfig;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;

@@ -1,7 +1,7 @@
 package com.cogent.contextserver;
 
 import com.cogent.contextserver.config.AuditorAwareImpl;
-import com.cogent.contextserver.config.JwtConfig;
+import com.cogent.genericservice.security.JwtConfig;
 import com.cogent.contextserver.filter.UserContextFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

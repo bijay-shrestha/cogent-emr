@@ -1,6 +1,6 @@
 package com.cogent.adminservice.security;
 
-import com.cogent.contextserver.config.JwtConfig;
+import com.cogent.genericservice.security.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 

@@ -1,4 +1,4 @@
-package com.cogent.contextserver.config;
+package com.cogent.genericservice.security;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
