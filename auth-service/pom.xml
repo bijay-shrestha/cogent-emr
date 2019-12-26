@@ -72,6 +72,14 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<dependency>
+			<groupId>com.cogent</groupId>
+			<artifactId>persistence</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+
     </dependencies>
 
 	<dependencyManagement>

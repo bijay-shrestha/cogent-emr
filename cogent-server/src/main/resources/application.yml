@@ -1,0 +1,21 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: cogent-server
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: development
+
+eureka:
+  instance:
+    hostname: localhost
+    secure-port: 8761
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.secure-port}/eureka/
+

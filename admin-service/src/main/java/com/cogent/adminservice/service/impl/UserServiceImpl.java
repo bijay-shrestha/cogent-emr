@@ -34,4 +34,3 @@ public class UserServiceImpl implements UserService<User, Long> {
         return null;
     }
 }
-

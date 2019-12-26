@@ -1,6 +1,5 @@
 package com.cogent.persistence.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Admin implements Serializable {
+public class Admin implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +22,9 @@ public class Admin implements Serializable {
 
     @Column(name = "username")
     private String username;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;

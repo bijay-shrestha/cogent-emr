@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * @author smriti on 7/2/19
+ */
 @Entity
 @Table(name = "profile")
 @Getter

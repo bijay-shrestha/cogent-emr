@@ -1,8 +1,9 @@
 package com.cogent.authservice.configuration;
-
-
-import com.cogent.authservice.model.UserCredential;
+import com.cogent.authservice.dto.LoginResponse;
+import com.cogent.authservice.model.UserCredentials;
 import com.cogent.genericservice.config.JwtConfig;
+import com.cogent.genericservice.cookies.CookieConstants;
+import com.cogent.genericservice.cookies.CookieUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
@@ -26,17 +27,17 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+import static com.cogent.genericservice.cookies.CookieConstants.key;
 
 @Slf4j
 public class JwtUsernameAndPasswordAuthenticationFilter
         extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authManager;
-
     private final JwtConfig jwtConfig;
 
-    JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authManager,
-                                               JwtConfig jwtConfig) {
+    public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authManager,
+                                                      JwtConfig jwtConfig) {
         this.authManager = authManager;
         this.jwtConfig = jwtConfig;
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(jwtConfig.getUri(), "POST"));
@@ -46,11 +47,11 @@ public class JwtUsernameAndPasswordAuthenticationFilter
                                                 HttpServletResponse response)
             throws AuthenticationException {
 
-        log.info(":::: ====== ------ ATTEMPTING AUTHENTICATION ------ ====== ::::");
+        log.info(":::: ====== ------ INSIDE AUTH SERVER  ------ ====== ::::");
 
         try {
-            UserCredential creds = new ObjectMapper().readValue(request.getInputStream(),
-                    UserCredential.class);
+            UserCredentials creds = new ObjectMapper().readValue(request.getInputStream(),
+                    UserCredentials.class);
 
             UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(creds.getUsername(),
@@ -61,20 +62,19 @@ public class JwtUsernameAndPasswordAuthenticationFilter
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication auth) {
+                                            Authentication auth) throws IOException {
 
         log.info("Header :: " + jwtConfig.getHeader());
         log.info("Prefix :: " + jwtConfig.getPrefix());
         log.info("Secret :: " + jwtConfig.getSecret());
         log.info("Expiration Time :: " + jwtConfig.getExpiration());
-
-        log.info(":::: ====== ------ BUILDING TOKEN ------ ====== ::::");
 
         Long now = System.currentTimeMillis();
         String token = Jwts.builder()
@@ -83,14 +83,31 @@ public class JwtUsernameAndPasswordAuthenticationFilter
                         auth.getAuthorities().stream()
                                 .map(GrantedAuthority::getAuthority)
                                 .collect(Collectors.toList())).setIssuedAt(new Date(now))
-                .claim("user-id", 1L)
                 .setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))
                 .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
                 .compact();
 
-        log.info(":::: ====== ++++++ {} SUCCESSFULLY AUTHENTICATED AND TOKEN ADDED THE HEADER  ++++++ ====== ::::", auth.getName());
-        response.addHeader(jwtConfig.getHeader(),
-                jwtConfig.getPrefix() + token);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        log.info(":::: ====== ++++++ {} SUCCESSFULLY AUTHENTICATED  ++++++ ====== ::::", auth.getName());
+
+        response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
+
+        Cookie c = CookieUtils.createCookie(response, key, token);
+
+        LoginResponse loginResponse = LoginResponse.builder().
+                cookie(c)
+                .build();
+
+        String json = null;
+        try {
+            json = new ObjectMapper().writeValueAsString(loginResponse);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        response.getWriter().write(json);
+        response.flushBuffer();
     }
+
 
 }

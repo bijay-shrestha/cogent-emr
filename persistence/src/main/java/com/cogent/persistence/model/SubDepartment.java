@@ -7,6 +7,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * @author smriti on 7/29/19
+ */
 @Entity
 @Table(name = "sub_department")
 @NoArgsConstructor
