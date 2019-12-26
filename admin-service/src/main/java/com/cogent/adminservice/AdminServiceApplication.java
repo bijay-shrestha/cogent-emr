@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EntityScan(basePackages = {"com.cogent.persistence.model", "com.cogent.genericservice.model"})
+@EntityScan(basePackages = {"com.cogent.persistence.model", "com.cogent.contextserver.model"})
 public class AdminServiceApplication {
 
 	public static void main(String[] args) {

@@ -1,6 +1,6 @@
 package com.cogent.edgeserver.filters;
 
-import com.cogent.genericservice.config.JwtConfig;
+import com.cogent.contextserver.config.JwtConfig;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;

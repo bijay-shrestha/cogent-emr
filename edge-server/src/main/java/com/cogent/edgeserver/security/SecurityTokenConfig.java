@@ -3,7 +3,7 @@ package com.cogent.edgeserver.security;
 import com.cogent.edgeserver.filters.AddRequestHeaderFilter;
 import com.cogent.edgeserver.modules.Modules;
 import com.cogent.edgeserver.modules.Roles;
-import com.cogent.genericservice.config.JwtConfig;
+import com.cogent.contextserver.config.JwtConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;

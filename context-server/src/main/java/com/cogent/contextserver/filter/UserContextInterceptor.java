@@ -1,6 +1,6 @@
 package com.cogent.contextserver.filter;
 
-import com.cogent.genericservice.config.JwtConfig;
+import com.cogent.contextserver.config.JwtConfig;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;

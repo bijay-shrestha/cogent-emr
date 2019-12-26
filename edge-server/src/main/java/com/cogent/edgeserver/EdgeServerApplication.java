@@ -1,7 +1,7 @@
 package com.cogent.edgeserver;
 
 import com.cogent.edgeserver.filters.AddRequestHeaderFilter;
-import com.cogent.genericservice.config.JwtConfig;
+import com.cogent.contextserver.config.JwtConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;

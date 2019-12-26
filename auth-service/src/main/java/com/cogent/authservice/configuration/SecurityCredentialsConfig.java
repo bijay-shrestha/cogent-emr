@@ -1,7 +1,7 @@
 package com.cogent.authservice.configuration;
 
 import com.cogent.authservice.dto.LoginErrorResponse;
-import com.cogent.genericservice.config.JwtConfig;
+import com.cogent.contextserver.config.JwtConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;

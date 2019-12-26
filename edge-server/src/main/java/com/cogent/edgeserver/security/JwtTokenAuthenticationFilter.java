@@ -2,7 +2,7 @@ package com.cogent.edgeserver.security;
 
 import com.cogent.edgeserver.checkpoint.CookieCheckpoint;
 import com.cogent.edgeserver.checkpoint.JwtTokenCheckpoint;
-import com.cogent.genericservice.config.JwtConfig;
+import com.cogent.contextserver.config.JwtConfig;
 import com.cogent.genericservice.cookies.CookieUtils;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;

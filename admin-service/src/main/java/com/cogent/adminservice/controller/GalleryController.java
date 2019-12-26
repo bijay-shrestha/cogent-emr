@@ -7,7 +7,7 @@ import com.cogent.adminservice.dto.response.MenuResponseDTO;
 import com.cogent.adminservice.service.AdminService;
 import com.cogent.adminservice.service.UserService;
 import com.cogent.contextserver.filter.UserContext;
-import com.cogent.genericservice.model.User;
+import com.cogent.contextserver.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

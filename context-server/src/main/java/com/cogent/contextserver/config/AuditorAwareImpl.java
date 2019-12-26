@@ -1,4 +1,4 @@
-package com.cogent.genericservice.config;
+package com.cogent.contextserver.config;
 
 import com.cogent.contextserver.filter.UserContext;
 import org.springframework.data.domain.AuditorAware;

@@ -1,6 +1,6 @@
-package com.cogent.genericservice.model;
+package com.cogent.contextserver.model;
 
-import com.cogent.genericservice.config.Auditable;
+import com.cogent.contextserver.config.Auditable;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
