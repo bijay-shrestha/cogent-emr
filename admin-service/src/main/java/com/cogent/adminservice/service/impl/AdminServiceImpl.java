@@ -1,12 +1,12 @@
 package com.cogent.adminservice.service.impl;
 
-import com.example.demo.dto.ProfileMenuResponseDTO;
-import com.example.demo.dto.response.AssignedProfileMenuResponseDTO;
-import com.example.demo.dto.response.AssignedRolesResponseDTO;
-import com.example.demo.dto.response.ChildMenusResponseDTO;
-import com.example.demo.model.ProfileMenu;
-import com.example.demo.repository.AdminRepository;
-import com.example.demo.service.AdminService;
+import com.cogent.adminservice.dto.response.AssignedProfileMenuResponseDTO;
+import com.cogent.adminservice.dto.response.AssignedRolesResponseDTO;
+import com.cogent.adminservice.dto.response.ChildMenusResponseDTO;
+import com.cogent.adminservice.dto.response.ProfileMenuResponseDTO;
+import com.cogent.adminservice.repository.AdminRepository;
+import com.cogent.adminservice.service.AdminService;
+import com.cogent.persistence.model.ProfileMenu;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +19,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.example.demo.utils.QueryUtils.getQuery;
-import static com.example.demo.utils.QueryUtils.transformQueryToResultList;
+import static com.cogent.adminservice.utils.QueryUtils.getQuery;
+import static com.cogent.adminservice.utils.QueryUtils.transformQueryToResultList;
 
 @Service
 @Transactional

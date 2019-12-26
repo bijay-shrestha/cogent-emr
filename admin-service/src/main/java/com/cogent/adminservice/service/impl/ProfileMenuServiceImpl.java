@@ -1,8 +1,8 @@
 package com.cogent.adminservice.service.impl;
 
-import com.example.demo.model.ProfileMenu;
-import com.example.demo.repository.ProfileMenuRepository;
-import com.example.demo.service.ProfileMenuService;
+import com.cogent.adminservice.repository.ProfileMenuRepository;
+import com.cogent.adminservice.service.ProfileMenuService;
+import com.cogent.persistence.model.ProfileMenu;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +24,7 @@ public class ProfileMenuServiceImpl implements ProfileMenuService {
 
     @Override
     public ProfileMenu getProfileMenuByUsername(String t) {
-        
+
         return null;
 
     }

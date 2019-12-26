@@ -1,6 +1,6 @@
 package com.cogent.adminservice.repository;
 
-import com.example.demo.model.ProfileMenu;
+import com.cogent.persistence.model.ProfileMenu;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

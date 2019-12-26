@@ -1,6 +1,6 @@
 package com.cogent.adminservice.repository;
 
-import com.example.demo.model.Roles;
+import com.cogent.persistence.model.Roles;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
