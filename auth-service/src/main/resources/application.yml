@@ -8,6 +8,8 @@ spring:
     config:
       uri: http://localhost:8888
       name: development
+  main:
+    allow-bean-definition-overriding: true
 
 eureka:
   instance:
