@@ -1,9 +1,9 @@
 package com.cogent.authservice.service;
 
 import com.cogent.authservice.repository.AdminRepository;
-import com.cogent.authservice.repository.RoleRepository;
+import com.cogent.authservice.repository.ApplicationModuleRepository;
 import com.cogent.persistence.model.Admin;
-import com.cogent.persistence.model.Roles;
+import com.cogent.persistence.model.ApplicationModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,12 +25,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private BCryptPasswordEncoder encoder;
 
     private AdminRepository adminRepository;
-    private RoleRepository roleRepository;
+    private ApplicationModuleRepository applicationModuleRepository;
 
     public UserDetailsServiceImpl(AdminRepository adminRepository,
-                                  RoleRepository roleRepository) {
+                                  ApplicationModuleRepository applicationModuleRepository) {
         this.adminRepository = adminRepository;
-        this.roleRepository = roleRepository;
+        this.applicationModuleRepository = applicationModuleRepository;
     }
 
 
@@ -70,10 +70,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private Collection<? extends GrantedAuthority> getAuthorities(Admin admin) {
 
         List<GrantedAuthority> list = new ArrayList<>();
-        List<Roles> roleList = roleRepository.findRolesByAdminId(admin.getId());
+        List<ApplicationModule> applicationModules =
+                applicationModuleRepository.findApplicationModuleByAdminId(admin.getId());
 
-        for (Roles roles : roleList) {
-            list.add(new SimpleGrantedAuthority("ROLE_" + roles.getRole()));
+        for (ApplicationModule applicationModule : applicationModules) {
+            list.add(new SimpleGrantedAuthority("ROLE_" + applicationModule.getName()));
         }
 
         return list;

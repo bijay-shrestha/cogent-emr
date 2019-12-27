@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SubDepartment{
+public class SubDepartment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +25,14 @@ public class SubDepartment{
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "code", nullable = false, length = 50, updatable = false)
+    @Column(name = "code", nullable = false, length = 50)
     private String code;
 
     @Column(name = "status")
     private Character status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id",updatable = false)
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @Column(name = "remarks")

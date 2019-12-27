@@ -1,3 +1,4 @@
+.xlsx
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -29,3 +30,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+###Log file
+*.log
+**/*.log
+
+### USE THIS COMMAND TO IGNORE log files -> git rm --cached admin-service/logs/info.log
+
