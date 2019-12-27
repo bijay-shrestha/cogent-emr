@@ -21,7 +21,7 @@ public class ProfileQuery {
                 String whereClause = " WHERE p.status!='D'";
 
                 if (!ObjectUtils.isEmpty(searchRequestDTO.getName()))
-                    whereClause += " AND p.name='" + searchRequestDTO.getName() + "'";
+                    whereClause += " AND p.name LIKE '%" + searchRequestDTO.getName() + "%'";
 
                 if (!ObjectUtils.isEmpty(searchRequestDTO.getStatus()))
                     whereClause += " AND p.status='" + searchRequestDTO.getStatus() + "'";
