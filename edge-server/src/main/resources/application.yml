@@ -31,10 +31,10 @@ zuul:
       serviceId: AUTH-SERVICE
       stripPrefix: false
       sensitiveHeaders:
-
     admin-service:
       path: /admin/**
       serviceId: ADMIN-SERVICE
+      sensitiveHeader: Cookie
     cogent-server:
       path: /**
       serviceId: COGENT-SERVER

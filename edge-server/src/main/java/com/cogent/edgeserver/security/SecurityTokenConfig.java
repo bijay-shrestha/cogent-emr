@@ -1,5 +1,6 @@
 package com.cogent.edgeserver.security;
 
+import com.cogent.contextserver.filter.UserContextFilter;
 import com.cogent.edgeserver.filters.AddRequestHeaderFilter;
 import com.cogent.edgeserver.modules.Modules;
 import com.cogent.edgeserver.modules.Roles;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.Filter;
 import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity

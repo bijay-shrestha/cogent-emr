@@ -4,7 +4,10 @@ import com.cogent.genericservice.security.JwtConfig;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class AddRequestHeaderFilter extends ZuulFilter {
 
     private final JwtConfig jwtConfig;
@@ -32,7 +35,6 @@ public class AddRequestHeaderFilter extends ZuulFilter {
 
     @Override
     public String filterType() {
-
         return "pre";
     }
 
@@ -41,6 +43,5 @@ public class AddRequestHeaderFilter extends ZuulFilter {
 
         return 0;
     }
-
 
 }

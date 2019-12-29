@@ -38,13 +38,12 @@ public class JwtTokenCheckpoint {
         }
     }
 
-    public static String checkUserName(JwtConfig jwtConfig, Claims claims) {
+    public static String checkUsername(JwtConfig jwtConfig, Claims claims) {
 
         String username = "";
         try {
             username = claims.getSubject();
             if (claims.getExpiration().before(new Date())) {
-
                 System.out.println("Login Page-----------------------------------------------");
                 throw new InvalidCredentialException("Token expired");
 

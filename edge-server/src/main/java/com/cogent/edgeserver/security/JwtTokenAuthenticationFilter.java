@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -24,10 +25,12 @@ import java.util.stream.Collectors;
 import static com.cogent.genericservice.cookies.CookieConstants.key;
 
 @Slf4j
+@Component
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtConfig jwtConfig;
 
+    public static final ThreadLocal<String> THREAD_VARIABLE = new ThreadLocal<>();
     public JwtTokenAuthenticationFilter(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
     }
@@ -60,7 +63,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         Optional<String> token = CookieCheckpoint.cookieCheckpoint(cookies);
 
         Claims claims = JwtTokenCheckpoint.checkJwtToken(jwtConfig, token);
-        String username = JwtTokenCheckpoint.checkUserName(jwtConfig, claims);
+        String username = JwtTokenCheckpoint.checkUsername(jwtConfig, claims);
 
         if (username != null) {
             @SuppressWarnings("unchecked")
@@ -73,10 +76,12 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                     ).collect(Collectors.toList()));
 
             SecurityContextHolder.getContext().setAuthentication(auth);
+            log.info("JWTConfig :: Header", jwtConfig.getHeader());
 
-            System.out.println(String.format("%s request to %s", request.getMethod(), request.getRequestURL().
+            log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().
                     toString()) + " " + request.getHeader(jwtConfig.getHeader()));
 
+            THREAD_VARIABLE.set(username);
             request.setAttribute("username", username);
             chain.doFilter(request, response);
 

@@ -1,8 +1,8 @@
 package com.cogent.contextserver;
 
 import com.cogent.contextserver.config.AuditorAwareImpl;
-import com.cogent.genericservice.security.JwtConfig;
 import com.cogent.contextserver.filter.UserContextFilter;
+import com.cogent.genericservice.security.JwtConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;

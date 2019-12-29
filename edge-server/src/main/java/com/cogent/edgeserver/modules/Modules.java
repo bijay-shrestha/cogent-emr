@@ -5,12 +5,10 @@ public class Modules {
             {
                     "/gallery/**",
                     "/pharmacy/**",
-
             };
     public static String[] ACCOUNTING =
             {
                     "/accounting/**",
-
             };
 
 }
