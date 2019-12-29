@@ -25,6 +25,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Validator;
@@ -750,6 +751,15 @@ public class AdminServiceTest {
         adminService.savePassword(requestDTO);
         verify(confirmationTokenRepository, times(1)).save(any(AdminConfirmationToken.class));
         verify(adminRepository, times(1)).save(any(Admin.class));
+    }
+
+    @Test
+    public void test(){
+
+        String password = "admin";
+        String encrypt = BCrypt.hashpw(password, BCrypt.gensalt());
+
+        System.out.println(encrypt);
     }
 }
 

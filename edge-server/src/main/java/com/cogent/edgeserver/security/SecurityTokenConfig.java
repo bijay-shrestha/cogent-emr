@@ -51,7 +51,6 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
         return new AddRequestHeaderFilter(jwtConfig);
     }
 
-
     @Bean
     public JwtConfig jwtConfig(){
         return new JwtConfig();

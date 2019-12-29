@@ -25,6 +25,9 @@ public class ApplicationModule implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "code")
+    private String code;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sub_department_id")
     private SubDepartment subDepartmentId;

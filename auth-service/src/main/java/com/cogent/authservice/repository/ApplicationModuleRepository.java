@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ApplicationModuleRepository extends JpaRepository<ApplicationModule, Long> {
 
-    @Query("SELECT a FROM ApplicationModule a LEFT JOIN AdminApplicationModule am ON a.id = am.adminId" +
+    @Query("SELECT a FROM ApplicationModule a LEFT JOIN AdminApplicationModule am ON a.id = am.applicationModuleId" +
             " WHERE am.adminId=:id")
     List<ApplicationModule> findApplicationModuleByAdminId(@Param("id") Long id);
 }

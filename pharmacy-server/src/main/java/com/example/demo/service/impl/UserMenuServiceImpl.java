@@ -1,10 +1,10 @@
-package com.cogent.admin.service.impl;
+package com.example.demo.service.impl;
 
-import com.cogent.admin.dto.request.login.UserMenuRequestDTO;
-import com.cogent.admin.dto.response.userMenu.AssignedProfileMenuResponseDTO;
-import com.cogent.admin.dto.response.userMenu.AssignedRolesResponseDTO;
-import com.cogent.admin.dto.response.userMenu.ChildMenusResponseDTO;
-import com.cogent.admin.service.UserMenuService;
+import com.example.demo.dto.userMenu.AssignedProfileMenuResponseDTO;
+import com.example.demo.dto.userMenu.AssignedRolesResponseDTO;
+import com.example.demo.dto.userMenu.ChildMenusResponseDTO;
+import com.example.demo.dto.userMenu.UserMenuRequestDTO;
+import com.example.demo.service.UserMenuService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

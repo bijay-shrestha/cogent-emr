@@ -39,5 +39,9 @@ zuul:
       path: /**
       serviceId: COGENT-SERVER
 
+    pharmacy-server:
+      path: /pharmacy/**
+      serviceId: PHARMACY-SERVICE
+
 
 

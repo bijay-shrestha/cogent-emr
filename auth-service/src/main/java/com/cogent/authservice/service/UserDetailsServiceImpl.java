@@ -74,7 +74,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 applicationModuleRepository.findApplicationModuleByAdminId(admin.getId());
 
         for (ApplicationModule applicationModule : applicationModules) {
-            list.add(new SimpleGrantedAuthority("ROLE_" + applicationModule.getName()));
+            list.add(new SimpleGrantedAuthority("ROLE_" + applicationModule.getCode()));
         }
 
         return list;

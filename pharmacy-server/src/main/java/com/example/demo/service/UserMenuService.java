@@ -1,7 +1,7 @@
-package com.cogent.admin.service;
+package com.example.demo.service;
 
-import com.cogent.admin.dto.request.login.UserMenuRequestDTO;
-import com.cogent.admin.dto.response.userMenu.AssignedProfileMenuResponseDTO;
+import com.example.demo.dto.userMenu.AssignedProfileMenuResponseDTO;
+import com.example.demo.dto.userMenu.UserMenuRequestDTO;
 
 /**
  * @author smriti ON 27/12/2019

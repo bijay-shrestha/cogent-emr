@@ -301,7 +301,7 @@ public class AdminUtils {
         return AdminResponseDTO.builder()
                 .id(Long.parseLong(objects[ADMIN_ID_INDEX].toString()))
                 .fullName(objects[FULL_NAME_INDEX].toString())
-                .username(objects[FULL_NAME_INDEX].toString())
+                .username(objects[USERNAME_INDEX].toString())
                 .email(objects[EMAIL_INDEX].toString())
                 .mobileNumber(objects[MOBILE_NUMBER_INDEX].toString())
                 .status(objects[STATUS_INDEX].toString().charAt(0))
