@@ -2,7 +2,7 @@ package com.cogent.admin.controller.v1;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
 import com.cogent.admin.dto.request.profile.ProfileRequestDTO;
-import com.cogent.admin.dto.request.profile.ProfileRequestUtils;
+import com.cogent.admin.dto.profile.ProfileRequestUtils;
 import com.cogent.admin.dto.request.profile.ProfileSearchRequestDTO;
 import com.cogent.admin.dto.request.profile.ProfileUpdateRequestDTO;
 import com.cogent.admin.service.ProfileService;
@@ -24,7 +24,7 @@ import static com.cogent.admin.dto.CommonRequestUtils.getDeleteRequestDTO;
 import static com.cogent.admin.dto.CommonRequestUtils.getInvalidInputForDelete;
 import static com.cogent.admin.dto.adminCategory.AdminCategoryRequestUtils.getInvalidInputForUpdate;
 import static com.cogent.admin.dto.profile.ProfileResponseUtils.*;
-import static com.cogent.admin.dto.request.profile.ProfileRequestUtils.*;
+import static com.cogent.admin.dto.profile.ProfileRequestUtils.*;
 import static com.cogent.admin.utils.ObjectToJSONUtils.writeObjectToJson;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.ArgumentMatchers.any;

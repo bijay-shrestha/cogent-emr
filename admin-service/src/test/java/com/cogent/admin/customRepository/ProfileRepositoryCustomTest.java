@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.cogent.admin.constants.QueryConstants.ID;
 import static com.cogent.admin.constants.QueryConstants.NAME;
-import static com.cogent.admin.dto.request.profile.ProfileRequestUtils.getProfileSearchRequestDTO;
+import static com.cogent.admin.dto.profile.ProfileRequestUtils.getProfileSearchRequestDTO;
 import static com.cogent.admin.query.ProfileQuery.*;
 import static com.cogent.admin.utils.QueryUtil.getQuery;
 import static junit.framework.TestCase.assertFalse;
