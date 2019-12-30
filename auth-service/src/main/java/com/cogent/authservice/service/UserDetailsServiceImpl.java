@@ -13,12 +13,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -67,6 +69,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         throw new UsernameNotFoundException("Username: " + username + " not found.");
     }
 
+    /*APPLICATION MODULE CODE EQUALS SUB-DEPARTMENT CODE*/
     private Collection<? extends GrantedAuthority> getAuthorities(Admin admin) {
 
         List<GrantedAuthority> list = new ArrayList<>();
@@ -74,7 +77,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 applicationModuleRepository.findApplicationModuleByAdminId(admin.getId());
 
         for (ApplicationModule applicationModule : applicationModules) {
-            list.add(new SimpleGrantedAuthority("ROLE_" + applicationModule.getCode()));
+            list.add(new SimpleGrantedAuthority("ROLE_" + applicationModule.getSubDepartmentId().getCode()));
         }
 
         return list;
