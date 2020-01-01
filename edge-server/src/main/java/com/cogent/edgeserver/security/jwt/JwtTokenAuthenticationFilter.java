@@ -1,6 +1,5 @@
 package com.cogent.edgeserver.security.jwt;
 
-import com.cogent.edgeserver.cookies.CookieCheckpoint;
 import com.cogent.genericservice.cookies.CookieUtils;
 import com.cogent.genericservice.security.JwtConfig;
 import io.jsonwebtoken.Claims;
@@ -17,8 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static com.cogent.edgeserver.constants.TokenConstants.AUTHORITIES;
+import static com.cogent.edgeserver.constants.TokenConstants.USERNAME;
+import static com.cogent.edgeserver.cookies.CookieCheckpoint.cookieCheckpoint;
+import static com.cogent.edgeserver.security.jwt.JwtTokenProvider.fetchUsernameFromClaims;
+import static com.cogent.edgeserver.security.jwt.JwtTokenProvider.validateJwtToken;
 import static com.cogent.genericservice.cookies.CookieConstants.key;
 
 @Slf4j
@@ -43,7 +48,6 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                 chain.doFilter(request, response);
                 return;
             }
-
         }
 
         if (request.getRequestURI().equals("/cogent/logout")) {
@@ -59,27 +63,22 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                               Cookie[] cookies,
                               FilterChain chain) throws IOException, ServletException {
 
-        String token = CookieCheckpoint.cookieCheckpoint(cookies);
+        String token = cookieCheckpoint(cookies);
+        Claims claims = validateJwtToken(jwtConfig, token);
+        String username = fetchUsernameFromClaims(claims);
 
-        Claims claims = JwtTokenProvider.validateJwtToken(jwtConfig, token);
-        String username = JwtTokenProvider.fetchUsernameFromClaims(claims);
-
-        if (username != null) {
+        if (!Objects.isNull(username)) {
             @SuppressWarnings("unchecked")
-            List<String> authorities = (List<String>) claims.get("authorities");
-            UsernamePasswordAuthenticationToken auth =
-                    new UsernamePasswordAuthenticationToken(
-                            username,
-                            null, authorities.stream().map(
-                            SimpleGrantedAuthority::new
-                    ).collect(Collectors.toList()));
+            List<String> authorities = (List<String>) claims.get(AUTHORITIES);
+
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                    username, null,
+                    authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
 
             SecurityContextHolder.getContext().setAuthentication(auth);
 
-            System.out.println(String.format("%s request to %s", request.getMethod(), request.getRequestURL().
-                    toString()) + " " + request.getHeader(jwtConfig.getHeader()));
+            request.setAttribute(USERNAME, username);
 
-            request.setAttribute("username", username);
             chain.doFilter(request, response);
         }
     }

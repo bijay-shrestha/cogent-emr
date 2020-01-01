@@ -1,4 +1,4 @@
-package com.cogent.genericservice.constants;
+package com.cogent.edgeserver.constants;
 
 /**
  * @author smriti ON 01/01/2020

@@ -2,7 +2,7 @@ package com.cogent.edgeserver.configuration;
 
 import com.cogent.edgeserver.filters.AddRequestHeaderFilter;
 import com.cogent.edgeserver.modules.Modules;
-import com.cogent.edgeserver.modules.Roles;
+import com.cogent.edgeserver.modules.ApplicationModules;
 import com.cogent.edgeserver.security.jwt.JwtTokenAuthenticationFilter;
 import com.cogent.genericservice.security.JwtConfig;
 import org.springframework.context.annotation.Bean;
@@ -42,8 +42,8 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
                 .antMatchers(HttpMethod.GET, jwtConfig.getUri()).permitAll()
-                .antMatchers(Modules.ACCOUNTING).hasRole(Roles.ACCOUNTING_ROLE)
-                .antMatchers(Modules.PHARMACY).hasRole(Roles.PHARMACY_ROLE)
+                .antMatchers(Modules.ACCOUNTING).hasRole(ApplicationModules.ACCOUNTING_APPLICATION_MODULE)
+                .antMatchers(Modules.PHARMACY).hasRole(ApplicationModules.PHARMACY_APPLICATION_MODULE)
                 .anyRequest().authenticated();
     }
 

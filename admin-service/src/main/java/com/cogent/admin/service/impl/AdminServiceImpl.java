@@ -290,11 +290,11 @@ public class AdminServiceImpl implements AdminService {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
-        log.info(FETCHING_PROCESS_STARTED,  ADMIN);
+        log.info(FETCHING_PROCESS_STARTED, ADMIN);
 
         AdminInfoResponseDTO responseDTO = adminRepository.fetchLoggedInAdminInfo(requestDTO);
 
-        log.info(SAVING_PASSWORD_PROCESS_COMPLETED, getDifferenceBetweenTwoTime(startTime));
+        log.info(FETCHING_PROCESS_COMPLETED, ADMIN, getDifferenceBetweenTwoTime(startTime));
 
         return responseDTO;
     }

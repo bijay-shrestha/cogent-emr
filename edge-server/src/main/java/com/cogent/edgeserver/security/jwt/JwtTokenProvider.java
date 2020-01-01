@@ -1,6 +1,6 @@
 package com.cogent.edgeserver.security.jwt;
 
-import com.cogent.edgeserver.exception.InvalidCredentialException;
+import com.cogent.genericservice.exception.UnauthorisedException;
 import com.cogent.genericservice.security.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -9,8 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Date;
 
-import static com.cogent.genericservice.constants.ErrorMessageConstants.TokenMessages.INVALID_CREDENTIALS;
-import static com.cogent.genericservice.constants.ErrorMessageConstants.TokenMessages.TOKEN_EXPIRED;
+import static com.cogent.edgeserver.constants.ErrorMessageConstants.TokenMessages.INVALID_CREDENTIALS;
+import static com.cogent.edgeserver.constants.ErrorMessageConstants.TokenMessages.TOKEN_EXPIRED;
 
 @Slf4j
 public class JwtTokenProvider {
@@ -24,12 +24,12 @@ public class JwtTokenProvider {
                     .getBody();
 
             if (claims.getExpiration().before(new Date()))
-                throw new InvalidCredentialException(TOKEN_EXPIRED);
+                throw new UnauthorisedException(TOKEN_EXPIRED);
 
             return claims;
         } catch (Exception e) {
             SecurityContextHolder.clearContext();
-            throw new InvalidCredentialException(INVALID_CREDENTIALS);
+            throw new UnauthorisedException(INVALID_CREDENTIALS);
         }
     }
 

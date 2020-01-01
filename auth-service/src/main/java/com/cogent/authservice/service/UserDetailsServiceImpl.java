@@ -4,14 +4,12 @@ import com.cogent.authservice.repository.AdminRepository;
 import com.cogent.authservice.repository.ApplicationModuleRepository;
 import com.cogent.persistence.model.Admin;
 import com.cogent.persistence.model.ApplicationModule;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +20,6 @@ import java.util.List;
 @Service
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
-
-    @Autowired
-    private BCryptPasswordEncoder encoder;
 
     private AdminRepository adminRepository;
     private ApplicationModuleRepository applicationModuleRepository;
@@ -38,21 +33,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-//                final List<Admin> admins = Arrays.asList(
-//                new Admin(1L, "bijay", encoder.encode("1234"), "GAL"),
-//                new Admin(2L, "pharmacy", encoder.encode("pharmacy"), "PHA"),
-//                new Admin(2L, "bishow", encoder.encode("12345"), "IMG"),
-//                new Admin(2L, "account", encoder.encode("account"), "ACC")
-//
-//        );
-
-        /* for modules*/
-//        final List<Admin> admins = Arrays.asList(
-//                new Admin(1L, "bijay", encoder.encode("12345678"), RoleList.roleList1()),
-//                new Admin(2L, "account", encoder.encode("account"), RoleList.roleList2())
-//
-//        );
 
         List<Admin> admins = adminRepository.findAll();
 
