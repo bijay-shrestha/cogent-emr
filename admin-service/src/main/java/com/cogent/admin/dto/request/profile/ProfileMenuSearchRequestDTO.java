@@ -1,4 +1,4 @@
-package com.cogent.admin.dto.request.userMenu;
+package com.cogent.admin.dto.request.profile;
 
 import lombok.*;
 
@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserMenuRequestDTO implements Serializable {
+public class ProfileMenuSearchRequestDTO implements Serializable {
 
     @NotNull
     @NotEmpty

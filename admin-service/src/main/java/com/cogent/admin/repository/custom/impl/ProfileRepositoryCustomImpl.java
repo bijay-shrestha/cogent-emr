@@ -1,10 +1,12 @@
 package com.cogent.admin.repository.custom.impl;
 
+import com.cogent.admin.dto.request.profile.ProfileMenuSearchRequestDTO;
 import com.cogent.admin.dto.request.profile.ProfileSearchRequestDTO;
 import com.cogent.admin.dto.response.profile.*;
 import com.cogent.admin.exception.NoContentFoundException;
 import com.cogent.admin.repository.custom.ProfileRepositoryCustom;
 import com.cogent.persistence.model.Profile;
+import com.cogent.persistence.model.ProfileMenu;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +19,10 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.cogent.admin.constants.QueryConstants.ID;
-import static com.cogent.admin.constants.QueryConstants.NAME;
+import static com.cogent.admin.constants.QueryConstants.*;
 import static com.cogent.admin.query.ProfileQuery.*;
 import static com.cogent.admin.utils.PageableUtils.addPagination;
+import static com.cogent.admin.utils.ProfileUtils.parseToAssignedProfileMenuResponseDTO;
 import static com.cogent.admin.utils.ProfileUtils.parseToProfileDetailResponseDTO;
 import static com.cogent.admin.utils.QueryUtils.*;
 
@@ -112,6 +114,22 @@ public class ProfileRepositoryCustomImpl implements ProfileRepositoryCustom {
 
         if (results.isEmpty()) throw PROFILES_NOT_FOUND.get();
         else return results;
+    }
+
+    @Override
+    public AssignedProfileResponseDTO fetchAssignedProfileResponseDto(ProfileMenuSearchRequestDTO searchRequestDTO) {
+
+        Query query = entityManager.createNativeQuery(QUERY_TO_FETCH_ASSIGNED_PROFILE_RESPONSE)
+                .setParameter(USERNAME, searchRequestDTO.getUsername())
+                .setParameter(EMAIL, searchRequestDTO.getUsername())
+                .setParameter(CODE, searchRequestDTO.getSubDepartmentCode());
+
+        List<Object[]> results = query.getResultList();
+
+        if (results.isEmpty())
+            throw new NoContentFoundException(ProfileMenu.class);
+
+        return parseToAssignedProfileMenuResponseDTO(results);
     }
 
     private Supplier<NoContentFoundException> PROFILES_NOT_FOUND = () -> new NoContentFoundException(Profile.class);

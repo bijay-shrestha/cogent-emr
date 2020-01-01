@@ -1,4 +1,4 @@
-package com.cogent.admin.dto.response.userMenu;
+package com.cogent.admin.dto.response.profile;
 
 import lombok.*;
 
