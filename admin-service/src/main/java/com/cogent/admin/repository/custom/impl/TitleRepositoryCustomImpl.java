@@ -22,7 +22,7 @@ import static com.cogent.admin.constants.QueryConstants.ID;
 import static com.cogent.admin.constants.QueryConstants.NAME;
 import static com.cogent.admin.query.TitleQuery.*;
 import static com.cogent.admin.utils.PageableUtils.addPagination;
-import static com.cogent.admin.utils.QueryUtils.getQuery;
+import static com.cogent.admin.utils.QueryUtils.createQuery;
 import static com.cogent.admin.utils.QueryUtils.transformQueryToResultList;
 
 @Repository
@@ -35,7 +35,7 @@ public class TitleRepositoryCustomImpl implements TitleRepositoryCustom {
 
     @Override
     public Long fetchTitleByName(String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_TITLE_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_TITLE_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -43,7 +43,7 @@ public class TitleRepositoryCustomImpl implements TitleRepositoryCustom {
 
     @Override
     public Long findTitleByIdAndName(Long id, String name) {
-        Query query = getQuery.apply(entityManager, TitleQuery.QUERY_TO_FIND_TITLE_COUNT_BY_ID_AND_NAME)
+        Query query = createQuery.apply(entityManager, TitleQuery.QUERY_TO_FIND_TITLE_COUNT_BY_ID_AND_NAME)
                 .setParameter(ID, id)
                 .setParameter(NAME, name);
 
@@ -52,7 +52,7 @@ public class TitleRepositoryCustomImpl implements TitleRepositoryCustom {
 
     @Override
     public List<TitleResponseDTO> search(TitleSearchRequestDTO searchRequestDTO, Pageable pageable) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_TITLE(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_TITLE(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -70,7 +70,7 @@ public class TitleRepositoryCustomImpl implements TitleRepositoryCustom {
 
     @Override
     public List<TitleDropdownDTO> fetchTitleForDropDown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_TITLE_FOR_DROPDOWN);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_TITLE_FOR_DROPDOWN);
 
         List<TitleDropdownDTO> results = transformQueryToResultList(query, TitleDropdownDTO.class);
 

@@ -37,7 +37,7 @@ public class SurnameRepositoryCustomImpl implements SurnameRepositoryCustom {
 
     @Override
     public Long fetchSurnameByName(String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_SURNAME_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_SURNAME_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -45,7 +45,7 @@ public class SurnameRepositoryCustomImpl implements SurnameRepositoryCustom {
 
     @Override
     public Long findSurnameByIdAndName(Long id, String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_SURNAME_COUNT_BY_ID_AND_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_SURNAME_COUNT_BY_ID_AND_NAME)
                 .setParameter(ID, id)
                 .setParameter(NAME, name);
 
@@ -54,7 +54,7 @@ public class SurnameRepositoryCustomImpl implements SurnameRepositoryCustom {
 
     @Override
     public List<SurnameMinimalResponseDTO> search(SurnameSearchRequestDTO searchRequestDTO, Pageable pageable) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_SURNAME(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_SURNAME(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -72,7 +72,7 @@ public class SurnameRepositoryCustomImpl implements SurnameRepositoryCustom {
 
     @Override
     public List<SurnameDropdownDTO> fetchActiveSurnameForDropDown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_SURNAME_FOR_DROPDOWN);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_SURNAME_FOR_DROPDOWN);
 
         List<SurnameDropdownDTO> results = transformQueryToResultList(query, SurnameDropdownDTO.class);
 
@@ -82,7 +82,7 @@ public class SurnameRepositoryCustomImpl implements SurnameRepositoryCustom {
 
     @Override
     public SurnameResponseDTO fetchDetailsById(Long id) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_SURNAME_DETAILS)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_SURNAME_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, SurnameResponseDTO.class);
@@ -93,7 +93,7 @@ public class SurnameRepositoryCustomImpl implements SurnameRepositoryCustom {
 
     @Override
     public Surname fetchSurname(Long id) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_SURNAME_ENTITY)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_SURNAME_ENTITY)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, Surname.class);

@@ -38,7 +38,7 @@ public class NationalityRepositoryCustomImpl implements NationalityRepositoryCus
 
     @Override
     public Optional<List<NationalityDropDownResponseDTO>> fetchActiveDropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_NATIONALITY);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_NATIONALITY);
 
         List<NationalityDropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 NationalityDropDownResponseDTO.class);
@@ -48,7 +48,7 @@ public class NationalityRepositoryCustomImpl implements NationalityRepositoryCus
 
     @Override
     public Optional<List<NationalityDropDownResponseDTO>> fetchDropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_NATIONALITY);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_NATIONALITY);
 
         List<NationalityDropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 NationalityDropDownResponseDTO.class);
@@ -60,7 +60,7 @@ public class NationalityRepositoryCustomImpl implements NationalityRepositoryCus
     public List<NationalityMinimalResponseDTO> searchNationality(
             NationalitySearchRequestDTO searchRequestDTO,
             Pageable pageable) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_NATIONALITY.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_NATIONALITY.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -78,7 +78,7 @@ public class NationalityRepositoryCustomImpl implements NationalityRepositoryCus
 
     @Override
     public NationalityResponseDTO fetchNationalityDetails(Long id) {
-        Query query = getQuery.apply(entityManager, FETCH_NATIONALITY_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_NATIONALITY_DETAILS)
                 .setParameter(ID, id);
 
         try {

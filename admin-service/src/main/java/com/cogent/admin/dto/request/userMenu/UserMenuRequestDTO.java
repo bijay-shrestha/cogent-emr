@@ -1,7 +1,9 @@
-package com.cogent.admin.dto.request.login;
+package com.cogent.admin.dto.request.userMenu;
 
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -15,7 +17,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class UserMenuRequestDTO implements Serializable {
 
+    @NotNull
+    @NotEmpty
     private String username;
 
+    @NotNull
+    @NotEmpty
     private String subDepartmentCode;
 }

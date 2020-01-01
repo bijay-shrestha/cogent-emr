@@ -14,7 +14,7 @@ import java.util.function.Function;
 import static com.cogent.admin.constants.ErrorMessageConstants.ForgotPasswordMessages.INVALID_RESET_CODE;
 import static com.cogent.admin.constants.QueryConstants.RESET_CODE;
 import static com.cogent.admin.query.ForgotPasswordVerificationQuery.QUERY_TO_FETCH_EXPIRATION_TIME;
-import static com.cogent.admin.utils.QueryUtils.getQuery;
+import static com.cogent.admin.utils.QueryUtils.createQuery;
 
 /**
  * @author smriti on 2019-09-20
@@ -29,7 +29,7 @@ public class ForgotPasswordRepositoryCustomImpl implements ForgotPasswordReposit
     @Override
     public Object findByResetCode(String resetCode) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_EXPIRATION_TIME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_EXPIRATION_TIME)
                 .setParameter(RESET_CODE, resetCode);
         try {
             return query.getSingleResult();

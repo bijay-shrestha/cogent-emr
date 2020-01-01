@@ -3,6 +3,7 @@ package com.cogent.admin.service.impl;
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
 import com.cogent.admin.dto.request.admin.*;
 import com.cogent.admin.dto.response.admin.AdminDetailResponseDTO;
+import com.cogent.admin.dto.response.admin.AdminInfoResponseDTO;
 import com.cogent.admin.dto.response.files.FileUploadResponseDTO;
 import com.cogent.admin.exception.BadRequestException;
 import com.cogent.admin.exception.DataDuplicationException;
@@ -278,9 +279,24 @@ public class AdminServiceImpl implements AdminService {
                         .orElseThrow(() -> CONFIRMATION_TOKEN_NOT_FOUND.apply(requestDTO.getToken()));
 
         save(saveAdminPassword(requestDTO, adminConfirmationToken));
+
         adminConfirmationToken.setStatus(INACTIVE);
 
         log.info(SAVING_PASSWORD_PROCESS_COMPLETED, getDifferenceBetweenTwoTime(startTime));
+    }
+
+    @Override
+    public AdminInfoResponseDTO fetchLoggedInAdminInfo(AdminInfoRequestDTO requestDTO) {
+
+        Long startTime = getTimeInMillisecondsFromLocalDate();
+
+        log.info(FETCHING_PROCESS_STARTED,  ADMIN);
+
+        AdminInfoResponseDTO responseDTO = adminRepository.fetchLoggedInAdminInfo(requestDTO);
+
+        log.info(SAVING_PASSWORD_PROCESS_COMPLETED, getDifferenceBetweenTwoTime(startTime));
+
+        return responseDTO;
     }
 
     private void validateStatus(Object status) {

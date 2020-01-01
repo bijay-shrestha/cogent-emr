@@ -14,10 +14,11 @@ public class WebResourceKeyConstants {
     }
 
     public interface AdminConstants {
-        String BASE_ADMIN = "/admins";
+        String BASE_ADMIN = "/admin";
         String PASSWORD = "/password";
         String AVATAR = "/avatar";
         String VERIFY = "/verify";
+        String INFO = "/info";
     }
 
     public interface AppointmentModeConstants {
@@ -226,6 +227,10 @@ public class WebResourceKeyConstants {
     //S
     public static final String SAVE = "/save";
     public static final String SEARCH = "/search";
+
+    public interface SidebarConstants {
+        String BASE_SIDE_BAR = "/sidebar";
+    }
 
     public interface SpecializationConstants {
         String BASE_SPECIALIZATION = "/specialization";

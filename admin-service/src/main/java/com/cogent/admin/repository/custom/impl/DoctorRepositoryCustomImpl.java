@@ -58,7 +58,7 @@ public class DoctorRepositoryCustomImpl implements DoctorRepositoryCustom {
 
     @Override
     public List<DoctorDropdownDTO> fetchDoctorForDropdown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_DOCTOR_FOR_DROPDOWN);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_DOCTOR_FOR_DROPDOWN);
 
         List<DoctorDropdownDTO> results = transformQueryToResultList(query, DoctorDropdownDTO.class);
 
@@ -79,7 +79,7 @@ public class DoctorRepositoryCustomImpl implements DoctorRepositoryCustom {
 
     @Override
     public List<DoctorDropdownDTO> fetchDoctorBySpecializationId(Long specializationId) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_DOCTOR_BY_SPECIALIZATION_ID)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_DOCTOR_BY_SPECIALIZATION_ID)
                 .setParameter(ID, specializationId);
 
         List<DoctorDropdownDTO> results = transformQueryToResultList(query, DoctorDropdownDTO.class);

@@ -34,7 +34,7 @@ public class ServiceRepositoryCustomImpl implements ServiceRepositoryCustom {
 
     @Override
     public List<Object[]> fetchServiceByNameOrCode(String name, String code) {
-        Query query = getQuery.apply(entityManager, FETCH_SERVICE_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_SERVICE_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -45,7 +45,7 @@ public class ServiceRepositoryCustomImpl implements ServiceRepositoryCustom {
 
     @Override
     public List<Object[]> checkIfServiceNameAndCodeExists(Long id, String name, String code) {
-        Query query = getQuery.apply(entityManager, CHECK_IF_SERVICE_NAME_AND_CODE_EXISTS)
+        Query query = createQuery.apply(entityManager, CHECK_IF_SERVICE_NAME_AND_CODE_EXISTS)
                 .setParameter(ID, id)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
@@ -59,7 +59,7 @@ public class ServiceRepositoryCustomImpl implements ServiceRepositoryCustom {
     public List<ServiceMinimalResponseDTO> searchService(ServiceSearchRequestDTO searchRequestDTO,
                                                          Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_SERVICE.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_SERVICE.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -77,7 +77,7 @@ public class ServiceRepositoryCustomImpl implements ServiceRepositoryCustom {
 
     @Override
     public ServiceResponseDTO fetchServiceDetails(Long id) {
-        Query query = getQuery.apply(entityManager, FETCH_SERVICE_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_SERVICE_DETAILS)
                 .setParameter(ID, id);
         try {
             ServiceResponseDTO singleResult = transformQueryToSingleResult(query, ServiceResponseDTO.class);
@@ -89,7 +89,7 @@ public class ServiceRepositoryCustomImpl implements ServiceRepositoryCustom {
 
     @Override
     public Optional<List<DropDownResponseDTO>> fetchDropDownList(Long departmentId) {
-        Query query = getQuery.apply(entityManager, FETCH_DROP_DOWN_LIST)
+        Query query = createQuery.apply(entityManager, FETCH_DROP_DOWN_LIST)
                 .setParameter(DEPARTMENT_ID,departmentId);
 
         List<DropDownResponseDTO> dropDownDTOS = transformQueryToResultList(query,
@@ -100,7 +100,7 @@ public class ServiceRepositoryCustomImpl implements ServiceRepositoryCustom {
 
     @Override
     public Optional<List<DropDownResponseDTO>> fetchActiveDropDownList(Long departmentId) {
-        Query query = getQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST)
+        Query query = createQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST)
                 .setParameter(DEPARTMENT_ID, departmentId);
 
         List<DropDownResponseDTO> dropDownDTOS = transformQueryToResultList(query,

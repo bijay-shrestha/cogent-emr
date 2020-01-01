@@ -13,7 +13,7 @@ import java.util.Optional;
 
 import static com.cogent.admin.query.PaymentTypeQuery.FETCH_ACTIVE_DROP_DOWN_LIST;
 import static com.cogent.admin.query.PaymentTypeQuery.FETCH_DROP_DOWN_LIST;
-import static com.cogent.admin.utils.QueryUtils.getQuery;
+import static com.cogent.admin.utils.QueryUtils.createQuery;
 import static com.cogent.admin.utils.QueryUtils.transformQueryToResultList;
 
 /**
@@ -29,7 +29,7 @@ public class PaymentTypeRepositoryCustomImpl implements PaymentTypeRepositoryCus
 
     @Override
     public Optional<List<DropDownResponseDTO>> dropDownList() {
-        Query query = getQuery.apply(entityManager, FETCH_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, FETCH_DROP_DOWN_LIST);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -39,7 +39,7 @@ public class PaymentTypeRepositoryCustomImpl implements PaymentTypeRepositoryCus
 
     @Override
     public Optional<List<DropDownResponseDTO>> activeDropDownList() {
-        Query query = getQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);

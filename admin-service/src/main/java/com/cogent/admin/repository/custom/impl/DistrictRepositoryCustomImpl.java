@@ -37,7 +37,7 @@ public class DistrictRepositoryCustomImpl implements DistrictRepositoryCustom {
     @Override
     public Long fetchDistrictCountByName(String name) {
 
-        Query query = getQuery.apply(entityManager, FETCH_DISTRICT_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, FETCH_DISTRICT_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -46,7 +46,7 @@ public class DistrictRepositoryCustomImpl implements DistrictRepositoryCustom {
     @Override
     public Optional<List<DistrictDropDownResponseDTO>> fetchDropDownList() {
 
-        Query query = getQuery.apply(entityManager, FETCH_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, FETCH_DROP_DOWN_LIST);
 
         List<DistrictDropDownResponseDTO> dropDownResponseDTOS = transformQueryToResultList(query,
                 DistrictDropDownResponseDTO.class);
@@ -57,7 +57,7 @@ public class DistrictRepositoryCustomImpl implements DistrictRepositoryCustom {
     @Override
     public Optional<List<DistrictDropDownResponseDTO>> fetchActiveDropDownList() {
 
-        Query query = getQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST);
 
         List<DistrictDropDownResponseDTO> dropDownResponseDTOS = transformQueryToResultList(query,
                 DistrictDropDownResponseDTO.class);
@@ -68,7 +68,7 @@ public class DistrictRepositoryCustomImpl implements DistrictRepositoryCustom {
     @Override
     public DistrictResponseDTO fetchDistrictDetails(Long id) {
 
-        Query query = getQuery.apply(entityManager, FETCH_DETAIL_DISTRICT_DATA)
+        Query query = createQuery.apply(entityManager, FETCH_DETAIL_DISTRICT_DATA)
                 .setParameter(ID, id);
 
         try {
@@ -82,7 +82,7 @@ public class DistrictRepositoryCustomImpl implements DistrictRepositoryCustom {
     public List<DistrictMinimalResponseDTO> searchDistrict(
             DistrictSearchRequestDTO districtSearchRequestDTO, Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_DISTRICT.apply(districtSearchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_DISTRICT.apply(districtSearchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -101,7 +101,7 @@ public class DistrictRepositoryCustomImpl implements DistrictRepositoryCustom {
     @Override
     public Optional<District> fetchDistrictById(Long id) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_DISTRICT_BY_ID)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_DISTRICT_BY_ID)
                 .setParameter(ID, id);
         try {
             District subDepartment = transformQueryToSingleResult(query, District.class);
@@ -115,7 +115,7 @@ public class DistrictRepositoryCustomImpl implements DistrictRepositoryCustom {
     @Override
     public List<District> fetchDistrictByProvincesId(Long provincesId) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_DISTRICT_BY_PROVINCES_ID)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_DISTRICT_BY_PROVINCES_ID)
                 .setParameter(ID, provincesId);
 
         List<District> districtList = transformQueryToResultList(query, District.class);
@@ -126,7 +126,7 @@ public class DistrictRepositoryCustomImpl implements DistrictRepositoryCustom {
     @Override
     public List<DeleteRequestDTO> fetchDistrictToDeleteByProvinceId(Long provinceId) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_DISTRICT_TO_DELETE_BY_PROVINCE_ID)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_DISTRICT_TO_DELETE_BY_PROVINCE_ID)
                 .setParameter(ID, provinceId);
 
         List<DeleteRequestDTO> disticts = transformQueryToResultList(query, DeleteRequestDTO.class);

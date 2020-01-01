@@ -117,7 +117,7 @@ public class ServiceChargeRepositoryCustomImpl implements ServiceChargeRepositor
 
     @Override
     public Optional<List<DropDownResponseDTO>> fetchDropDownListBydepartmentId(Long departmentId) {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_SERVICE_CHARGE_BY_DEPARTMENT_ID)
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_SERVICE_CHARGE_BY_DEPARTMENT_ID)
                 .setParameter(DEPARTMENT_ID, departmentId);
 
         List<DropDownResponseDTO> dropDownDTOS = transformQueryToResultList(query,
@@ -128,7 +128,7 @@ public class ServiceChargeRepositoryCustomImpl implements ServiceChargeRepositor
 
     @Override
     public Optional<List<DropDownResponseDTO>> fetchActiveDropDownListBydepartmentId(Long departmentId) {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_SERVICE_CHARGE_BY_DEPARTMENT_ID)
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_SERVICE_CHARGE_BY_DEPARTMENT_ID)
                 .setParameter(DEPARTMENT_ID, departmentId);
 
         List<DropDownResponseDTO> dropDownDTOS = transformQueryToResultList(query,

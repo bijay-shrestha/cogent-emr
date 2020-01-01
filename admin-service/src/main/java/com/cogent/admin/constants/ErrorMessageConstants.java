@@ -44,6 +44,7 @@ public class ErrorMessageConstants {
         String USERNAME_DUPLICATION_DEBUG_MESSAGE = "Admin entity with given username is not null.";
         String USERNAME_DUPLICATION_MESSAGE = " with given username already exists.";
 
+        String ADMIN_INFO_NOT_FOUND = "Admin info is not found.";
     }
 
     public interface AssignBedMessages {
@@ -100,7 +101,6 @@ public class ErrorMessageConstants {
         String HOSPITAL_NAME_DUPLICATION_DEBUG_MESSAGE = " entity is not null with name : ";
         String HOSPITAL_NAME_DUPLICATION_MESSAGE = " already exists with name : ";
     }
-
 
 
     //I

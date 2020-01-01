@@ -33,7 +33,7 @@ public class DoctorCategoryRepositoryCustomImpl implements DoctorCategoryReposit
 
     @Override
     public List<Object[]> fetchDoctorCategoryByNameOrCode(String name, String code) {
-        Query query = getQuery.apply(entityManager, FETCH_DOCTOR_CATEGORY_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_DOCTOR_CATEGORY_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -42,7 +42,7 @@ public class DoctorCategoryRepositoryCustomImpl implements DoctorCategoryReposit
 
     @Override
     public List<Object[]> checkIfDoctorCategoryNameAndCodeExists(Long id, String name, String code) {
-        Query query = getQuery.apply(entityManager, CHECK_IF_DOCTOR_CATEGORY_NAME_AND_CODE_EXISTS)
+        Query query = createQuery.apply(entityManager, CHECK_IF_DOCTOR_CATEGORY_NAME_AND_CODE_EXISTS)
                 .setParameter(ID,id)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
@@ -52,7 +52,7 @@ public class DoctorCategoryRepositoryCustomImpl implements DoctorCategoryReposit
 
     @Override
     public Optional<List<DropDownResponseDTO>> fetchDropDownList() {
-        Query query = getQuery.apply(entityManager, FETCH_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, FETCH_DROP_DOWN_LIST);
 
         List<DropDownResponseDTO> dropDownResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -62,7 +62,7 @@ public class DoctorCategoryRepositoryCustomImpl implements DoctorCategoryReposit
 
     @Override
     public Optional<List<DropDownResponseDTO>> fetchActiveDropDownList() {
-        Query query = getQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST);
 
         List<DropDownResponseDTO> dropDownResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -72,7 +72,7 @@ public class DoctorCategoryRepositoryCustomImpl implements DoctorCategoryReposit
 
     @Override
     public DoctorCategoryResponseDTO fetchDoctorCategoryDetails(Long id) {
-        Query query = getQuery.apply(entityManager, FETCH_DOCTOR_CATEGORY_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_DOCTOR_CATEGORY_DETAILS)
                 .setParameter(ID, id);
 
         try {
@@ -86,7 +86,7 @@ public class DoctorCategoryRepositoryCustomImpl implements DoctorCategoryReposit
     public List<DoctorCategoryMinimalResponseDTO> searchDoctorCategory(
             DoctorCategorySearchRequestDTO requestDTO, Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_DOCTOR_CATEGORY.apply(requestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_DOCTOR_CATEGORY.apply(requestDTO));
 
         int totalItems = query.getResultList().size();
 

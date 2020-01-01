@@ -35,7 +35,7 @@ public class RegisteredBankRepositoryCustomImpl implements RegisteredBankReposit
 
     @Override
     public List<Object[]> findRegisteredBankByNameOrCode(String name, String code) {
-        Query query = getQuery.apply(entityManager, FETCH_REGISTERED_BANK_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_REGISTERED_BANK_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -44,7 +44,7 @@ public class RegisteredBankRepositoryCustomImpl implements RegisteredBankReposit
 
     @Override
     public List<RegisteredBankMinimalResponseDTO> searchRegisteredBank(RegisteredBankSearchRequestDTO searchRequestDTO, Pageable pageable) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_REGISTERED_BANK.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_REGISTERED_BANK.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -62,7 +62,7 @@ public class RegisteredBankRepositoryCustomImpl implements RegisteredBankReposit
 
     @Override
     public Optional<List<DropDownResponseDTO>> dropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_REGISTERED_BANK);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_REGISTERED_BANK);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -72,7 +72,7 @@ public class RegisteredBankRepositoryCustomImpl implements RegisteredBankReposit
 
     @Override
     public Optional<List<DropDownResponseDTO>> activeDropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_REGISTERED_BANK);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_REGISTERED_BANK);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -82,7 +82,7 @@ public class RegisteredBankRepositoryCustomImpl implements RegisteredBankReposit
 
     @Override
     public RegisteredBankResponseDTO fetchRegisteredBankDetails(Long id) {
-        Query query = getQuery.apply(entityManager, FETCH_REGISTERED_BANK_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_REGISTERED_BANK_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query,
@@ -94,7 +94,7 @@ public class RegisteredBankRepositoryCustomImpl implements RegisteredBankReposit
 
     @Override
     public List<Object[]> checkIfRegisteredBankNameAndCodeExists(Long id, String name, String code) {
-        Query query=getQuery.apply(entityManager, CHECK_IF_REGISTERED_BANK_EXISTS)
+        Query query= createQuery.apply(entityManager, CHECK_IF_REGISTERED_BANK_EXISTS)
                 .setParameter(ID,id)
                 .setParameter(NAME,name)
                 .setParameter(CODE,code);

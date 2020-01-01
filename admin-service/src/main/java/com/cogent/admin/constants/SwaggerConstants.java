@@ -30,6 +30,7 @@ public class SwaggerConstants {
                 "then change the isDefaultImage status as 'Y' else update accordingly.";
         String VERIFY_ADMIN = "Verify if the confirmation token is valid and admin has not been registered.";
         String SAVE_PASSWORD_OPERATION = "Save admin password";
+        String FETCH_LOGGED_IN_ADMIN_INFO = "Fetch logged in admin information";
     }
 
     public interface AppointmentConstant {
@@ -448,6 +449,10 @@ public class SwaggerConstants {
     }
 
     //S
+    public interface SideBarConstant {
+        String BASE_API_VALUE = "This is SideBar Controller";
+        String FETCH_ASSIGNED_PROFILE_RESPONSE = "Fetch assigned profile response";
+    }
 
 
     public interface SpecializationConstant {

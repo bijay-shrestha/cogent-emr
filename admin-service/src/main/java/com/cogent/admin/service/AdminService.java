@@ -3,6 +3,7 @@ package com.cogent.admin.service;
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
 import com.cogent.admin.dto.request.admin.*;
 import com.cogent.admin.dto.response.admin.AdminDetailResponseDTO;
+import com.cogent.admin.dto.response.admin.AdminInfoResponseDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +33,8 @@ public interface AdminService {
     void verifyConfirmationToken(String token);
 
     void savePassword(PasswordRequestDTO requestDTO);
+
+    AdminInfoResponseDTO fetchLoggedInAdminInfo(AdminInfoRequestDTO requestDTO);
 }
 
 

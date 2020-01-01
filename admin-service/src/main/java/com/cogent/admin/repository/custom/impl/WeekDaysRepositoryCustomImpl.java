@@ -12,7 +12,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 import static com.cogent.admin.query.WeekDaysQuery.QUERY_TO_FETCH_ACTIVE_WEEK_DAYS;
-import static com.cogent.admin.utils.QueryUtils.getQuery;
+import static com.cogent.admin.utils.QueryUtils.createQuery;
 import static com.cogent.admin.utils.QueryUtils.transformQueryToResultList;
 
 /**
@@ -26,7 +26,7 @@ public class WeekDaysRepositoryCustomImpl implements WeekDaysRepositoryCustom {
 
     @Override
     public List<DropDownResponseDTO> fetchActiveWeekDays() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_WEEK_DAYS);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_WEEK_DAYS);
 
         List<DropDownResponseDTO> results = transformQueryToResultList(query, DropDownResponseDTO.class);
 

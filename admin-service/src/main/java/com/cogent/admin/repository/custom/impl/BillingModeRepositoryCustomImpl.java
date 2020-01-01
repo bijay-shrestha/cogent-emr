@@ -36,7 +36,7 @@ public class BillingModeRepositoryCustomImpl implements BillingModeRepositoryCus
 
     @Override
     public List<Object[]> findBillingModeByNameOrCode(String name, String code) {
-        Query query = getQuery.apply(entityManager, FETCH_BILLING_MODE_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_BILLING_MODE_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -45,7 +45,7 @@ public class BillingModeRepositoryCustomImpl implements BillingModeRepositoryCus
 
     @Override
     public List<BillingModeMinimalResponseDTO> searchBillingMode(BillingModeSearchRequestDTO searchRequestDTO, Pageable pageable) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_BILLING_MODE.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_BILLING_MODE.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -63,7 +63,7 @@ public class BillingModeRepositoryCustomImpl implements BillingModeRepositoryCus
 
     @Override
     public Optional<List<DropDownResponseDTO>> dropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_BILLING_MODE);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_BILLING_MODE);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -73,7 +73,7 @@ public class BillingModeRepositoryCustomImpl implements BillingModeRepositoryCus
 
     @Override
     public Optional<List<DropDownResponseDTO>> activeDropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_BILLING_MODE);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_BILLING_MODE);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -83,7 +83,7 @@ public class BillingModeRepositoryCustomImpl implements BillingModeRepositoryCus
 
     @Override
     public BillingModeResponseDTO fetchBillingModeDetails(Long id) {
-        Query query = getQuery.apply(entityManager, FETCH_BILLING_MODE_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_BILLING_MODE_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query,
@@ -95,7 +95,7 @@ public class BillingModeRepositoryCustomImpl implements BillingModeRepositoryCus
 
     @Override
     public List<Object[]> checkIfBillingModeNameAndCodeExists(Long id, String name, String code) {
-        Query query=getQuery.apply(entityManager, CHECK_IF_BILLING_MODE_EXISTS)
+        Query query= createQuery.apply(entityManager, CHECK_IF_BILLING_MODE_EXISTS)
                 .setParameter(ID,id)
                 .setParameter(NAME,name)
                 .setParameter(CODE,code);

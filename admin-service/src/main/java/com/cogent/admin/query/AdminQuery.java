@@ -152,4 +152,20 @@ public class AdminQuery {
                     " WHERE" +
                     " (a.username=:username OR a.email =:email)" +
                     " AND a.status != 'D'";
+
+    public static final String QUERY_TO_FETCH_ADMIN_INFO =
+            " SELECT a.id as adminId," +                                                //[0]
+                    " a.username as username," +                                        //[1]
+                    " a.fullName as fullName," +                                        //[2]
+                    " sd.id as subDepartmentId," +                                      //[3]
+                    " sd.name as subDepartmentName," +                                  //[4]
+                    " p.name as profileName" +                                          //[5]
+                    " FROM Admin a " +
+                    " LEFT JOIN AdminProfile ap ON ap.adminId = a.id" +
+                    " LEFT JOIN Profile p ON p.id = ap.profileId" +
+                    " LEFT JOIN SubDepartment sd ON sd.id = p.subDepartment.id" +
+                    " WHERE" +
+                    " a.status = 'Y'" +
+                    " AND (a.username=:username OR a.email =:email)" +
+                    " AND sd.code=:code";
 }

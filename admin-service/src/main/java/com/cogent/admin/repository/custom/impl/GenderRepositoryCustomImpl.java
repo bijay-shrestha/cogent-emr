@@ -13,7 +13,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 import static com.cogent.admin.query.GenderQuery.QUERY_TO_FETCH_ACTIVE_GENDER;
-import static com.cogent.admin.utils.QueryUtils.getQuery;
+import static com.cogent.admin.utils.QueryUtils.createQuery;
 import static com.cogent.admin.utils.QueryUtils.transformQueryToResultList;
 
 /**
@@ -28,7 +28,7 @@ public class GenderRepositoryCustomImpl implements GenderRepositoryCustom {
 
     @Override
     public List<DropDownResponseDTO> fetchActiveGender() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_GENDER);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_GENDER);
 
         List<DropDownResponseDTO> results = transformQueryToResultList(query, DropDownResponseDTO.class);
 

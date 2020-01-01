@@ -37,7 +37,7 @@ public class SpecializationRepositoryCustomImpl implements SpecializationReposit
 
     @Override
     public Long fetchSpecializationByName(String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_SPECIALIZATION_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_SPECIALIZATION_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -45,7 +45,7 @@ public class SpecializationRepositoryCustomImpl implements SpecializationReposit
 
     @Override
     public Long fetchSpecializationByIdAndName(Long id, String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_SPECIALIZATION_COUNT_BY_ID_AND_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_SPECIALIZATION_COUNT_BY_ID_AND_NAME)
                 .setParameter(ID, id)
                 .setParameter(NAME, name);
 
@@ -56,7 +56,7 @@ public class SpecializationRepositoryCustomImpl implements SpecializationReposit
     public List<SpecializationMinimalResponseDTO> search(SpecializationSearchRequestDTO searchRequestDTO,
                                                          Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_SPECIALIZATION(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_SPECIALIZATION(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -74,7 +74,7 @@ public class SpecializationRepositoryCustomImpl implements SpecializationReposit
 
     @Override
     public List<DropDownResponseDTO> fetchActiveSpecializationForDropDown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_SPECIALIZATION_FOR_DROPDOWN);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_SPECIALIZATION_FOR_DROPDOWN);
 
         List<DropDownResponseDTO> results = transformQueryToResultList(query, DropDownResponseDTO.class);
 
@@ -84,7 +84,7 @@ public class SpecializationRepositoryCustomImpl implements SpecializationReposit
 
     @Override
     public SpecializationResponseDTO fetchDetailsById(Long id) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_SPECIALIZATION_DETAILS)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_SPECIALIZATION_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, SpecializationResponseDTO.class);
@@ -95,7 +95,7 @@ public class SpecializationRepositoryCustomImpl implements SpecializationReposit
 
     @Override
     public List<DropDownResponseDTO> fetchSpecializationByDoctorId(Long DoctorId) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_SPECIALIZATION_BY_DOCTOR_ID)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_SPECIALIZATION_BY_DOCTOR_ID)
                 .setParameter(ID, DoctorId);
 
         List<DropDownResponseDTO> results = transformQueryToResultList(query, DropDownResponseDTO.class);
