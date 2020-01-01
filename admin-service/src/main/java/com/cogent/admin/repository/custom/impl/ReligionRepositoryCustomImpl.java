@@ -21,7 +21,7 @@ import static com.cogent.admin.constants.QueryConstants.ID;
 import static com.cogent.admin.constants.QueryConstants.NAME;
 import static com.cogent.admin.query.ReligionQuery.*;
 import static com.cogent.admin.utils.PageableUtils.addPagination;
-import static com.cogent.admin.utils.QueryUtils.getQuery;
+import static com.cogent.admin.utils.QueryUtils.createQuery;
 import static com.cogent.admin.utils.QueryUtils.transformQueryToResultList;
 
 @Repository
@@ -34,7 +34,7 @@ public class ReligionRepositoryCustomImpl implements ReligionRepositoryCustom {
 
     @Override
     public Long fetchReligionByName(String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_RELIGION_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_RELIGION_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -42,7 +42,7 @@ public class ReligionRepositoryCustomImpl implements ReligionRepositoryCustom {
 
     @Override
     public Long findReligionByIdAndName(Long id, String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_RELIGION_COUNT_BY_ID_AND_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_RELIGION_COUNT_BY_ID_AND_NAME)
                 .setParameter(ID, id)
                 .setParameter(NAME, name);
 
@@ -52,7 +52,7 @@ public class ReligionRepositoryCustomImpl implements ReligionRepositoryCustom {
 
     @Override
     public List<ReligionResponseDTO> search(ReligionSearchRequestDTO searchRequestDTO, Pageable pageable) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_RELIGION(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_RELIGION(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -70,7 +70,7 @@ public class ReligionRepositoryCustomImpl implements ReligionRepositoryCustom {
 
     @Override
     public List<ReligionDropdownDTO> fetchReligionForDropDown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_RELIGION_FOR_DROPDOWN);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_RELIGION_FOR_DROPDOWN);
 
         List<ReligionDropdownDTO> results = transformQueryToResultList(query, ReligionDropdownDTO.class);
 

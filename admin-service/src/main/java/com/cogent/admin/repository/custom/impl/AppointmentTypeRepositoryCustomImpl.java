@@ -37,7 +37,7 @@ public class AppointmentTypeRepositoryCustomImpl implements AppointmentTypeRepos
 
     @Override
     public Long fetchAppointmentTypeByName(String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_TYPE_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_TYPE_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -45,7 +45,7 @@ public class AppointmentTypeRepositoryCustomImpl implements AppointmentTypeRepos
 
     @Override
     public Long fetchAppointmentTypeByIdAndName(Long id, String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_TYPE_COUNT_BY_ID_AND_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_TYPE_COUNT_BY_ID_AND_NAME)
                 .setParameter(ID, id)
                 .setParameter(NAME, name);
 
@@ -56,7 +56,7 @@ public class AppointmentTypeRepositoryCustomImpl implements AppointmentTypeRepos
     public List<AppointmentTypeMinimalResponseDTO> search(AppointmentTypeSearchRequestDTO searchRequestDTO,
                                                           Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_APPOINTMENT_TYPE(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_APPOINTMENT_TYPE(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -74,7 +74,7 @@ public class AppointmentTypeRepositoryCustomImpl implements AppointmentTypeRepos
 
     @Override
     public List<DropDownResponseDTO> fetchAppointmentTypeForDropdown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_APPOINTMENT_TYPE);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_APPOINTMENT_TYPE);
 
         List<DropDownResponseDTO> results = transformQueryToResultList(query, DropDownResponseDTO.class);
 
@@ -84,7 +84,7 @@ public class AppointmentTypeRepositoryCustomImpl implements AppointmentTypeRepos
 
     @Override
     public AppointmentTypeResponseDTO fetchDetailsById(Long id) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_APPOINTMENT_TYPE_DETAILS)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_APPOINTMENT_TYPE_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, AppointmentTypeResponseDTO.class);

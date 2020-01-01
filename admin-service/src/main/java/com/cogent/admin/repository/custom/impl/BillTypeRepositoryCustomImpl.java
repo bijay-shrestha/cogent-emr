@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static com.cogent.admin.query.BillTypeQuery.QUERY_TO_FETCH_ACTIVE_BILLTYPE;
-import static com.cogent.admin.utils.QueryUtils.getQuery;
+import static com.cogent.admin.utils.QueryUtils.createQuery;
 import static com.cogent.admin.utils.QueryUtils.transformQueryToResultList;
 
 /**
@@ -29,7 +29,7 @@ public class BillTypeRepositoryCustomImpl implements BillTypeRepositoryCustom {
 
     @Override
     public List<DropDownResponseDTO> fetchActiveBillTypes() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_BILLTYPE);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_BILLTYPE);
 
         List<DropDownResponseDTO> results = transformQueryToResultList(query, DropDownResponseDTO.class);
 

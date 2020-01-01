@@ -40,7 +40,7 @@ public class DepartmentRepositoryCustomImpl implements DepartmentRepositoryCusto
     @Override
     public DepartmentResponseDTO fetchDepartmentDetails(Long id) {
 
-        Query query = getQuery.apply(entityManager, FETCH_DEPARTMENT_DETAILS).setParameter(ID, id);
+        Query query = createQuery.apply(entityManager, FETCH_DEPARTMENT_DETAILS).setParameter(ID, id);
 
         try {
             DepartmentResponseDTO singleResult = transformQueryToSingleResult(query, DepartmentResponseDTO.class);
@@ -54,7 +54,7 @@ public class DepartmentRepositoryCustomImpl implements DepartmentRepositoryCusto
     @Override
     public List<Object[]> fetchDepartmentByNameOrCode(String name, String code) {
 
-        Query query = getQuery.apply(entityManager, FETCH_DEPARTMENT_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_DEPARTMENT_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -69,7 +69,7 @@ public class DepartmentRepositoryCustomImpl implements DepartmentRepositoryCusto
         log.info(SEARCH_DEPARTMENT, departmentSearchRequestDTO.getId(), departmentSearchRequestDTO.getName(),
                 departmentSearchRequestDTO.getCode());
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_DEPARTMENT.apply(departmentSearchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_DEPARTMENT.apply(departmentSearchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -91,7 +91,7 @@ public class DepartmentRepositoryCustomImpl implements DepartmentRepositoryCusto
 
         log.info(FETCH_DEPARTMENT_ID_AND_NAME);
 
-        Query query = getQuery.apply(entityManager, GET_DEPARTMENT_NAME_AND_ID);
+        Query query = createQuery.apply(entityManager, GET_DEPARTMENT_NAME_AND_ID);
 
         List<DepartmentDropDownDTO> dropDownDTOS = transformQueryToResultList(query,
                 DepartmentDropDownDTO.class);
@@ -103,7 +103,7 @@ public class DepartmentRepositoryCustomImpl implements DepartmentRepositoryCusto
     public Optional<List<DepartmentDropDownDTO>> fetchActiveDropDownList() {
         log.info(FETCH_DEPARTMENT_ID_AND_NAME);
 
-        Query query = getQuery.apply(entityManager, GET_ACTIVE_DEPARTMENT_NAME_AND_ID);
+        Query query = createQuery.apply(entityManager, GET_ACTIVE_DEPARTMENT_NAME_AND_ID);
 
         List<DepartmentDropDownDTO> dropDownDTOS = transformQueryToResultList(query,
                 DepartmentDropDownDTO.class);
@@ -114,14 +114,14 @@ public class DepartmentRepositoryCustomImpl implements DepartmentRepositoryCusto
     @Override
     public List<Object[]> getDepartment() {
         log.info(FETCH_DEPARTMENT_OBJECT_FOR_EXCEL);
-        Query query = getQuery.apply(entityManager, CREATE_QUERY_TO_FETCH_DEPARTMENT);
+        Query query = createQuery.apply(entityManager, CREATE_QUERY_TO_FETCH_DEPARTMENT);
         List<Object[]> object = query.getResultList();
         return object;
     }
 
     @Override
     public List<Object[]> checkIfDepartmentNameAndCodeExists(Long id, String name, String code) {
-        Query query=getQuery.apply(entityManager, CHECK_IF_DEPARTMENT_EXISTS)
+        Query query= createQuery.apply(entityManager, CHECK_IF_DEPARTMENT_EXISTS)
                 .setParameter(ID,id)
                 .setParameter(NAME,name)
                 .setParameter(CODE,code);

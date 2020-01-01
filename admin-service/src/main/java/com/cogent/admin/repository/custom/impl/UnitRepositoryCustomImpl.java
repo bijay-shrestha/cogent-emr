@@ -37,7 +37,7 @@ public class UnitRepositoryCustomImpl implements UnitRepositoryCustom {
 
     @Override
     public Optional<List<DropDownResponseDTO>> dropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_UNIT);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_UNIT);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -47,7 +47,7 @@ public class UnitRepositoryCustomImpl implements UnitRepositoryCustom {
 
     @Override
     public Optional<List<DropDownResponseDTO>> activeDropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_UNIT);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_UNIT);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -57,7 +57,7 @@ public class UnitRepositoryCustomImpl implements UnitRepositoryCustom {
 
     @Override
     public List<Object[]> fetchUnitByNameOrCode(String name, String code) {
-        Query query = getQuery.apply(entityManager, FETCH_UNIT_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_UNIT_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -66,7 +66,7 @@ public class UnitRepositoryCustomImpl implements UnitRepositoryCustom {
 
     @Override
     public List<Object[]> checkUnitNameAndCodeIfExist(Long id, String name, String code) {
-        Query query = getQuery.apply(entityManager, CHECK_IF_UNIT_NAME_AND_CODE_EXISTS)
+        Query query = createQuery.apply(entityManager, CHECK_IF_UNIT_NAME_AND_CODE_EXISTS)
                 .setParameter(ID,id)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
@@ -78,7 +78,7 @@ public class UnitRepositoryCustomImpl implements UnitRepositoryCustom {
     public List<UnitMinimalResponseDTO> searchUnit(UnitSearchRequestDTO searchRequestDTO, Pageable pageable) {
 
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_UNIT.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_UNIT.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -96,7 +96,7 @@ public class UnitRepositoryCustomImpl implements UnitRepositoryCustom {
 
     @Override
     public UnitResponseDTO fetchUnitDetails(Long id) {
-        Query query = getQuery.apply(entityManager, FETCH_UNIT_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_UNIT_DETAILS)
                 .setParameter(ID, id);
 
         try {

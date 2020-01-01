@@ -21,7 +21,7 @@ import static com.cogent.admin.constants.QueryConstants.ID;
 import static com.cogent.admin.constants.QueryConstants.NAME;
 import static com.cogent.admin.query.MaritalStatusQuery.*;
 import static com.cogent.admin.utils.PageableUtils.addPagination;
-import static com.cogent.admin.utils.QueryUtils.getQuery;
+import static com.cogent.admin.utils.QueryUtils.createQuery;
 import static com.cogent.admin.utils.QueryUtils.transformQueryToResultList;
 
 @Repository
@@ -34,7 +34,7 @@ public class MaritalStatusRepositoryCustomImpl implements MaritalStatusRepositor
 
     @Override
     public Long fetchMaritalStatusByName(String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_MARITAL_STATUS_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_MARITAL_STATUS_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -42,7 +42,7 @@ public class MaritalStatusRepositoryCustomImpl implements MaritalStatusRepositor
 
     @Override
     public Long findMaritalStatusByIdAndName(Long id, String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_MARITAL_STATUS_COUNT_BY_ID_AND_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_MARITAL_STATUS_COUNT_BY_ID_AND_NAME)
                 .setParameter(ID, id)
                 .setParameter(NAME, name);
 
@@ -51,7 +51,7 @@ public class MaritalStatusRepositoryCustomImpl implements MaritalStatusRepositor
 
     @Override
     public List<MaritalStatusResponseDTO> search(MaritalStatusSearchRequestDTO searchRequestDTO, Pageable pageable) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_MARITAL_STATUS(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_MARITAL_STATUS(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -69,7 +69,7 @@ public class MaritalStatusRepositoryCustomImpl implements MaritalStatusRepositor
 
     @Override
     public List<MaritalStatusDropdownDTO> fetchMaritalStatusForDropDown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_MARITAL_STATUS_FOR_DROPDOWN);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_MARITAL_STATUS_FOR_DROPDOWN);
 
         List<MaritalStatusDropdownDTO> results = transformQueryToResultList(query, MaritalStatusDropdownDTO.class);
 

@@ -132,4 +132,11 @@ public class AdminController {
         adminService.savePassword(requestDTO);
         return ok().build();
     }
+
+    @PutMapping(INFO)
+    @ApiOperation(FETCH_LOGGED_IN_ADMIN_INFO)
+    public ResponseEntity<?> fetchLoggedInAdminInfo(@Valid @RequestBody AdminInfoRequestDTO requestDTO) {
+        return ok(adminService.fetchLoggedInAdminInfo(requestDTO));
+    }
+
 }

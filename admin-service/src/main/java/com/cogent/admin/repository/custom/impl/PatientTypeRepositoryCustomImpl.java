@@ -37,7 +37,7 @@ public class PatientTypeRepositoryCustomImpl implements PatientTypeRepositoryCus
 
     @Override
     public Long fetchPatientTypeByName(String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_PATIENT_TYPE_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_PATIENT_TYPE_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -45,7 +45,7 @@ public class PatientTypeRepositoryCustomImpl implements PatientTypeRepositoryCus
 
     @Override
     public Long fetchPatientTypeByIdAndName(Long id, String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_PATIENT_TYPE_COUNT_BY_ID_AND_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_PATIENT_TYPE_COUNT_BY_ID_AND_NAME)
                 .setParameter(ID, id)
                 .setParameter(NAME, name);
 
@@ -56,7 +56,7 @@ public class PatientTypeRepositoryCustomImpl implements PatientTypeRepositoryCus
     public List<PatientTypeMinimalResponseDTO> search(PatientTypeSearchRequestDTO searchRequestDTO,
                                                       Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_PATIENT_TYPE(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_PATIENT_TYPE(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -74,7 +74,7 @@ public class PatientTypeRepositoryCustomImpl implements PatientTypeRepositoryCus
 
     @Override
     public List<DropDownResponseDTO> fetchActivePatientTypeForDropdown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_PATIENT_TYPE);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_PATIENT_TYPE);
 
         List<DropDownResponseDTO> results = transformQueryToResultList(query, DropDownResponseDTO.class);
 
@@ -84,7 +84,7 @@ public class PatientTypeRepositoryCustomImpl implements PatientTypeRepositoryCus
 
     @Override
     public PatientTypeResponseDTO fetchDetailsById(Long id) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_PATIENT_TYPE_DETAILS)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_PATIENT_TYPE_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, PatientTypeResponseDTO.class);

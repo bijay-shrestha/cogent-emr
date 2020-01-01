@@ -22,7 +22,7 @@ import static com.cogent.admin.constants.QueryConstants.ID;
 import static com.cogent.admin.constants.QueryConstants.NAME;
 import static com.cogent.admin.query.ReferrerQuery.*;
 import static com.cogent.admin.utils.PageableUtils.addPagination;
-import static com.cogent.admin.utils.QueryUtils.getQuery;
+import static com.cogent.admin.utils.QueryUtils.createQuery;
 import static com.cogent.admin.utils.QueryUtils.transformQueryToResultList;
 
 /**
@@ -38,7 +38,7 @@ public class ReferrerRepositoryCustomImpl implements ReferrerRepositoryCustom {
 
     @Override
     public Long fetchReferrerByName(String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_REFERRER_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_REFERRER_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -47,7 +47,7 @@ public class ReferrerRepositoryCustomImpl implements ReferrerRepositoryCustom {
     @Override
     public Long findReferrerByIdAndName(Long id, String name) {
 
-        Query query = getQuery.apply(entityManager, ReferrerQuery.QUERY_TO_FIND_REFERRER_COUNT_BY_ID_AND_NAME)
+        Query query = createQuery.apply(entityManager, ReferrerQuery.QUERY_TO_FIND_REFERRER_COUNT_BY_ID_AND_NAME)
                 .setParameter(ID, id)
                 .setParameter(NAME, name);
 
@@ -57,7 +57,7 @@ public class ReferrerRepositoryCustomImpl implements ReferrerRepositoryCustom {
 
     @Override
     public List<ReferrerResponseDTO> search(ReferrerSearchRequestDTO searchRequestDTO, Pageable pageable) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_REFERRER(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_REFERRER(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -75,7 +75,7 @@ public class ReferrerRepositoryCustomImpl implements ReferrerRepositoryCustom {
 
     @Override
     public List<ReferrerDropdownDTO> fetchReferrerForDropDown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_REFERRER_FOR_DROPDOWN);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_REFERRER_FOR_DROPDOWN);
 
         List<ReferrerDropdownDTO> results = transformQueryToResultList(query, ReferrerDropdownDTO.class);
 

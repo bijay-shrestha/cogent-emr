@@ -1,6 +1,8 @@
 package com.cogent.admin.repository.custom;
 
+import com.cogent.admin.dto.request.profile.ProfileMenuSearchRequestDTO;
 import com.cogent.admin.dto.request.profile.ProfileSearchRequestDTO;
+import com.cogent.admin.dto.response.profile.AssignedProfileResponseDTO;
 import com.cogent.admin.dto.response.profile.ProfileDetailResponseDTO;
 import com.cogent.admin.dto.response.profile.ProfileDropdownDTO;
 import com.cogent.admin.dto.response.profile.ProfileMinimalResponseDTO;
@@ -28,4 +30,6 @@ public interface ProfileRepositoryCustom {
     List<ProfileDropdownDTO> fetchActiveProfilesForDropDown();
 
     List<ProfileDropdownDTO> fetchProfileBySubDepartmentId(Long subDepartmentId);
+
+    AssignedProfileResponseDTO fetchAssignedProfileResponseDto(ProfileMenuSearchRequestDTO profileMenuSearchRequestDTO);
 }

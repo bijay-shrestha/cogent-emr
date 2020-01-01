@@ -37,7 +37,7 @@ public class QualificationRepositoryCustomImpl implements QualificationRepositor
     public List<QualificationMinimalResponseDTO> search(QualificationSearchRequestDTO searchRequestDTO,
                                                         Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_QUALIFICATION.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_QUALIFICATION.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -55,7 +55,7 @@ public class QualificationRepositoryCustomImpl implements QualificationRepositor
 
     @Override
     public QualificationResponseDTO fetchDetailsById(Long id) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_QUALIFICATION_DETAILS)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_QUALIFICATION_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, QualificationResponseDTO.class);
@@ -66,7 +66,7 @@ public class QualificationRepositoryCustomImpl implements QualificationRepositor
 
     @Override
     public List<QualificationDropdownDTO> fetchActiveQualificationForDropDown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_QUALIFICATION_FOR_DROPDOWN);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_QUALIFICATION_FOR_DROPDOWN);
 
         List<QualificationDropdownDTO> results = transformQueryToResultList(query, QualificationDropdownDTO.class);
 

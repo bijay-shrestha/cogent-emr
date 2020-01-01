@@ -38,7 +38,7 @@ public class MunicipalityRepositoryCustomImpl implements MunicipalityRepositoryC
 
     @Override
     public Long fetchMunicipalityByName(String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_MUNICIPALITY_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_MUNICIPALITY_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -46,7 +46,7 @@ public class MunicipalityRepositoryCustomImpl implements MunicipalityRepositoryC
 
     @Override
     public Municipality findMunicipality(Long id) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_MUNICIPALITY_ENTITY)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_MUNICIPALITY_ENTITY)
                 .setParameter(ID, id);
         List<Object[]> objects= query.getResultList();
         Municipality municipality=parseObjectToMunicipality(objects);
@@ -55,7 +55,7 @@ public class MunicipalityRepositoryCustomImpl implements MunicipalityRepositoryC
 
     @Override
     public Long findMunicipalityByIdAndName(Long id, String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_MUNICIPALITY_COUNT_BY_ID_AND_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_MUNICIPALITY_COUNT_BY_ID_AND_NAME)
                 .setParameter(ID, id)
                 .setParameter(NAME, name);
 
@@ -66,7 +66,7 @@ public class MunicipalityRepositoryCustomImpl implements MunicipalityRepositoryC
     public List<MunicipalityMinimalResponseDTO> search(MunicipalitySearchRequestDTO searchRequestDTO,
                                                        Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_MUNICIPALITY(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_MUNICIPALITY(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -84,7 +84,7 @@ public class MunicipalityRepositoryCustomImpl implements MunicipalityRepositoryC
 
     @Override
     public List<MunicipalityDropdownDTO> fetchActiveMunicipalityForDropDown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_MUNICIPALITY_FOR_DROPDOWN);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_MUNICIPALITY_FOR_DROPDOWN);
 
         List<MunicipalityDropdownDTO> results = transformQueryToResultList(query, MunicipalityDropdownDTO.class);
 
@@ -94,7 +94,7 @@ public class MunicipalityRepositoryCustomImpl implements MunicipalityRepositoryC
 
     @Override
     public MunicipalityResponseDTO fetchDetailsById(Long id) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_MUNICIPALITY_DETAILS)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_MUNICIPALITY_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, MunicipalityResponseDTO.class);
@@ -106,7 +106,7 @@ public class MunicipalityRepositoryCustomImpl implements MunicipalityRepositoryC
     @Override
     public Municipality fetchMunicipalityById(Long id) {
         try {
-            Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_MUNICIPALITY)
+            Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_MUNICIPALITY)
                     .setParameter(ID, id);
             Municipality municipality = transformQueryToSingleResult(query, Municipality.class);
 //            Provinces provinces = entityManager.createQuery(QUERY1, Provinces.class)

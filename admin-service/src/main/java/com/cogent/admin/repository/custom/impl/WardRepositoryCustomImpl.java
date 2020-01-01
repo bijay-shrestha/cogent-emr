@@ -40,7 +40,7 @@ public class WardRepositoryCustomImpl implements WardRepositoryCustom {
 
     @Override
     public Optional<List<DropDownResponseDTO>> dropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_WARD);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_WARD);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -50,7 +50,7 @@ public class WardRepositoryCustomImpl implements WardRepositoryCustom {
 
     @Override
     public Optional<List<DropDownResponseDTO>> activeDropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_WARD);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_WARD);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -60,7 +60,7 @@ public class WardRepositoryCustomImpl implements WardRepositoryCustom {
 
     @Override
     public List<Object[]> fetchWardByNameOrCode(String name, String code) {
-        Query query = getQuery.apply(entityManager, FETCH_WARD_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_WARD_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -69,7 +69,7 @@ public class WardRepositoryCustomImpl implements WardRepositoryCustom {
 
     @Override
     public List<Object[]> checkIfWardNameAndCodeExists(Long id, String name, String code) {
-        Query query=getQuery.apply(entityManager, CHECK_IF_WARD_NAME_AND_CODE_EXISTS)
+        Query query= createQuery.apply(entityManager, CHECK_IF_WARD_NAME_AND_CODE_EXISTS)
                 .setParameter(ID,id)
                 .setParameter(NAME,name)
                 .setParameter(CODE,code);

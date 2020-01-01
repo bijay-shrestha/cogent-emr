@@ -1,4 +1,4 @@
-package com.cogent.admin.dto.response.userMenu;
+package com.cogent.admin.dto.response.profile;
 
 import lombok.*;
 
@@ -13,8 +13,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AssignedProfileMenuResponseDTO implements Serializable {
-
+public class AssignedProfileResponseDTO implements Serializable {
     private String subDepartmentName;
 
     private String subDepartmentCode;

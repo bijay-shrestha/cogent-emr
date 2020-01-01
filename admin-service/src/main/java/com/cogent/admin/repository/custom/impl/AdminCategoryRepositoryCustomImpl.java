@@ -36,7 +36,7 @@ public class AdminCategoryRepositoryCustomImpl implements AdminCategoryRepositor
 
     @Override
     public List findAdminCategoryByNameOrCode(String name, String code) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_ADMIN_CATEGORY_BY_NAME_OR_CODE)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_ADMIN_CATEGORY_BY_NAME_OR_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -45,7 +45,7 @@ public class AdminCategoryRepositoryCustomImpl implements AdminCategoryRepositor
 
     @Override
     public List findAdminCategoryByIdAndNameOrCode(Long id, String name, String code) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_ADMIN_CATEGORY_BY_ID_AND_NAME_OR_CODE)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_ADMIN_CATEGORY_BY_ID_AND_NAME_OR_CODE)
                 .setParameter(ID, id)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
@@ -57,7 +57,7 @@ public class AdminCategoryRepositoryCustomImpl implements AdminCategoryRepositor
     public List<AdminCategoryMinimalResponseDTO> search
             (AdminCategorySearchRequestDTO searchRequestDTO, Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_ADMIN_CATEGORY.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_ADMIN_CATEGORY.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -76,7 +76,7 @@ public class AdminCategoryRepositoryCustomImpl implements AdminCategoryRepositor
     @Override
     public List<AdminCategoryDropdownDTO> fetchActiveAdminCategoryForDropDown() {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_ADMIN_CATEGORY_FOR_DROPDOWN);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_ADMIN_CATEGORY_FOR_DROPDOWN);
 
         List<AdminCategoryDropdownDTO> results = transformQueryToResultList(query, AdminCategoryDropdownDTO.class);
 
@@ -86,7 +86,7 @@ public class AdminCategoryRepositoryCustomImpl implements AdminCategoryRepositor
 
     @Override
     public AdminCategoryResponseDTO fetchDetailsById(Long id) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ADMIN_CATEGORY_DETAILS)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ADMIN_CATEGORY_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, AdminCategoryResponseDTO.class);
@@ -97,7 +97,7 @@ public class AdminCategoryRepositoryCustomImpl implements AdminCategoryRepositor
 
     @Override
     public List getAdminCategoryForExcel() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ADMIN_CATEGORY_FOR_EXCEL);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ADMIN_CATEGORY_FOR_EXCEL);
         return query.getResultList();
     }
 
