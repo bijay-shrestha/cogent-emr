@@ -1,8 +1,9 @@
-package com.cogent.edgeserver.security;
+package com.cogent.edgeserver.configuration;
 
 import com.cogent.edgeserver.filters.AddRequestHeaderFilter;
 import com.cogent.edgeserver.modules.Modules;
 import com.cogent.edgeserver.modules.Roles;
+import com.cogent.edgeserver.security.jwt.JwtTokenAuthenticationFilter;
 import com.cogent.genericservice.security.JwtConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;

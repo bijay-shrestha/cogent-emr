@@ -1,7 +1,6 @@
-package com.cogent.edgeserver.security;
+package com.cogent.edgeserver.security.jwt;
 
-import com.cogent.edgeserver.checkpoint.CookieCheckpoint;
-import com.cogent.edgeserver.checkpoint.JwtTokenCheckpoint;
+import com.cogent.edgeserver.cookies.CookieCheckpoint;
 import com.cogent.genericservice.cookies.CookieUtils;
 import com.cogent.genericservice.security.JwtConfig;
 import io.jsonwebtoken.Claims;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.cogent.genericservice.cookies.CookieConstants.key;
@@ -33,16 +31,19 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain) throws ServletException, IOException {
 
         Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
 
+        if (cookies == null) {
             String header = request.getHeader(jwtConfig.getHeader());
             if (header == null || !header.startsWith(jwtConfig.getPrefix())) {
                 chain.doFilter(request, response);
                 return;
             }
+
         }
 
         if (request.getRequestURI().equals("/cogent/logout")) {
@@ -51,16 +52,17 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         }
 
         authorization(request, response, cookies, chain);
-
     }
 
-    public void authorization(HttpServletRequest request, HttpServletResponse response, Cookie[] cookies, FilterChain chain) throws IOException, ServletException {
+    public void authorization(HttpServletRequest request,
+                              HttpServletResponse response,
+                              Cookie[] cookies,
+                              FilterChain chain) throws IOException, ServletException {
 
+        String token = CookieCheckpoint.cookieCheckpoint(cookies);
 
-        Optional<String> token = CookieCheckpoint.cookieCheckpoint(cookies);
-
-        Claims claims = JwtTokenCheckpoint.checkJwtToken(jwtConfig, token);
-        String username = JwtTokenCheckpoint.checkUserName(jwtConfig, claims);
+        Claims claims = JwtTokenProvider.validateJwtToken(jwtConfig, token);
+        String username = JwtTokenProvider.fetchUsernameFromClaims(claims);
 
         if (username != null) {
             @SuppressWarnings("unchecked")
@@ -79,11 +81,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
             request.setAttribute("username", username);
             chain.doFilter(request, response);
-
-
         }
-
-
     }
 }
 

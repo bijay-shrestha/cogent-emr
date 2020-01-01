@@ -24,23 +24,17 @@ public class AddRequestHeaderFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         String username = (String) ctx.getRequest().getAttribute("username");
 
-
         ctx.addZuulRequestHeader("username", username);
-
         return null;
     }
 
     @Override
     public String filterType() {
-
         return "pre";
     }
 
     @Override
     public int filterOrder() {
-
         return 0;
     }
-
-
 }
