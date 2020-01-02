@@ -1,8 +1,9 @@
 package com.cogent.edgeserver.configuration;
 
+import com.cogent.edgeserver.JwtAuthenticationEntryPoint;
 import com.cogent.edgeserver.filters.AddRequestHeaderFilter;
-import com.cogent.edgeserver.modules.Modules;
 import com.cogent.edgeserver.modules.ApplicationModules;
+import com.cogent.edgeserver.modules.Modules;
 import com.cogent.edgeserver.security.jwt.JwtTokenAuthenticationFilter;
 import com.cogent.genericservice.security.JwtConfig;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
@@ -34,8 +33,10 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .cors()
                 .and()
-                .exceptionHandling().authenticationEntryPoint(
-                (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+                .exceptionHandling()
+                .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+//                .exceptionHandling().authenticationEntryPoint(
+//                (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
                 .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig),
                         UsernamePasswordAuthenticationFilter.class)

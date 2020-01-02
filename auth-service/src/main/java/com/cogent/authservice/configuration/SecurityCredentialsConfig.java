@@ -1,10 +1,10 @@
 package com.cogent.authservice.configuration;
 
 import com.cogent.authservice.dto.LoginErrorResponse;
-
 import com.cogent.genericservice.security.JwtConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
@@ -14,15 +14,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @EnableWebSecurity
 @EntityScan(basePackages = {"com.cogent.persistence.model"})
@@ -31,7 +25,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final JwtConfig jwtConfig;
 
-    public SecurityCredentialsConfig(@Lazy UserDetailsService userDetailsService,
+    public SecurityCredentialsConfig(@Qualifier("userDetailsServiceImpl") @Lazy UserDetailsService userDetailsService,
                                      @Lazy JwtConfig jwtConfig) {
         this.userDetailsService = userDetailsService;
         this.jwtConfig = jwtConfig;
@@ -44,8 +38,8 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .cors()
                 .and()
-                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
-//                (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Unauthorised Credentails"))
+                .exceptionHandling()
+                .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
                 .authorizeRequests()
@@ -64,28 +58,26 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
+    /*ON FAILURE AUTHENTICATION*/
     private AuthenticationEntryPoint authenticationEntryPoint() {
-        return new AuthenticationEntryPoint() {
-            @Override
-            public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+        return (httpServletRequest, httpServletResponse, e) -> {
 
-                LoginErrorResponse loginResponse = LoginErrorResponse.builder().
-                        status(401)
-                        .message("Unauthorised")
-                        .build();
+            LoginErrorResponse loginResponse = LoginErrorResponse.builder().
+                    status(401)
+                    .message("Unauthorised")
+                    .build();
 
-                String json = null;
-                try {
-                    json = new ObjectMapper().writeValueAsString(loginResponse);
-                } catch (JsonProcessingException ex) {
-                    e.printStackTrace();
-                }
-                httpServletResponse.getWriter().write(json);
-                httpServletResponse.flushBuffer();
-
+            String json = null;
+            try {
+                json = new ObjectMapper().writeValueAsString(loginResponse);
+            } catch (JsonProcessingException ex) {
+                e.printStackTrace();
             }
+            httpServletResponse.getWriter().write(json);
+            httpServletResponse.flushBuffer();
+
         };
     }
+
 
 }
