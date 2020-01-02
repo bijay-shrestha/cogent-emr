@@ -18,6 +18,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -52,6 +53,12 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
                 .antMatchers(HttpMethod.GET, jwtConfig.getUri()).permitAll()
                 .anyRequest().authenticated();
+
+//                .and()
+//                .headers()
+//                .addHeaderWriter(new StaticHeadersWriter("Set-Cookie", "SameSite=strict"))
+//                .addHeaderWriter(new StaticHeadersWriter("A-cookie","B=val"));
+
     }
 
     @Override

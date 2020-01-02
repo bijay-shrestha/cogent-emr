@@ -107,6 +107,9 @@ public class JwtUsernameAndPasswordAuthenticationFilter
         }
         response.getWriter().write(json);
         response.flushBuffer();
+
+//        response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
+
     }
 
 
