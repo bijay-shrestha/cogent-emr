@@ -19,7 +19,7 @@
         <module>auth-service</module> <!-- 8082 -->
         <module>admin-service</module> <!-- 8083 -->
         <module>cogent-server</module> <!-- 8083 -->
-        <module>pharmacy-server</module>
+        <module>pharmacy-server</module> <!-- 8300 -->
     </modules>
 
 

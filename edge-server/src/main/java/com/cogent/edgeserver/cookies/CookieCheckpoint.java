@@ -6,9 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.Cookie;
 
+import static com.cogent.edgeserver.constants.ErrorMessageConstants.CookieMessage.COOKIE_KEY_MISMATCHED;
+import static com.cogent.edgeserver.constants.ErrorMessageConstants.CookieMessage.COOKIE_NOT_FOUND;
 import static com.cogent.edgeserver.log.CookieLog.COOKIE_VALUE;
-import static com.cogent.genericservice.constants.ErrorMessageConstants.CookieMessage.COOKIE_KEY_MISMATCHED;
-import static com.cogent.genericservice.constants.ErrorMessageConstants.CookieMessage.COOKIE_NOT_FOUND;
 
 @Slf4j
 public class CookieCheckpoint {
