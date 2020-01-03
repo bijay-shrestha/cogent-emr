@@ -21,4 +21,6 @@ public class ProfileSearchRequestDTO implements Serializable {
     private Character status;
 
     private Long subDepartmentId;
+
+    private Long departmentId;
 }

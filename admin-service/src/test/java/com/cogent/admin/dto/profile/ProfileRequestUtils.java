@@ -111,6 +111,6 @@ public class ProfileRequestUtils {
 
     /*FOR SEARCH*/
     public static ProfileSearchRequestDTO getProfileSearchRequestDTO() {
-        return new ProfileSearchRequestDTO("Super Admin", 'Y', 1L);
+        return new ProfileSearchRequestDTO("Super Admin", 'Y', 1L, 1L);
     }
 }

@@ -27,7 +27,10 @@ public class ProfileQuery {
                     whereClause += " AND p.status='" + searchRequestDTO.getStatus() + "'";
 
                 if (!ObjectUtils.isEmpty(searchRequestDTO.getSubDepartmentId()))
-                    whereClause += " AND p.subDepartment.id=" + searchRequestDTO.getSubDepartmentId();
+                    whereClause += " AND sd.id=" + searchRequestDTO.getSubDepartmentId();
+
+                if (!ObjectUtils.isEmpty(searchRequestDTO.getDepartmentId()))
+                    whereClause += " AND d.id=" + searchRequestDTO.getDepartmentId();
 
                 whereClause += " ORDER BY p.id DESC";
 
@@ -39,9 +42,12 @@ public class ProfileQuery {
                 " p.id as id," +                                             //[0]
                 " p.name as name," +                                        //[1]
                 " p.status as status," +                                    //[2]
-                " p.subDepartment.name AS subDepartmentName" +            //[3]
+                " sd.name as subDepartmentName," +                          //[3]
+                " d.name as departmentName"+                                //[4]
                 " FROM" +
                 " Profile p" +
+                " LEFT JOIN SubDepartment sd ON sd.id = p.subDepartment" +
+                " LEFT JOIN Department d ON d.id = sd.department" +
                 GET_WHERE_CLAUSE_FOR_SEARCH_PROFILE.apply(searchRequestDTO);
     };
 
