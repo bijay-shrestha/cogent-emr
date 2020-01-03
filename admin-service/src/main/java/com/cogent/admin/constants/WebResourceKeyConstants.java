@@ -20,6 +20,7 @@ public class WebResourceKeyConstants {
         String VERIFY = "/verify";
         String INFO = "/info";
         String ADMIN_ID_PATH_VARIABLE_BASE = "/{adminId}";
+        String SUB_DEPARTMENT ="/sub-departments";
     }
 
     public interface AppointmentModeConstants {

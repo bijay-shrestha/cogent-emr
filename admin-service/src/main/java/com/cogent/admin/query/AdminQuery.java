@@ -159,7 +159,8 @@ public class AdminQuery {
                     " a.fullName as fullName," +                                        //[2]
                     " sd.id as subDepartmentId," +                                      //[3]
                     " sd.name as subDepartmentName," +                                  //[4]
-                    " p.name as profileName" +                                          //[5]
+                    " p.name as profileName," +                                         //[5]
+                    " p.id as profileId" +                                              //[6]
                     " FROM Admin a " +
                     " LEFT JOIN AdminProfile ap ON ap.adminId = a.id" +
                     " LEFT JOIN Profile p ON p.id = ap.profileId" +
@@ -181,4 +182,16 @@ public class AdminQuery {
                     " AND a.status ='Y'" +
                     " AND (a.username =:username OR a.email =:email)" +
                     " GROUP BY aam.admin_id";
+
+    public static final String QUERY_TO_FETCH_LOGGED_IN_ADMIN_SUB_DEPARTMENT_LIST =
+            "SELECT" +
+                    " sd.id as subDepartmentId," +
+                    " sd.name as subDepartmentName," +
+                    " sd.code as subDepartmentCode" +
+                    " FROM SubDepartment sd" +
+                    " LEFT JOIN Profile p ON p.subDepartment.id=sd.id" +
+                    " LEFT JOIN AdminProfile ap ON ap.profileId=p.id" +
+                    " LEFT JOIN Admin a ON a.id=ap.adminId" +
+                    " WHERE a.username=:username" +
+                    " AND a.status='Y'";
 }

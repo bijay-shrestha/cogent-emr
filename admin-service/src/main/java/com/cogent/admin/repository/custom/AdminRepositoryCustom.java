@@ -2,10 +2,12 @@ package com.cogent.admin.repository.custom;
 
 import com.cogent.admin.dto.request.admin.AdminInfoRequestDTO;
 import com.cogent.admin.dto.request.admin.AdminSearchRequestDTO;
+import com.cogent.admin.dto.request.admin.AdminSubDepartmentRequestDTO;
 import com.cogent.admin.dto.request.admin.AdminUpdateRequestDTO;
 import com.cogent.admin.dto.response.admin.AdminDetailResponseDTO;
 import com.cogent.admin.dto.response.admin.AdminInfoByUsernameResponseDTO;
 import com.cogent.admin.dto.response.admin.AdminInfoResponseDTO;
+import com.cogent.admin.dto.response.admin.AdminSubDepartmentResponseDTO;
 import com.cogent.persistence.model.Admin;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +36,8 @@ public interface AdminRepositoryCustom {
 
     AdminInfoResponseDTO fetchLoggedInAdminInfo(AdminInfoRequestDTO requestDTO);
 
-   AdminInfoByUsernameResponseDTO fetchAdminInfoByUsername(String username);
+    AdminInfoByUsernameResponseDTO fetchAdminInfoByUsername(String username);
+
+    List<AdminSubDepartmentResponseDTO> fetchLoggedInAdminSubdepartmentList(AdminSubDepartmentRequestDTO requestDTO);
 }
 

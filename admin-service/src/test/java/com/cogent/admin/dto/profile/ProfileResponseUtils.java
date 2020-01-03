@@ -17,9 +17,9 @@ public class ProfileResponseUtils {
     public static List<ProfileMinimalResponseDTO> getProfileMinimalResponseList() {
         return Arrays.asList(
                 new ProfileMinimalResponseDTO(1L, "F1SOFT", 'Y',
-                        "MEDICAL", 100),
+                        "MEDICAL", "SUPER ADMIN",100),
                 new ProfileMinimalResponseDTO(2L, "COGENT", 'Y',
-                        "PHARMACY", 100));
+                        "PHARMACY", "SUPER ADMIN",100));
     }
 
     public static ProfileDetailResponseDTO getProfileDetailResponse() {

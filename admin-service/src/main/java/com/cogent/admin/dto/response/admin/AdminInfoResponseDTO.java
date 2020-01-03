@@ -22,5 +22,7 @@ public class AdminInfoResponseDTO implements Serializable {
 
     private String subDepartmentName;
 
+    private Long profileId;
+
     private String profileName;
 }
