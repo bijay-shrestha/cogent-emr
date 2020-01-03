@@ -8,7 +8,7 @@ import javax.servlet.http.Cookie;
 
 import static com.cogent.edgeserver.constants.ErrorMessageConstants.CookieMessage.COOKIE_KEY_MISMATCHED;
 import static com.cogent.edgeserver.constants.ErrorMessageConstants.CookieMessage.COOKIE_NOT_FOUND;
-import static com.cogent.edgeserver.log.CookieLog.COOKIE_VALUE;
+import static com.cogent.edgeserver.log.EdgeServerLog.COOKIE_VALUE;
 
 @Slf4j
 public class CookieCheckpoint {

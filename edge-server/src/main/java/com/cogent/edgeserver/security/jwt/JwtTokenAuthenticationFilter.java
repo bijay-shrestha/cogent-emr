@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import static com.cogent.edgeserver.constants.TokenConstants.AUTHORITIES;
 import static com.cogent.edgeserver.constants.TokenConstants.USERNAME;
 import static com.cogent.edgeserver.cookies.CookieCheckpoint.cookieCheckpoint;
+import static com.cogent.edgeserver.log.EdgeServerLog.LOGOUT;
 import static com.cogent.edgeserver.security.jwt.JwtTokenProvider.fetchUsernameFromClaims;
 import static com.cogent.edgeserver.security.jwt.JwtTokenProvider.validateJwtToken;
 import static com.cogent.genericservice.cookies.CookieConstants.key;
@@ -51,6 +52,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if (request.getRequestURI().equals("/cogent/logout")) {
+            log.info(LOGOUT);
             CookieUtils.clear(response, key);
             return;
         }
