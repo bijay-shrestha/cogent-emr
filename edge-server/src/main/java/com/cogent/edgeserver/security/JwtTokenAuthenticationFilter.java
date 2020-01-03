@@ -46,6 +46,8 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if (request.getRequestURI().equals("/cogent/logout")) {
+            System.out.println("logout is called------------------------------");
+
             CookieUtils.clear(response, key);
             return;
         }

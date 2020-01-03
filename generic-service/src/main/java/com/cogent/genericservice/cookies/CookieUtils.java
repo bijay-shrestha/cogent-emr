@@ -18,7 +18,7 @@ public class CookieUtils {
         cookie.setMaxAge(maxAge);
         cookie.setPath(defaultPath);
         cookie.setComment(comment);
-        cookie.setDomain(domain);
+//        cookie.setDomain(domain);
 
         //cookie.setSecure(true);
         //cookie.setDomain(domain);

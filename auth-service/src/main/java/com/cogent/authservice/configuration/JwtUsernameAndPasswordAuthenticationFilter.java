@@ -95,6 +95,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter
 
         Cookie c = CookieUtils.createCookie(response, key, token);
 
+        c.setDomain("cogenthealth.com.np");
+
         LoginResponse loginResponse = LoginResponse.builder().
                 cookie(c)
                 .build();
