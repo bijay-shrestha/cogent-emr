@@ -168,4 +168,17 @@ public class AdminQuery {
                     " a.status = 'Y'" +
                     " AND (a.username=:username OR a.email =:email)" +
                     " AND sd.code=:code";
+
+    public static final String QUERY_TO_FETCH_ADMIN_INFO_BY_USERNAME =
+            " SELECT GROUP_CONCAT(sd.code)," +                                                              //[0]
+                    " a.password" +                                                                         //[1]
+                    " FROM application_module am" +
+                    " LEFT JOIN admin_application_module aam ON aam.application_module_id=am.id" +
+                    " LEFT JOIN sub_department sd ON sd.id = am.sub_department_id" +
+                    " LEFT JOIN admin a ON a.id = aam.admin_id" +
+                    " WHERE am.status = 'Y'" +
+                    " AND aam.status = 'Y'" +
+                    " AND a.status ='Y'" +
+                    " AND (a.username =:username OR a.email =:email)" +
+                    " GROUP BY aam.admin_id";
 }

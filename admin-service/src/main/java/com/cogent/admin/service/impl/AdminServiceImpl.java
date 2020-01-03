@@ -3,6 +3,7 @@ package com.cogent.admin.service.impl;
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
 import com.cogent.admin.dto.request.admin.*;
 import com.cogent.admin.dto.response.admin.AdminDetailResponseDTO;
+import com.cogent.admin.dto.response.admin.AdminInfoByUsernameResponseDTO;
 import com.cogent.admin.dto.response.admin.AdminInfoResponseDTO;
 import com.cogent.admin.dto.response.files.FileUploadResponseDTO;
 import com.cogent.admin.exception.BadRequestException;
@@ -293,6 +294,19 @@ public class AdminServiceImpl implements AdminService {
         log.info(FETCHING_PROCESS_STARTED, ADMIN);
 
         AdminInfoResponseDTO responseDTO = adminRepository.fetchLoggedInAdminInfo(requestDTO);
+
+        log.info(FETCHING_PROCESS_COMPLETED, ADMIN, getDifferenceBetweenTwoTime(startTime));
+
+        return responseDTO;
+    }
+
+    @Override
+    public AdminInfoByUsernameResponseDTO fetchAdminInfoByUsername(String username) {
+        Long startTime = getTimeInMillisecondsFromLocalDate();
+
+        log.info(FETCHING_PROCESS_STARTED, ADMIN);
+
+        AdminInfoByUsernameResponseDTO responseDTO = adminRepository.fetchAdminInfoByUsername(username);
 
         log.info(FETCHING_PROCESS_COMPLETED, ADMIN, getDifferenceBetweenTwoTime(startTime));
 

@@ -31,6 +31,7 @@ public class SwaggerConstants {
         String VERIFY_ADMIN = "Verify if the confirmation token is valid and admin has not been registered.";
         String SAVE_PASSWORD_OPERATION = "Save admin password";
         String FETCH_LOGGED_IN_ADMIN_INFO = "Fetch logged in admin information";
+        String FETCH_INFO_BY_USERNAME = "Fetch admin info by username.";
     }
 
     public interface AppointmentConstant {

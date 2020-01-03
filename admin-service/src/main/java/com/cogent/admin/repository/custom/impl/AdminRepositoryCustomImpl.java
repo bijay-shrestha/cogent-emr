@@ -26,8 +26,7 @@ import static com.cogent.admin.constants.ErrorMessageConstants.AdminServiceMessa
 import static com.cogent.admin.constants.QueryConstants.*;
 import static com.cogent.admin.constants.StatusConstants.YES;
 import static com.cogent.admin.query.AdminQuery.*;
-import static com.cogent.admin.utils.AdminUtils.parseToAdminDetailResponseDTO;
-import static com.cogent.admin.utils.AdminUtils.parseToAdminResponse;
+import static com.cogent.admin.utils.AdminUtils.*;
 import static com.cogent.admin.utils.PageableUtils.addPagination;
 import static com.cogent.admin.utils.QueryUtils.*;
 
@@ -124,6 +123,17 @@ public class AdminRepositoryCustomImpl implements AdminRepositoryCustom {
         } catch (NoResultException e) {
             throw new NoContentFoundException(ADMIN_INFO_NOT_FOUND);
         }
+    }
+
+    @Override
+    public AdminInfoByUsernameResponseDTO fetchAdminInfoByUsername(String username) {
+        Query query = createNativeQuery.apply(entityManager, QUERY_TO_FETCH_ADMIN_INFO_BY_USERNAME)
+                .setParameter(USERNAME, username)
+                .setParameter(EMAIL, username);
+
+        List<Object[]> results = query.getResultList();
+
+        return results.isEmpty() ? null : parseToAdminInfoByUsernameResponseDTO(results.get(0));
     }
 
     public AdminResponseDTO getAdminResponseDTO(Long id) {

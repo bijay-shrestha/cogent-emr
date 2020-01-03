@@ -19,6 +19,7 @@ public class WebResourceKeyConstants {
         String AVATAR = "/avatar";
         String VERIFY = "/verify";
         String INFO = "/info";
+        String ADMIN_ID_PATH_VARIABLE_BASE = "/{adminId}";
     }
 
     public interface AppointmentModeConstants {
@@ -252,6 +253,8 @@ public class WebResourceKeyConstants {
     }
 
     //U
+    public static final String USERNAME_VARIABLE_BASE ="/{username}";
+
     public interface UnitConstants {
         String BASE_UNIT = "/units";
     }

@@ -20,13 +20,13 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 @EnableWebSecurity
 @EntityScan(basePackages = {"com.cogent.persistence.model"})
-public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final JwtConfig jwtConfig;
 
-    public SecurityCredentialsConfig(@Qualifier("userDetailsServiceImpl") @Lazy UserDetailsService userDetailsService,
-                                     @Lazy JwtConfig jwtConfig) {
+    public SecurityConfig(@Qualifier("userDetailsServiceImpl") @Lazy UserDetailsService userDetailsService,
+                          @Lazy JwtConfig jwtConfig) {
         this.userDetailsService = userDetailsService;
         this.jwtConfig = jwtConfig;
     }
@@ -39,7 +39,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+                .authenticationEntryPoint(authenticationEntryPoint())
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
                 .authorizeRequests()

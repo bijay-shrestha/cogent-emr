@@ -2,6 +2,7 @@ package com.cogent.admin.controller.v1;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
 import com.cogent.admin.dto.request.admin.*;
+import com.cogent.admin.dto.response.admin.AdminInfoByUsernameResponseDTO;
 import com.cogent.admin.service.AdminService;
 import com.cogent.admin.service.StorageService;
 import com.cogent.admin.utils.ObjectMapperUtils;
@@ -139,4 +140,9 @@ public class AdminController {
         return ok(adminService.fetchLoggedInAdminInfo(requestDTO));
     }
 
+    @GetMapping(USERNAME_VARIABLE_BASE)
+    @ApiOperation(FETCH_INFO_BY_USERNAME)
+    public AdminInfoByUsernameResponseDTO fetchAdminInfoByUsername(@PathVariable("username") String username) {
+        return adminService.fetchAdminInfoByUsername(username);
+    }
 }
