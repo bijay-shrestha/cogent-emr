@@ -198,7 +198,7 @@ public class ProfileServiceImpl implements ProfileService {
         AssignedProfileResponseDTO responseDTO =
                 profileRepository.fetchAssignedProfileResponseDto(searchRequestDTO);
 
-        log.info(FETCHING_PROCESS_STARTED, PROFILE, getDifferenceBetweenTwoTime(startTime));
+        log.info(FETCHING_PROCESS_COMPLETED, PROFILE, getDifferenceBetweenTwoTime(startTime));
 
         return responseDTO;
     }

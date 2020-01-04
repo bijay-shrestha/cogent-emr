@@ -159,7 +159,8 @@ public class AdminQuery {
                     " a.fullName as fullName," +                                        //[2]
                     " sd.id as subDepartmentId," +                                      //[3]
                     " sd.name as subDepartmentName," +                                  //[4]
-                    " p.name as profileName" +                                          //[5]
+                    " p.name as profileName," +                                         //[5]
+                    " p.id as profileId" +                                              //[6]
                     " FROM Admin a " +
                     " LEFT JOIN AdminProfile ap ON ap.adminId = a.id" +
                     " LEFT JOIN Profile p ON p.id = ap.profileId" +
