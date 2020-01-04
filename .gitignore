@@ -133,3 +133,5 @@ target/
 build/
 
 
+### VS Code ###
+.vscode/
