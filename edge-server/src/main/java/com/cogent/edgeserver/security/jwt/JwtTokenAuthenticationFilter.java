@@ -80,6 +80,10 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(auth);
 
+            System.out.println(String.format("%s request to %s", request.getMethod(), request.getRequestURL().
+                    toString()) + " " + request.getHeader(jwtConfig.getHeader()));
+
+
             request.setAttribute(USERNAME, username);
 
             chain.doFilter(request, response);
