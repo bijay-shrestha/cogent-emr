@@ -2,6 +2,7 @@ package com.cogent.admin.repository.custom.impl;
 
 import com.cogent.admin.dto.request.admin.AdminInfoRequestDTO;
 import com.cogent.admin.dto.request.admin.AdminSearchRequestDTO;
+import com.cogent.admin.dto.request.admin.AdminSubDepartmentRequestDTO;
 import com.cogent.admin.dto.request.admin.AdminUpdateRequestDTO;
 import com.cogent.admin.dto.response.admin.*;
 import com.cogent.admin.exception.NoContentFoundException;
@@ -124,6 +125,15 @@ public class AdminRepositoryCustomImpl implements AdminRepositoryCustom {
         } catch (NoResultException e) {
             throw new NoContentFoundException(ADMIN_INFO_NOT_FOUND);
         }
+    }
+
+    @Override
+    public List<AdminSubDepartmentResponseDTO> fetchLoggedInAdminSubdepartmentList(AdminSubDepartmentRequestDTO requestDTO) {
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_LOGGED_IN_ADMIN_SUB_DEPARTMENT_LIST)
+                .setParameter(USERNAME, requestDTO.getUsername());
+
+        return  transformQueryToResultList(query,AdminSubDepartmentResponseDTO.class);
+
     }
 
     public AdminResponseDTO getAdminResponseDTO(Long id) {

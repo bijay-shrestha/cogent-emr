@@ -168,4 +168,16 @@ public class AdminQuery {
                     " a.status = 'Y'" +
                     " AND (a.username=:username OR a.email =:email)" +
                     " AND sd.code=:code";
+
+    public static final String QUERY_TO_FETCH_LOGGED_IN_ADMIN_SUB_DEPARTMENT_LIST =
+            "SELECT" +
+                    " sd.id as subDepartmentId," +
+                    " sd.name as subDepartmentName," +
+                    " sd.code as subDepartmentCode" +
+                    " FROM SubDepartment sd" +
+                    " LEFT JOIN Profile p ON p.subDepartment.id=sd.id" +
+                    " LEFT JOIN AdminProfile ap ON ap.profileId=p.id" +
+                    " LEFT JOIN Admin a ON a.id=ap.adminId" +
+                    " WHERE a.username=:username" +
+                    " AND a.status='Y'";
 }

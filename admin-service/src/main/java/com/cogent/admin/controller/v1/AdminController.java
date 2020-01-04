@@ -139,4 +139,10 @@ public class AdminController {
         return ok(adminService.fetchLoggedInAdminInfo(requestDTO));
     }
 
+    @PutMapping(SUB_DEPARTMENT)
+    @ApiOperation(FETCH_LOGGED_IN_ADMIN_INFO)
+    public ResponseEntity<?> fetchLoggedInAdminSubDepartmentInfo(@Valid @RequestBody AdminSubDepartmentRequestDTO requestDTO) {
+        return ok(adminService.fetchLoggedInAdminSubDepartmentList(requestDTO));
+    }
+
 }

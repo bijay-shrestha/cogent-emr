@@ -19,6 +19,7 @@ public class WebResourceKeyConstants {
         String AVATAR = "/avatar";
         String VERIFY = "/verify";
         String INFO = "/info";
+        String SUB_DEPARTMENT ="/sub-departments";
     }
 
     public interface AppointmentModeConstants {
