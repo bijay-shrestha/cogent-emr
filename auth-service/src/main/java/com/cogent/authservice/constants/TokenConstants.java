@@ -4,7 +4,7 @@ package com.cogent.authservice.constants;
  * @author smriti ON 02/01/2020
  */
 
-public class StringConstants {
+public class TokenConstants {
 
     //A
     public static final String AUTHORITIES = "authorities";

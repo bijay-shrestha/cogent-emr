@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ObjectToJSONUtils {
 
-    public static <T> String writeObjectToJson(T requestDTO) throws JsonProcessingException {
+    public static <T> String writeValueAsString(T requestDTO) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(requestDTO);
     }
