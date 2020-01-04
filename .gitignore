@@ -135,3 +135,5 @@ build/
 ### VS Code ###
 .vscode/
 database.yml
+development.yml
+production.yml
