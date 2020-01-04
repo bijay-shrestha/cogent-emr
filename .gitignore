@@ -134,3 +134,4 @@ build/
 
 ### VS Code ###
 .vscode/
+database.yml
