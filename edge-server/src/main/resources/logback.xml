@@ -135,6 +135,12 @@
         <appender-ref ref="COMMON"/>
     </logger>
 
+    <logger name="org.springframework" level="INFO" additivity="false">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="COMMON"/>
+    </logger>
+
     <root level="WARN">
         <appender-ref ref="FILE_ROOT"/>
         <appender-ref ref="FILE"/>
