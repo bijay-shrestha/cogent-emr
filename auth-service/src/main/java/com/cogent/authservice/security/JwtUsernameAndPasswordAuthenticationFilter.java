@@ -1,15 +1,14 @@
-package com.cogent.authservice.configuration;
+package com.cogent.authservice.security;
 import com.cogent.authservice.dto.LoginResponse;
 import com.cogent.authservice.model.UserCredentials;
 
+import com.cogent.contextserver.security.JwtConfig;
 import com.cogent.genericservice.cookies.CookieUtils;
-import com.cogent.genericservice.security.JwtConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

@@ -1,14 +1,16 @@
 package com.cogent.edgeserver.security;
 
+import com.cogent.contextserver.security.JwtConfig;
 import com.cogent.edgeserver.checkpoint.CookieCheckpoint;
 import com.cogent.edgeserver.checkpoint.JwtTokenCheckpoint;
 import com.cogent.genericservice.cookies.CookieUtils;
-import com.cogent.genericservice.security.JwtConfig;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -30,13 +32,14 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtConfig jwtConfig;
 
-    public static final ThreadLocal<String> THREAD_VARIABLE = new ThreadLocal<>();
     public JwtTokenAuthenticationFilter(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain) throws ServletException, IOException {
 
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
@@ -76,19 +79,25 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                     ).collect(Collectors.toList()));
 
             SecurityContextHolder.getContext().setAuthentication(auth);
-            log.info("JWTConfig :: Header", jwtConfig.getHeader());
 
-            log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().
+            log.info(String.format("%s REQUEST TO %s", request.getMethod(), request.getRequestURL().
                     toString()) + " " + request.getHeader(jwtConfig.getHeader()));
 
-            THREAD_VARIABLE.set(username);
+
+            Object principal =
+                    SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails) principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+
+            log.info("NAME ((^.^)) {}", username);
+
             request.setAttribute("username", username);
             chain.doFilter(request, response);
-
-
         }
-
-
     }
 }
 

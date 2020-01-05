@@ -1,6 +1,6 @@
 package com.cogent.contextserver.filter;
 
-import com.cogent.genericservice.security.JwtConfig;
+import com.cogent.contextserver.security.JwtConfig;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -25,7 +25,6 @@ public class UserContextInterceptor implements ClientHttpRequestInterceptor {
 
         HttpHeaders headers = request.getHeaders();
         headers.add(jwtConfig.getHeader(), UserContextHolder.getContext().getUsername());
-
 
         return execution.execute(request, body);
     }

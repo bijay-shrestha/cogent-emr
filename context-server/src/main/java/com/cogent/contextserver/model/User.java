@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class User extends Auditable<String> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "first_name", nullable = false)
@@ -28,5 +28,8 @@ public class User extends Auditable<String> {
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name="username", nullable = false)
+    private String username;
 
 }

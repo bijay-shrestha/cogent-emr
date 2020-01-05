@@ -1,14 +1,16 @@
 package com.cogent.contextserver.filter;
 
-import com.cogent.genericservice.security.JwtConfig;
+import com.cogent.contextserver.security.JwtConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Enumeration;
 
 @Component
 @Slf4j
@@ -16,7 +18,8 @@ public class UserContextFilter implements Filter {
 
     private ServletContext context;
 
-    private final JwtConfig jwtConfig;
+    @Autowired
+    private JwtConfig jwtConfig;
 
     public UserContextFilter(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
@@ -34,15 +37,6 @@ public class UserContextFilter implements Filter {
                          FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-
-
-        Enumeration<String> params = request.getParameterNames();
-        while(params.hasMoreElements()){
-            String name = params.nextElement();
-            String value = request.getParameter(name);
-            this.context.log(request.getRemoteAddr() + "::Request Params::{"+name+"="+value+"}");
-        }
-
         Cookie[] cookies = request.getCookies();
         if(cookies != null){
             for(Cookie cookie : cookies){
@@ -51,7 +45,17 @@ public class UserContextFilter implements Filter {
             }
         }
 
+        String username;
+        Object principal =
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
         log.info("USERNAME FROM CONTEXT :: ", servletRequest.getAttribute("username"));
+        log.info("USERNAME :: {}", username);
         log.info("ENTERING USER CONTEXT WITH REQUEST HEADER VALUE AS ****: " + request.getHeader("username"));
         UserContextHolder.getContext().setUsername(request.getHeader("username"));
 

@@ -1,7 +1,7 @@
 package com.cogent.edgeserver.configuration;
 
 import com.cogent.contextserver.filter.UserContextFilter;
-import com.cogent.genericservice.security.JwtConfig;
+import com.cogent.contextserver.security.JwtConfig;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

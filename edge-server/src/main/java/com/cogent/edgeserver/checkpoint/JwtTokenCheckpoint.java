@@ -1,7 +1,7 @@
 package com.cogent.edgeserver.checkpoint;
 
+import com.cogent.contextserver.security.JwtConfig;
 import com.cogent.edgeserver.exception.InvalidCredentialException;
-import com.cogent.genericservice.security.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.context.SecurityContextHolder;

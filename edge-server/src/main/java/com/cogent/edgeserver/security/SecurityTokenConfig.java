@@ -1,11 +1,13 @@
 package com.cogent.edgeserver.security;
 
-import com.cogent.contextserver.filter.UserContextFilter;
+import com.cogent.contextserver.security.JwtConfig;
 import com.cogent.edgeserver.filters.AddRequestHeaderFilter;
 import com.cogent.edgeserver.modules.Modules;
 import com.cogent.edgeserver.modules.Roles;
-import com.cogent.genericservice.security.JwtConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,15 +16,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.Filter;
 import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity
+@Configuration
+@ComponentScan({
+        "com.cogent.contextserver.security"
+})
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
     private JwtConfig jwtConfig;
 
-    public SecurityTokenConfig(@Lazy JwtConfig jwtConfig) {
+    public SecurityTokenConfig(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
     }
 
@@ -53,9 +59,4 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
         return new AddRequestHeaderFilter(jwtConfig);
     }
 
-
-    @Bean
-    public JwtConfig jwtConfig(){
-        return new JwtConfig();
-    }
 }

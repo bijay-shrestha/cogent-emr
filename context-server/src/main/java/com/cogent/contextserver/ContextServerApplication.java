@@ -1,22 +1,34 @@
 package com.cogent.contextserver;
 
-import com.cogent.contextserver.config.AuditorAwareImpl;
 import com.cogent.contextserver.filter.UserContextFilter;
-import com.cogent.genericservice.security.JwtConfig;
+import com.cogent.contextserver.model.File;
+import com.cogent.contextserver.repository.FileRepository;
+import com.cogent.contextserver.security.JwtConfig;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.AuditorAware;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
 
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableJpaAuditing(auditorAwareRef = "auditorAware")
+@EnableJpaAuditing
+@EnableJpaRepositories
+@ComponentScan({
+		"com.cogent.contextserver.security"
+})
 public class ContextServerApplication {
+
+    @Resource
+    FileRepository fileRepository;
 
     @Bean
     public Filter userContextFilter() {
@@ -32,9 +44,12 @@ public class ContextServerApplication {
 		return new JwtConfig();
 	}
 
-	@Bean
-	public AuditorAware<String> auditorAware() {
-		return new AuditorAwareImpl();
-	}
-
+//    @Override
+//    public void run(String... args) throws Exception {
+//        File file = new File("Java Notes", "Java is awesome");
+//        fileRepository.saveAndFlush(file);
+//
+//        file.setName("Linux Notes");
+//        fileRepository.saveAndFlush(file);
+//    }
 }
