@@ -13,7 +13,7 @@
     </appender>
 
     <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/admin/info.log</file>
+        <file>${PROD_HOME}/admin-service/info.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>
                 %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -%msg%n
@@ -22,7 +22,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/admin/info.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/admin-service/info.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -31,7 +31,7 @@
     </appender>
 
     <appender name="FILE_INFO_REPO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/admin/repositoryinfo.log</file>
+        <file>${PROD_HOME}/admin-service/repositoryinfo.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>
                 %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -%msg%n
@@ -40,7 +40,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/admin/repositoryinfo.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/admin-service/repositoryinfo.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -49,10 +49,10 @@
     </appender>
 
     <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/admin/error.log</file>
+        <file>${PROD_HOME}/admin-service/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/admin/error.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/admin-service/error.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -68,10 +68,10 @@
 
 
     <appender name="FILE_ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/admin/root.log</file>
+        <file>${PROD_HOME}/admin-service/root.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/admin/root.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/admin-service/root.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -86,10 +86,10 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/admin/log.log</file>
+        <file>${PROD_HOME}/admin-service/log.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/admin/log.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/admin-service/log.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize><!-- archive at this file size -->
@@ -118,14 +118,14 @@
                 ${COMMON_LOG}/archived/common.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>100MB</maxFileSize>
+                <maxFileSize>1000MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
 
     <!--send info logs to file-->
     <logger name="com.cogent.admin.service.impl">
-        <level value="INFO" />
+        <Level value="INFO" />
         <appender-ref ref="FILE_INFO"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
@@ -133,7 +133,7 @@
     </logger>
 
     <logger name="com.cogent.admin.serviceRepository.custom.impl">
-        <level value="INFO" />
+        <Level value="INFO" />
         <appender-ref ref="FILE_INFO_REPO"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
@@ -141,7 +141,7 @@
     </logger>
 
     <logger name="com.cogent.admin" additivity="false" >
-        <level value="INFO" />
+        <Level value="INFO" />
         <appender-ref ref="FILE_INFO"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
@@ -149,21 +149,33 @@
     </logger>
 
     <logger name="com.cogent.admin"  additivity="false">
-        <level value="ERROR" />
+        <Level value="ERROR" />
         <appender-ref ref="FILE_ERROR"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework" level="INFO" additivity="false">
+    <logger name="org.springframework" Level="INFO" additivity="false">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="COMMON"/>
+    </logger>
+
+    <logger name="org.springframework.web" Level="ERROR" >
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="COMMON"/>
+    </logger>
+
+    <logger name="org.springframework.transaction" Level="ERROR" >
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
     <root >
-        <level value="WARN" />
+        <Level value="WARN" />
         <appender-ref ref="FILE_ROOT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>

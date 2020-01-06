@@ -14,7 +14,7 @@
     </appender>
 
     <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/auth/info.log</file>
+        <file>${PROD_HOME}/auth-service/info.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>
                 %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -%msg%n
@@ -23,7 +23,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/auth/info.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/auth-service/info.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -32,7 +32,7 @@
     </appender>
 
     <appender name="FILE_INFO_REPO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/auth/repositoryinfo.log</file>
+        <file>${PROD_HOME}/auth-service/repositoryinfo.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>
                 %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -%msg%n
@@ -41,7 +41,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/auth/repositoryinfo.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/auth-service/repositoryinfo.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -50,10 +50,10 @@
     </appender>
 
     <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/auth/error.log</file>
+        <file>${PROD_HOME}/auth-service/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/auth/error.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/auth-service/error.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -69,10 +69,10 @@
 
 
     <appender name="FILE_ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/auth/root.log</file>
+        <file>${PROD_HOME}/auth-service/root.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/auth/root.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/auth-service/root.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -87,10 +87,10 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/auth/log.log</file>
+        <file>${PROD_HOME}/auth-service/log.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/auth/log.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/auth-service/log.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize><!-- archive at this file size -->
@@ -119,7 +119,7 @@
                 ${COMMON_LOG}/archived/common.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>100MB</maxFileSize>
+                <maxFileSize>1000MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
@@ -132,33 +132,45 @@
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="com.cogent.authservice.repository" level="INFO">
+    <logger name="com.cogent.authservice.repository" Level="INFO">
         <appender-ref ref="FILE_INFO_REPO"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="com.cogent.authservice" level="INFO" additivity="false">
+    <logger name="com.cogent.authservice" Level="INFO" additivity="false">
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="com.cogent.authservice" level="ERROR" additivity="false">
+    <logger name="com.cogent.authservice" Level="ERROR" additivity="false">
         <appender-ref ref="FILE_ERROR"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework" level="INFO" additivity="false">
+    <logger name="org.springframework" Level="INFO" additivity="false">
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <root level="WARN">
+    <logger name="org.springframework.web" Level="ERROR" >
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="COMMON"/>
+    </logger>
+
+    <logger name="org.springframework.transaction" Level="ERROR" >
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="COMMON"/>
+    </logger>
+
+    <root Level="WARN">
         <appender-ref ref="FILE_ROOT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>

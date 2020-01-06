@@ -13,7 +13,7 @@
     </appender>
 
     <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/edge/info.log</file>
+        <file>${PROD_HOME}/edge-server/info.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>
                 %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -%msg%n
@@ -22,7 +22,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/info.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/edge-server/info.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -31,7 +31,7 @@
     </appender>
 
     <appender name="FILE_INFO_REPO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/edge/repositoryinfo.log</file>
+        <file>${PROD_HOME}/edge-server/repositoryinfo.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>
                 %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -%msg%n
@@ -40,7 +40,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/edge/repositoryinfo.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/edge-server/repositoryinfo.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -49,10 +49,10 @@
     </appender>
 
     <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/edge/error.log</file>
+        <file>${PROD_HOME}/edge-server/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/edge/error.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/edge-server/error.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -68,10 +68,10 @@
 
 
     <appender name="FILE_ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/edge/root.log</file>
+        <file>${PROD_HOME}/edge-server/root.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/edge/root.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/edge-server/root.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -86,10 +86,10 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${PROD_HOME}/edge/log.log</file>
+        <file>${PROD_HOME}/edge-server/log.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${PROD_HOME}/archived/edge/log.%d{yyyy-MM-dd}.%i.log
+                ${PROD_HOME}/archived/edge-server/log.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize><!-- archive at this file size -->
@@ -123,25 +123,37 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="com.cogent.edgeserver" level="INFO" additivity="false">
+    <logger name="com.cogent.edgeserver" Level="INFO" additivity="false">
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
-    <logger name="com.cogent.edgeserver" level="ERROR" additivity="false">
+    <logger name="com.cogent.edgeserver" Level="ERROR" additivity="false">
         <appender-ref ref="FILE_ERROR"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework" level="INFO" additivity="false">
+    <logger name="org.springframework" Level="INFO" additivity="false">
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <root level="WARN">
+    <logger name="org.springframework.web" Level="ERROR" >
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="COMMON"/>
+    </logger>
+
+    <logger name="org.springframework.transaction" Level="ERROR" >
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="COMMON"/>
+    </logger>
+
+    <root Level="WARN">
         <appender-ref ref="FILE_ROOT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
