@@ -1,9 +1,11 @@
 package com.cogent.admin.service.impl;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
+import com.cogent.admin.dto.request.profile.ProfileMenuSearchRequestDTO;
 import com.cogent.admin.dto.request.profile.ProfileRequestDTO;
 import com.cogent.admin.dto.request.profile.ProfileSearchRequestDTO;
 import com.cogent.admin.dto.request.profile.ProfileUpdateRequestDTO;
+import com.cogent.admin.dto.response.profile.AssignedProfileResponseDTO;
 import com.cogent.admin.dto.response.profile.ProfileDetailResponseDTO;
 import com.cogent.admin.dto.response.profile.ProfileDropdownDTO;
 import com.cogent.admin.dto.response.profile.ProfileMinimalResponseDTO;
@@ -184,6 +186,21 @@ public class ProfileServiceImpl implements ProfileService {
         log.info(FETCHING_PROCESS_FOR_DROPDOWN_COMPLETED, PROFILE, getDifferenceBetweenTwoTime(startTime));
 
         return responseDTOS;
+    }
+
+    @Override
+    public AssignedProfileResponseDTO fetchAssignedProfileResponseDto(ProfileMenuSearchRequestDTO searchRequestDTO) {
+
+        Long startTime = getTimeInMillisecondsFromLocalDate();
+
+        log.info(FETCHING_PROCESS_STARTED, PROFILE);
+
+        AssignedProfileResponseDTO responseDTO =
+                profileRepository.fetchAssignedProfileResponseDto(searchRequestDTO);
+
+        log.info(FETCHING_PROCESS_COMPLETED, PROFILE, getDifferenceBetweenTwoTime(startTime));
+
+        return responseDTO;
     }
 
     private Function<Long, NoContentFoundException> PROFILE_WITH_GIVEN_ID_NOT_FOUND = (id) -> {

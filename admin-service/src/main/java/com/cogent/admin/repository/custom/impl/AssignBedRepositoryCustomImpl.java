@@ -52,7 +52,7 @@ public class AssignBedRepositoryCustomImpl implements AssignBedRepositoryCustom 
 
     @Override
     public List<AssignBedMinimalResponseDTO> searchAssignedBed(AssignBedSearchRequestDTO searchRequestDTO, Pageable pageable) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_ASSIGNED_BED.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_ASSIGNED_BED.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -69,7 +69,7 @@ public class AssignBedRepositoryCustomImpl implements AssignBedRepositoryCustom 
 
     @Override
     public AssignBedResponseDTO fetchAssignBedDetails(Long id) {
-        Query query = getQuery.apply(entityManager, FETCH_ASSIGNED_BED_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_ASSIGNED_BED_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, AssignBedResponseDTO.class);
@@ -80,7 +80,7 @@ public class AssignBedRepositoryCustomImpl implements AssignBedRepositoryCustom 
 
     @Override
     public Optional<List<DropDownResponseDTO>> dropDownList(Long wardId) {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_ASSIGNED_BED_BY_WARD_ID)
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_ASSIGNED_BED_BY_WARD_ID)
                 .setParameter(WARD_ID,wardId);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
@@ -91,7 +91,7 @@ public class AssignBedRepositoryCustomImpl implements AssignBedRepositoryCustom 
 
     @Override
     public Optional<List<DropDownResponseDTO>> activeDropDownList(Long wardId) {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_ASSIGNED_BED_BY_WARD_ID)
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_ASSIGNED_BED_BY_WARD_ID)
                 .setParameter(WARD_ID,wardId);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
@@ -102,7 +102,7 @@ public class AssignBedRepositoryCustomImpl implements AssignBedRepositoryCustom 
 
     @Override
     public Long checkIfBedExixts(Long bedId, Long wardId, Long unitId) {
-        Query query = getQuery.apply(entityManager, CHECK_IF_BEDS_EXISTS)
+        Query query = createQuery.apply(entityManager, CHECK_IF_BEDS_EXISTS)
                 .setParameter(BED_ID, bedId)
                 .setParameter(WARD_ID, wardId)
                 .setParameter(UNIT_ID, unitId);

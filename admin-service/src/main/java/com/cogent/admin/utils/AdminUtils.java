@@ -10,9 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -51,8 +49,8 @@ public class AdminUtils {
     }
 
     public static void convertAdminUpdateRequestDTOToAdmin(Admin admin,
-                                                            AdminUpdateRequestDTO adminRequestDTO,
-                                                            AdminCategory adminCategory) {
+                                                           AdminUpdateRequestDTO adminRequestDTO,
+                                                           AdminCategory adminCategory) {
 
         admin.setFullName(toUpperCase(adminRequestDTO.getFullName()));
         admin.setEmail(adminRequestDTO.getEmail());
@@ -301,7 +299,7 @@ public class AdminUtils {
         return AdminResponseDTO.builder()
                 .id(Long.parseLong(objects[ADMIN_ID_INDEX].toString()))
                 .fullName(objects[FULL_NAME_INDEX].toString())
-                .username(objects[FULL_NAME_INDEX].toString())
+                .username(objects[USERNAME_INDEX].toString())
                 .email(objects[EMAIL_INDEX].toString())
                 .mobileNumber(objects[MOBILE_NUMBER_INDEX].toString())
                 .status(objects[STATUS_INDEX].toString().charAt(0))
@@ -336,5 +334,19 @@ public class AdminUtils {
                         .adminApplicationModuleId(Long.parseLong(adminApplicationModuleIds[i]))
                         .applicationModuleId(Long.parseLong(applicationModuleIds[i]))
                         .build()).collect(Collectors.toList());
+    }
+
+    public static AdminInfoByUsernameResponseDTO parseToAdminInfoByUsernameResponseDTO(Object[] queryResult) {
+
+        final int ASSIGNED_SUB_DEPARTMENT_CODES_INDEX = 0;
+        final int PASSWORD_INDEX = 1;
+
+        List<String> subDepartmentCodes = new ArrayList<>(Arrays.asList(
+                queryResult[ASSIGNED_SUB_DEPARTMENT_CODES_INDEX].toString().split(COMMA_SEPARATED)));
+
+        return AdminInfoByUsernameResponseDTO.builder()
+                .assignedApplicationModuleCodes(subDepartmentCodes)
+                .password(queryResult[PASSWORD_INDEX].toString())
+                .build();
     }
 }

@@ -14,7 +14,7 @@ import java.util.function.Function;
 import static com.cogent.admin.constants.ErrorMessageConstants.AdminServiceMessages.INVALID_CONFIRMATION_TOKEN;
 import static com.cogent.admin.constants.QueryConstants.CONFIRMATION_TOKEN;
 import static com.cogent.admin.query.AdminConfirmationTokenQuery.QUERY_TO_FETCH_CONFIRMATION_TOKEN_STATUS;
-import static com.cogent.admin.utils.QueryUtils.getQuery;
+import static com.cogent.admin.utils.QueryUtils.createQuery;
 
 /**
  * @author smriti on 2019-09-23
@@ -28,7 +28,7 @@ public class AdminConfirmationTokenRepositoryCustomImpl implements AdminConfirma
 
     @Override
     public Object findByConfirmationToken(String confirmationToken) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_CONFIRMATION_TOKEN_STATUS)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_CONFIRMATION_TOKEN_STATUS)
                 .setParameter(CONFIRMATION_TOKEN, confirmationToken);
         try {
             return query.getSingleResult();

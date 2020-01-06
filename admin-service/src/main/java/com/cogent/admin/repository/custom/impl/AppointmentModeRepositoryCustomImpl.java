@@ -37,7 +37,7 @@ public class AppointmentModeRepositoryCustomImpl implements AppointmentModeRepos
 
     @Override
     public Long fetchAppointmentModeByName(String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_MODE_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_MODE_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -45,7 +45,7 @@ public class AppointmentModeRepositoryCustomImpl implements AppointmentModeRepos
 
     @Override
     public Long fetchAppointmentModeByIdAndName(Long id, String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_MODE_COUNT_BY_ID_AND_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_MODE_COUNT_BY_ID_AND_NAME)
                 .setParameter(ID, id)
                 .setParameter(NAME, name);
 
@@ -56,7 +56,7 @@ public class AppointmentModeRepositoryCustomImpl implements AppointmentModeRepos
     public List<AppointmentModeMinimalResponseDTO> search(AppointmentModeSearchRequestDTO searchRequestDTO,
                                                           Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_APPOINTMENT_MODE(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_APPOINTMENT_MODE(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -74,7 +74,7 @@ public class AppointmentModeRepositoryCustomImpl implements AppointmentModeRepos
 
     @Override
     public List<DropDownResponseDTO> fetchActiveAppointmentModeForDropdown() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_APPOINTMENT_MODE);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_APPOINTMENT_MODE);
 
         List<DropDownResponseDTO> results = transformQueryToResultList(query, DropDownResponseDTO.class);
 
@@ -84,7 +84,7 @@ public class AppointmentModeRepositoryCustomImpl implements AppointmentModeRepos
 
     @Override
     public AppointmentModeResponseDTO fetchDetailsById(Long id) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_APPOINTMENT_MODE_DETAILS)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_APPOINTMENT_MODE_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, AppointmentModeResponseDTO.class);

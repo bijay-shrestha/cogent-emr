@@ -14,10 +14,13 @@ public class WebResourceKeyConstants {
     }
 
     public interface AdminConstants {
-        String BASE_ADMIN = "/admins";
+        String BASE_ADMIN = "/admin";
         String PASSWORD = "/password";
         String AVATAR = "/avatar";
         String VERIFY = "/verify";
+        String INFO = "/info";
+        String ADMIN_ID_PATH_VARIABLE_BASE = "/{adminId}";
+        String SUB_DEPARTMENT ="/sub-departments";
     }
 
     public interface AppointmentModeConstants {
@@ -227,6 +230,10 @@ public class WebResourceKeyConstants {
     public static final String SAVE = "/save";
     public static final String SEARCH = "/search";
 
+    public interface SidebarConstants {
+        String BASE_SIDE_BAR = "/sidebar";
+    }
+
     public interface SpecializationConstants {
         String BASE_SPECIALIZATION = "/specialization";
         String DOCTOR_ID_PATH_VARIABLE_BASE = "/{doctorId}";
@@ -247,6 +254,8 @@ public class WebResourceKeyConstants {
     }
 
     //U
+    public static final String USERNAME_VARIABLE_BASE ="/{username}";
+
     public interface UnitConstants {
         String BASE_UNIT = "/units";
     }

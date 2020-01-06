@@ -1,9 +1,11 @@
 package com.cogent.admin.service;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
+import com.cogent.admin.dto.request.profile.ProfileMenuSearchRequestDTO;
 import com.cogent.admin.dto.request.profile.ProfileRequestDTO;
 import com.cogent.admin.dto.request.profile.ProfileSearchRequestDTO;
 import com.cogent.admin.dto.request.profile.ProfileUpdateRequestDTO;
+import com.cogent.admin.dto.response.profile.AssignedProfileResponseDTO;
 import com.cogent.admin.dto.response.profile.ProfileDetailResponseDTO;
 import com.cogent.admin.dto.response.profile.ProfileDropdownDTO;
 import com.cogent.admin.dto.response.profile.ProfileMinimalResponseDTO;
@@ -32,4 +34,6 @@ public interface ProfileService {
     Profile fetchActiveProfileById(Long id);
 
     List<ProfileDropdownDTO> fetchProfileBySubDepartmentId(Long subDepartmentId);
+
+    AssignedProfileResponseDTO fetchAssignedProfileResponseDto(ProfileMenuSearchRequestDTO profileMenuSearchRequestDTO);
 }

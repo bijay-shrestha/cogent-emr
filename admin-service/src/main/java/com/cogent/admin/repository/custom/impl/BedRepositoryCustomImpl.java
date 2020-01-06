@@ -38,7 +38,7 @@ public class BedRepositoryCustomImpl implements BedRepositoryCustom {
 
     @Override
     public List<Object[]> findBedByNameOrCode(String name, String code) {
-        Query query = getQuery.apply(entityManager, FETCH_BED_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_BED_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -47,7 +47,7 @@ public class BedRepositoryCustomImpl implements BedRepositoryCustom {
 
     @Override
     public List<Object[]> checkBedNameAndCodeIfExist(Long id, String name, String code) {
-        Query query = getQuery.apply(entityManager, CHECK_BED_NAME_AND_CODE_IF_EXIST)
+        Query query = createQuery.apply(entityManager, CHECK_BED_NAME_AND_CODE_IF_EXIST)
                 .setParameter(ID,id)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
@@ -57,7 +57,7 @@ public class BedRepositoryCustomImpl implements BedRepositoryCustom {
 
     @Override
     public List<BedMinimalResponseDTO> searchBed(BedSearchRequestDTO searchRequestDTO, Pageable pageable) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_BED.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_BED.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -75,7 +75,7 @@ public class BedRepositoryCustomImpl implements BedRepositoryCustom {
 
     @Override
     public Optional<List<DropDownResponseDTO>> dropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_BED);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_BED);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -85,7 +85,7 @@ public class BedRepositoryCustomImpl implements BedRepositoryCustom {
 
     @Override
     public Optional<List<DropDownResponseDTO>> activeDropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_BED);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_BED);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -95,7 +95,7 @@ public class BedRepositoryCustomImpl implements BedRepositoryCustom {
 
     @Override
     public BedResponseDTO fetchBedDetails(Long id) {
-        Query query = getQuery.apply(entityManager, FETCH_BED_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_BED_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query,

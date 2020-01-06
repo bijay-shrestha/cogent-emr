@@ -12,7 +12,7 @@ import java.util.function.BiFunction;
  */
 public class QueryUtils {
 
-    public static BiFunction<EntityManager, String, Query> getQuery = (EntityManager::createQuery);
+    public static BiFunction<EntityManager, String, Query> createQuery = (EntityManager::createQuery);
 
     public static <T> List<T> transformQueryToResultList(Query query, Class<T> requestDTO) {
         return query.unwrap(org.hibernate.query.Query.class)

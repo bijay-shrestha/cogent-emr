@@ -3,7 +3,7 @@ package com.cogent.edgeserver.modules;
 public class Modules {
     public static String[] PHARMACY =
             {
-                    "/gallery/**",
+                    "/admin/**",
                     "/pharmacy/**",
 
             };
@@ -12,5 +12,4 @@ public class Modules {
                     "/accounting/**",
 
             };
-
 }

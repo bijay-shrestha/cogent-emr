@@ -23,5 +23,7 @@ public class ProfileMinimalResponseDTO implements Serializable {
 
     private String subDepartmentName;
 
+    private String departmentName;
+
     private Integer totalItems;
 }

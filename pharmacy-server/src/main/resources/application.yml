@@ -1,0 +1,29 @@
+server:
+  port: 8300
+
+spring:
+  application:
+    name: pharmacy-service
+
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: development
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 20000MB
+      max-request-size: 215000MB
+
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+    secure-port: 8761
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.secure-port}/eureka/

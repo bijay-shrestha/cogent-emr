@@ -33,7 +33,7 @@ public class WardUnitRepositoryCustomImpl implements WardUnitRepositoryCustom {
     @Override
     public List<Ward_Unit> fetchWardUnitByWardId(Long id) {
 
-        Query query = getQuery.apply(entityManager,FETCH_WARD_UNIT_BY_ID)
+        Query query = createQuery.apply(entityManager,FETCH_WARD_UNIT_BY_ID)
                 .setParameter(ID,id);
 
         List<Ward_Unit> wardUnits = transformQueryToResultList(query,
@@ -44,7 +44,7 @@ public class WardUnitRepositoryCustomImpl implements WardUnitRepositoryCustom {
 
     @Override
     public Ward_Unit fetchWardUnitByUnitAndWardId(Long unitId, Long wardId) {
-        Query query = getQuery.apply(entityManager,FETCH_WARD_UNIT_BY_UNIT_AND_WARD_ID)
+        Query query = createQuery.apply(entityManager,FETCH_WARD_UNIT_BY_UNIT_AND_WARD_ID)
                 .setParameter(WARD_ID,wardId)
                 .setParameter(UNIT_ID,unitId);
         try {

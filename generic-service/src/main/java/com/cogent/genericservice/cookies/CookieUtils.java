@@ -4,20 +4,19 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import static com.cogent.genericservice.cookies.CookieConstants.*;
-import static com.cogent.genericservice.cookies.CookieConstants.defaultPath;
 
 public class CookieUtils {
 
-    public static Cookie createCookie(
-            HttpServletResponse httpServletResponse,
-            String name,
-            String value) {
+    public static Cookie createCookie(HttpServletResponse httpServletResponse,
+                                      String name,
+                                      String value) {
 
         Cookie cookie = new Cookie(name, value);
         cookie.setHttpOnly(true);
         cookie.setMaxAge(maxAge);
         cookie.setPath(defaultPath);
         cookie.setComment(comment);
+        cookie.setDomain(domain);
 
         //cookie.setSecure(true);
         //cookie.setDomain(domain);
@@ -33,6 +32,5 @@ public class CookieUtils {
         cookie.setHttpOnly(true);
         cookie.setMaxAge(0);
         httpServletResponse.addCookie(cookie);
-
     }
 }

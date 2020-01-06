@@ -38,7 +38,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
     @Override
     public List<Object[]> fetchSubDepartmentByNameAndCode(String name, String code) {
 
-        Query query = getQuery.apply(entityManager, FETCH_SUB_DEPARTMENT_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_SUB_DEPARTMENT_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -48,7 +48,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
 
     @Override
     public List<Object[]> checkSubDepartmentNameAndCodeIfExist(Long id, String name, String code) {
-        Query query = getQuery.apply(entityManager, CHECK_SUB_DEPARTMENT_NAME_AND_CODE_IF_EXIST)
+        Query query = createQuery.apply(entityManager, CHECK_SUB_DEPARTMENT_NAME_AND_CODE_IF_EXIST)
                 .setParameter(ID, id)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
@@ -61,7 +61,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
 
         log.info(FETCH_SUB_DEPARTMENT_BY_DEPARTMENT_ID, departmentId);
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_SUB_DEPARTMENT_BY_DEPARTMENT_ID)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_SUB_DEPARTMENT_BY_DEPARTMENT_ID)
                 .setParameter(ID, departmentId);
 
         List<SubDepartment> subDepartments = transformQueryToResultList(query, SubDepartment.class);
@@ -75,7 +75,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
 
         log.info(FETCH_SUB_DEPARTMENT_BY_DEPARTMENT_ID, departmentId);
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_SUB_DEPARTMENT_TO_DELETE_BY_DEPARTMENT_ID)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_SUB_DEPARTMENT_TO_DELETE_BY_DEPARTMENT_ID)
                 .setParameter(ID, departmentId);
 
         List<DeleteRequestDTO> subDepartments = transformQueryToResultList(query, DeleteRequestDTO.class);
@@ -89,7 +89,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
 
         log.info(FETCH_SUB_DEPARTMENT_BY__ID, id);
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_SUB_DEPARTMENT_BY_ID)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_SUB_DEPARTMENT_BY_ID)
                 .setParameter(ID, id);
         try {
             SubDepartment subDepartment = transformQueryToSingleResult(query, SubDepartment.class);
@@ -102,7 +102,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
 
     @Override
     public Optional<SubDepartment> fetchActiveSubDepartmentByIdAndDepartmentId(Long id, Long departmentId) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_ACTIVE_SUB_DEPARTMENT_BY_ID_AND_DEPARTMENT_ID)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_ACTIVE_SUB_DEPARTMENT_BY_ID_AND_DEPARTMENT_ID)
                 .setParameter(ID, id)
                 .setParameter(DEPARTMENT_ID, departmentId);
         try {
@@ -116,7 +116,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
     public Optional<SubDepartmentResponseDTO> fetchSubDepartmentDetail(Long id) {
         log.info(FETCH_SUB_DEPARTMENT_DETAILS_BY__ID, SUB_DEPARTMENT, id);
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_SUB_DEPARTMENT_DETAILS_BY_ID)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_SUB_DEPARTMENT_DETAILS_BY_ID)
                 .setParameter(ID, id);
 
         try {
@@ -134,7 +134,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
             SubDepartmentSearchRequestDTO subDepartmentSearchRequestDTO, Pageable pageable) {
         log.info(SEARCH_SUB_DEPARTMENT, subDepartmentSearchRequestDTO);
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_SUB_DEPARTMENT
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_SUB_DEPARTMENT
                 .apply(subDepartmentSearchRequestDTO));
 
         int totalItems = query.getResultList().size();
@@ -156,7 +156,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
 
         log.info(FETCH_SUB_DEPARTMENT_ID_AND_NAME);
 
-        Query query = getQuery.apply(entityManager, GET_SUB_DEPARTMENT_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, GET_SUB_DEPARTMENT_DROP_DOWN_LIST);
 
         List<SubDepartmentDropDownDTO> dropDownDTOS = transformQueryToResultList(query, SubDepartmentDropDownDTO.class);
 
@@ -169,7 +169,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
 
         log.info(FETCH_SUB_DEPARTMENT_ID_AND_NAME);
 
-        Query query = getQuery.apply(entityManager, GET_SUB_DEPARTMENT_ACTIVE_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, GET_SUB_DEPARTMENT_ACTIVE_DROP_DOWN_LIST);
 
         List<SubDepartmentDropDownDTO> dropDownDTOS = transformQueryToResultList(query, SubDepartmentDropDownDTO.class);
 
@@ -180,7 +180,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
     @Override
     public Optional<List<SubDepartmentDropDownDTO>> fetchActiveDropDownListByDepartmentId(Long departmentId) {
 
-        Query query = getQuery.apply(entityManager, GET_SUB_DEPARTMENT_ACTIVE_DROP_DOWN_LIST_BY_DEPARTMENT_ID)
+        Query query = createQuery.apply(entityManager, GET_SUB_DEPARTMENT_ACTIVE_DROP_DOWN_LIST_BY_DEPARTMENT_ID)
                 .setParameter(DEPARTMENT_ID, departmentId);
 
         List<SubDepartmentDropDownDTO> dropDownDTOS = transformQueryToResultList(query, SubDepartmentDropDownDTO.class);
@@ -194,7 +194,7 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
 
         log.info(FETCH_SUB_DEPARTMENT_OBJECT_FOR_EXCEL);
 
-        Query query = getQuery.apply(entityManager, CREATE_QUERY_TO_FETCH_SUB_DEPARTMENT);
+        Query query = createQuery.apply(entityManager, CREATE_QUERY_TO_FETCH_SUB_DEPARTMENT);
 
         return query.getResultList();
 

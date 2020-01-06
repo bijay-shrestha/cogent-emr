@@ -36,7 +36,7 @@ public class ProvincesRepositoryCustomImpl implements ProvincesRepositoryCustom 
     @Override
     public Long fetchCountByName(String name) {
 
-        Query query = getQuery.apply(entityManager, FETCH_PROVINCE_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, FETCH_PROVINCE_COUNT_BY_NAME)
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
@@ -45,7 +45,7 @@ public class ProvincesRepositoryCustomImpl implements ProvincesRepositoryCustom 
     @Override
     public Optional<List<ProvincesDropDownResponseDTO>> fetchDropDownList() {
 
-        Query query = getQuery.apply(entityManager, FETCH_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, FETCH_DROP_DOWN_LIST);
 
         List<ProvincesDropDownResponseDTO> dropDownResponseDTOS = transformQueryToResultList(query,
                 ProvincesDropDownResponseDTO.class);
@@ -56,7 +56,7 @@ public class ProvincesRepositoryCustomImpl implements ProvincesRepositoryCustom 
     @Override
     public Optional<List<ProvincesDropDownResponseDTO>> fetchActiveDropDownList() {
 
-        Query query = getQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST);
 
         List<ProvincesDropDownResponseDTO> dropDownResponseDTOS = transformQueryToResultList(query,
                 ProvincesDropDownResponseDTO.class);
@@ -68,7 +68,7 @@ public class ProvincesRepositoryCustomImpl implements ProvincesRepositoryCustom 
     public List<ProvincesMinimalResponseDTO> searchProvinces(ProvincesSearchRequestDTO searchRequestDTO,
                                                              Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_PROVINCES.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_PROVINCES.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -87,7 +87,7 @@ public class ProvincesRepositoryCustomImpl implements ProvincesRepositoryCustom 
     @Override
     public ProvincesResponseDTO fetchProvincesDetails(Long id) {
 
-        Query query = getQuery.apply(entityManager, FETCH_DETAIL_PROVINCES_DATA)
+        Query query = createQuery.apply(entityManager, FETCH_DETAIL_PROVINCES_DATA)
                 .setParameter(ID, id);
 
         try {

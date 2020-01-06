@@ -44,7 +44,7 @@ public class DiscountSchemeRepositoryCustomImpl implements DiscountSchemeReposit
 
     @Override
     public List<Object[]> fetchDiscountSchemeByNameOrCode(String name, String code) {
-        Query query = getQuery.apply(entityManager, FETCH_DISCOUNT_SCHEME_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_DISCOUNT_SCHEME_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -53,7 +53,7 @@ public class DiscountSchemeRepositoryCustomImpl implements DiscountSchemeReposit
 
     @Override
     public List<Object[]> checkIfDiscountSchemeNameAndCodeExists(Long id, String name, String code) {
-        Query query=getQuery.apply(entityManager,CHECK_IF_DISCOUNT_SCHEME_EXISTS)
+        Query query= createQuery.apply(entityManager,CHECK_IF_DISCOUNT_SCHEME_EXISTS)
                 .setParameter(ID,id)
                 .setParameter(NAME,name)
                 .setParameter(CODE,code);
@@ -83,7 +83,7 @@ public class DiscountSchemeRepositoryCustomImpl implements DiscountSchemeReposit
 
     @Override
     public Optional<List<DiscountDropDownResponseDTO>> dropDownListWithNetDiscount() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_BY_DISCOUNT_SCHEME);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_BY_DISCOUNT_SCHEME);
 
         List<DiscountDropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DiscountDropDownResponseDTO.class);
@@ -93,7 +93,7 @@ public class DiscountSchemeRepositoryCustomImpl implements DiscountSchemeReposit
 
     @Override
     public Optional<List<DiscountDropDownResponseDTO>> activeDropDownListWithNetDiscount() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_BY_DISCOUNT_SCHEME);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_BY_DISCOUNT_SCHEME);
 
         List<DiscountDropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DiscountDropDownResponseDTO.class);
@@ -103,7 +103,7 @@ public class DiscountSchemeRepositoryCustomImpl implements DiscountSchemeReposit
 
     @Override
     public Optional<List<DepartmentDiscountDropDownResponseDTO>> dropDownListByDepartmentId(Long departmentId) {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_BY_DEPARTMENT_ID)
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_BY_DEPARTMENT_ID)
                 .setParameter(DEPARTMENT_ID,departmentId);
 
         List<DepartmentDiscountDropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
@@ -114,7 +114,7 @@ public class DiscountSchemeRepositoryCustomImpl implements DiscountSchemeReposit
 
     @Override
     public Optional<List<DepartmentDiscountDropDownResponseDTO>> activeDropDownListByDepartmentId(Long departmentId) {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_BY_DEPARTMENT_ID)
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_BY_DEPARTMENT_ID)
                 .setParameter(DEPARTMENT_ID,departmentId);
 
         List<DepartmentDiscountDropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
@@ -125,7 +125,7 @@ public class DiscountSchemeRepositoryCustomImpl implements DiscountSchemeReposit
 
     @Override
     public Optional<List<ServiceDiscountDropDownResponseDTO>> dropDownListByServiceId(Long serviceId) {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_BY_SERVICE_ID)
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_BY_SERVICE_ID)
                 .setParameter(SERVICE_ID, serviceId);
 
         List<ServiceDiscountDropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
@@ -136,7 +136,7 @@ public class DiscountSchemeRepositoryCustomImpl implements DiscountSchemeReposit
 
     @Override
     public Optional<List<ServiceDiscountDropDownResponseDTO>> activeDropDownListByServiceId(Long serviceId) {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_BY_SERVICE_ID)
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_BY_SERVICE_ID)
                 .setParameter(SERVICE_ID, serviceId);
 
         List<ServiceDiscountDropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,

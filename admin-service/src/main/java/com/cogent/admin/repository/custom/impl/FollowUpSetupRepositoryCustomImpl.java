@@ -33,7 +33,7 @@ public class FollowUpSetupRepositoryCustomImpl implements FollowUpSetupRepositor
 
     @Override
     public List<FollowUpSetupMinimalResponseDTO> fetchFollowUpSetup() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_FOLLOW_UP_SETUP);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_FOLLOW_UP_SETUP);
 
         List<FollowUpSetupMinimalResponseDTO> results = transformQueryToResultList(
                 query, FollowUpSetupMinimalResponseDTO.class);
@@ -45,7 +45,7 @@ public class FollowUpSetupRepositoryCustomImpl implements FollowUpSetupRepositor
 
     @Override
     public FollowUpSetupResponseDTO fetchDetailsById(Long id) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_FOLLOW_UP_SETUP_DETAILS)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_FOLLOW_UP_SETUP_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, FollowUpSetupResponseDTO.class);

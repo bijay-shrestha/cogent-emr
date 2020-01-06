@@ -13,7 +13,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 import static com.cogent.admin.query.CountryQuery.QUERY_TO_FETCH_ACTIVE_COUNTRY;
-import static com.cogent.admin.utils.QueryUtils.getQuery;
+import static com.cogent.admin.utils.QueryUtils.createQuery;
 import static com.cogent.admin.utils.QueryUtils.transformQueryToResultList;
 
 /**
@@ -28,7 +28,7 @@ public class CountryRepositoryCustomImpl implements CountryRepositoryCustom {
 
     @Override
     public List<DropDownResponseDTO> fetchActiveCountry() {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_COUNTRY);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_COUNTRY);
 
         List<DropDownResponseDTO> results = transformQueryToResultList(query, DropDownResponseDTO.class);
 

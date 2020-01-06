@@ -34,7 +34,7 @@ public class InsuranceCompanyRepositoryCustomImpl implements InsuranceCompanyRep
 
     @Override
     public Optional<List<DropDownResponseDTO>> fetchActiveDropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_INSURANCE_COMPANY);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_INSURANCE_COMPANY);
 
         List<DropDownResponseDTO> downResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -44,7 +44,7 @@ public class InsuranceCompanyRepositoryCustomImpl implements InsuranceCompanyRep
 
     @Override
     public Optional<List<DropDownResponseDTO>> fetchDropDownList() {
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_INSURANCE_COMPANY);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_INSURANCE_COMPANY);
 
         List<DropDownResponseDTO> dropDownResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -57,7 +57,7 @@ public class InsuranceCompanyRepositoryCustomImpl implements InsuranceCompanyRep
             InsuranceCompanySearchRequestDTO searchRequestDTO,
             Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_INSURANCE_COMPANY.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_INSURANCE_COMPANY.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -75,7 +75,7 @@ public class InsuranceCompanyRepositoryCustomImpl implements InsuranceCompanyRep
 
     @Override
     public InsuranceCompanyResponseDTO fetchInsuranceCompanyDetails(Long id) {
-        Query query = getQuery.apply(entityManager, FETCH_INSURANCE_COMPANY_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_INSURANCE_COMPANY_DETAILS)
                 .setParameter(ID, id);
 
         try {

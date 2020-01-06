@@ -40,7 +40,7 @@ public class EthnicityRepositoryCustomImpl implements EthnicityRepositoryCustom 
     @Override
     public Optional<List<EthnicityDropDownResponseDTO>> dropDownList() {
 
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_ETHNICITY);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_ETHNICITY);
 
         List<EthnicityDropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 EthnicityDropDownResponseDTO.class);
@@ -51,7 +51,7 @@ public class EthnicityRepositoryCustomImpl implements EthnicityRepositoryCustom 
     @Override
     public Optional<List<EthnicityDropDownResponseDTO>> activeDropDownList() {
 
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_ETHNICITY);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_ETHNICITY);
 
         List<EthnicityDropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 EthnicityDropDownResponseDTO.class);
@@ -63,7 +63,7 @@ public class EthnicityRepositoryCustomImpl implements EthnicityRepositoryCustom 
     public List<EthnicityMinimalResponseDTO> searchEthnicity(
             EthnicitySearchRequestDTO ethnicitySearchRequestDTO, Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_ETHNICITY.apply(ethnicitySearchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_ETHNICITY.apply(ethnicitySearchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -82,7 +82,7 @@ public class EthnicityRepositoryCustomImpl implements EthnicityRepositoryCustom 
     @Override
     public List<Object[]> fetchEthnicityByNameOrCode(String name, String code) {
 
-        Query query = getQuery.apply(entityManager, FETCH_ETHNICITY_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_ETHNICITY_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -91,7 +91,7 @@ public class EthnicityRepositoryCustomImpl implements EthnicityRepositoryCustom 
 
     @Override
     public List<Object[]> checkEthnicityNameAndCodeIfExist(Long id, String name, String code) {
-        Query query = getQuery.apply(entityManager, CHECK_IF_ETHNICITY_NAME_AND_CODE_EXISTS)
+        Query query = createQuery.apply(entityManager, CHECK_IF_ETHNICITY_NAME_AND_CODE_EXISTS)
                 .setParameter(ID,id)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
@@ -102,7 +102,7 @@ public class EthnicityRepositoryCustomImpl implements EthnicityRepositoryCustom 
     @Override
     public EthnicityResponseDTO fetchEthnicityDetails(Long id) {
 
-        Query query = getQuery.apply(entityManager, FETCH_ETHNICITY_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_ETHNICITY_DETAILS)
                 .setParameter(ID, id);
 
         try {

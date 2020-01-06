@@ -1,19 +1,15 @@
 package com.cogent.authservice.configuration;
 
-import com.cogent.authservice.dto.LoginResponse;
-import com.cogent.authservice.model.UserCredentials;
+import com.cogent.authservice.dto.LoginRequestDTO;
 import com.cogent.genericservice.cookies.CookieUtils;
+import com.cogent.genericservice.exception.UnauthorisedException;
 import com.cogent.genericservice.security.JwtConfig;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -24,16 +20,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Date;
-import java.util.stream.Collectors;
 
+import static com.cogent.authservice.log.AuthLog.*;
+import static com.cogent.authservice.utils.AuthUtils.createToken;
+import static com.cogent.authservice.utils.AuthUtils.parseToLoginResponse;
 import static com.cogent.genericservice.cookies.CookieConstants.key;
+import static com.cogent.genericservice.utils.ObjectToJSONUtils.writeValueAsString;
 
 @Slf4j
-public class JwtUsernameAndPasswordAuthenticationFilter
-        extends UsernamePasswordAuthenticationFilter {
+public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authManager;
+
     private final JwtConfig jwtConfig;
 
     public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authManager,
@@ -43,26 +41,26 @@ public class JwtUsernameAndPasswordAuthenticationFilter
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(jwtConfig.getUri(), "POST"));
     }
 
+    @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response)
-            throws AuthenticationException {
+                                                HttpServletResponse response) throws AuthenticationException {
 
-        log.info(":::: ====== ------ INSIDE AUTH SERVER  ------ ====== ::::");
+        log.info(AUTHENTICATION_PROCESS_STARTED);
 
         try {
-            UserCredentials creds = new ObjectMapper().readValue(request.getInputStream(),
-                    UserCredentials.class);
+            LoginRequestDTO requestDTO = new ObjectMapper().readValue(request.getInputStream(),
+                    LoginRequestDTO.class);
 
             UsernamePasswordAuthenticationToken authToken =
-                    new UsernamePasswordAuthenticationToken(creds.getUsername(),
-                            creds.getPassword(),
+                    new UsernamePasswordAuthenticationToken(requestDTO.getUsername(),
+                            requestDTO.getPassword(),
                             Collections.emptyList());
+
             return authManager.authenticate(authToken);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
@@ -71,43 +69,35 @@ public class JwtUsernameAndPasswordAuthenticationFilter
                                             FilterChain chain,
                                             Authentication auth) throws IOException {
 
-        log.info("Header :: " + jwtConfig.getHeader());
-        log.info("Prefix :: " + jwtConfig.getPrefix());
-        log.info("Secret :: " + jwtConfig.getSecret());
-        log.info("Expiration Time :: " + jwtConfig.getExpiration());
+        log.info(HEADER, jwtConfig.getHeader());
+        log.info(PREFIX, jwtConfig.getPrefix());
+        log.info(SECRET, jwtConfig.getSecret());
+        log.info(EXPIRATION_TIME, jwtConfig.getExpiration());
 
-        Long now = System.currentTimeMillis();
-        String token = Jwts.builder()
-                .setSubject(auth.getName())
-                .claim("authorities",
-                        auth.getAuthorities().stream()
-                                .map(GrantedAuthority::getAuthority)
-                                .collect(Collectors.toList())).setIssuedAt(new Date(now))
-                .setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))
-                .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
-                .compact();
+        String token = createToken(auth, jwtConfig);
 
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        log.info(":::: ====== ++++++ {} SUCCESSFULLY AUTHENTICATED  ++++++ ====== ::::", auth.getName());
-
         response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
 
-        Cookie c = CookieUtils.createCookie(response, key, token);
+        Cookie cookie = CookieUtils.createCookie(response, key, token);
 
-        LoginResponse loginResponse = LoginResponse.builder().
-                cookie(c)
-                .build();
+        response.getWriter().write(parseToLoginResponse(cookie));
 
-        String json = null;
-        try {
-            json = new ObjectMapper().writeValueAsString(loginResponse);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        response.getWriter().write(json);
         response.flushBuffer();
+
+        log.info(AUTHENTICATION_PROCESS_COMPLETED, auth.getName(), token);
     }
 
+    @Override
+    public void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                           AuthenticationException exception) throws IOException {
+
+        log.info(FAILED_AUTHENTICATION);
+        UnauthorisedException unauthorisedException = new UnauthorisedException(exception.getMessage());
+
+        response.getOutputStream()
+                .println(writeValueAsString(unauthorisedException.getException()));
+    }
 
 }

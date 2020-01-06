@@ -2,6 +2,7 @@ package com.cogent.admin.dto.response.admin;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminDetailResponseDTO {
+public class AdminDetailResponseDTO implements Serializable {
     private AdminResponseDTO adminResponseDTO;
 
     private List<MacAddressInfoResponseDTO> macAddressInfoResponseDTOS;

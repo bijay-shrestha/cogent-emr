@@ -17,16 +17,16 @@ import static com.cogent.admin.dto.subdepartment.SubDepartmentTestUtlis.getSubDe
 public class ApplicationModuleResponseUtils {
 
     public static ApplicationModule getApplicationModule() {
-        return new ApplicationModule(1L, "ADMIN MODULE", getSubDepartmentInfo(), 'Y', null);
+        return new ApplicationModule(1L, "ADMIN MODULE","ADM", getSubDepartmentInfo(), 'Y', null);
     }
 
     public static ApplicationModule getUpdatedApplicationModule() {
-        return new ApplicationModule(1L, "ADMIN MODULE", getSubDepartmentInfo(),
+        return new ApplicationModule(1L, "ADMIN MODULE", "ADM",getSubDepartmentInfo(),
                 'N', "yes. Inactive it!");
     }
 
     public static ApplicationModule getDeletedApplicationModuleInfo() {
-        return new ApplicationModule(1L, "ADMIN MODULE", getSubDepartmentInfo(),
+        return new ApplicationModule(1L, "ADMIN MODULE","ADM", getSubDepartmentInfo(),
                 'D', "Yes, delete!!");
     }
 

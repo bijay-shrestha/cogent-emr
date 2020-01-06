@@ -36,7 +36,7 @@ public class DrugRepositoryCustomImpl implements DrugRepositoryCustom {
     @Override
     public List<Object[]> fetchDrugByNameOrCode(String name, String code) {
 
-        Query query = getQuery.apply(entityManager, FETCH_DRUG_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_DRUG_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -45,7 +45,7 @@ public class DrugRepositoryCustomImpl implements DrugRepositoryCustom {
 
     @Override
     public List<Object[]> checkIfDrugNameAndCodeExists(Long id, String name, String code) {
-        Query query = getQuery.apply(entityManager, CHECK_IF_DRUG_NAME_AND_CODE_EXISTS)
+        Query query = createQuery.apply(entityManager, CHECK_IF_DRUG_NAME_AND_CODE_EXISTS)
                 .setParameter(ID,id)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
@@ -56,7 +56,7 @@ public class DrugRepositoryCustomImpl implements DrugRepositoryCustom {
     @Override
     public Optional<List<DropDownResponseDTO>> fetchDropDownList() {
 
-        Query query = getQuery.apply(entityManager, FETCH_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, FETCH_DROP_DOWN_LIST);
 
         List<DropDownResponseDTO> dropDownResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -68,7 +68,7 @@ public class DrugRepositoryCustomImpl implements DrugRepositoryCustom {
     @Override
     public Optional<List<DropDownResponseDTO>> fetchActiveDropDownList() {
 
-        Query query = getQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST);
+        Query query = createQuery.apply(entityManager, FETCH_ACTIVE_DROP_DOWN_LIST);
 
         List<DropDownResponseDTO> dropDownResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -79,7 +79,7 @@ public class DrugRepositoryCustomImpl implements DrugRepositoryCustom {
     @Override
     public DrugResponseDTO fetchDrugDetails(Long id) {
 
-        Query query = getQuery.apply(entityManager, FETCH_DRUG_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_DRUG_DETAILS)
                 .setParameter(ID, id);
 
         try {
@@ -94,7 +94,7 @@ public class DrugRepositoryCustomImpl implements DrugRepositoryCustom {
     public List<DrugMinimalResponseDTO> searchDrug(
             DrugSearchRequestDTO drugSearchRequestDTO, Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_DRUG.apply(drugSearchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_DRUG.apply(drugSearchRequestDTO));
 
         int totalItems = query.getResultList().size();
 

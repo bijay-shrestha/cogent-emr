@@ -38,14 +38,14 @@ public class ApplicationModuleRepositoryCustomImpl implements ApplicationModuleR
 
     @Override
     public Long fetchApplicationModuleByName(String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_MODULE_COUNT_BY_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_MODULE_COUNT_BY_NAME)
                 .setParameter(NAME, name);
         return (Long) query.getSingleResult();
     }
 
     @Override
     public Long fetchApplicationModuleByIdAndName(Long id, String name) {
-        Query query = getQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_MODULE_COUNT_BY_ID_AND_NAME)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FIND_APPOINTMENT_MODULE_COUNT_BY_ID_AND_NAME)
                 .setParameter(ID, id)
                 .setParameter(NAME, name);
         return (Long) query.getSingleResult();
@@ -55,7 +55,7 @@ public class ApplicationModuleRepositoryCustomImpl implements ApplicationModuleR
     public List<ApplicationModuleMinimalResponseDTO> search(ApplicationModuleSearchRequestDTO searchRequestDTO,
                                                             Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_APPLICATION_MODULE(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_APPLICATION_MODULE(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -74,7 +74,7 @@ public class ApplicationModuleRepositoryCustomImpl implements ApplicationModuleR
     @Override
     public ApplicationModuleDetailResponseDTO fetchDetailsById(Long id) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_APPLICATION_MODULE_DETAILS)
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_APPLICATION_MODULE_DETAILS)
                 .setParameter(ID, id);
         try {
             return transformQueryToSingleResult(query, ApplicationModuleDetailResponseDTO.class);
@@ -86,7 +86,7 @@ public class ApplicationModuleRepositoryCustomImpl implements ApplicationModuleR
     @Override
     public List<ApplicationModuleDropdownResponseDTO> fetchActiveApplicationModuleForDropDown() {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_APPLICATION_MODULE_FOR_DROPDOWN);
+        Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_APPLICATION_MODULE_FOR_DROPDOWN);
 
         List<ApplicationModuleDropdownResponseDTO> results =
                 transformQueryToResultList(query, ApplicationModuleDropdownResponseDTO.class);

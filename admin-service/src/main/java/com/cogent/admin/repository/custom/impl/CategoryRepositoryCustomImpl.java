@@ -40,7 +40,7 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
     @Override
     public Optional<List<DropDownResponseDTO>> dropDownList() {
 
-        Query query = getQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_CATEGORY);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_DROP_DOWN_CATEGORY);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -51,7 +51,7 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
     @Override
     public Optional<List<DropDownResponseDTO>> activeDropDownList() {
 
-        Query query = getQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_CATEGORY);
+        Query query = createQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_CATEGORY);
 
         List<DropDownResponseDTO> minimalResponseDTOS = transformQueryToResultList(query,
                 DropDownResponseDTO.class);
@@ -63,7 +63,7 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
     public List<CategoryMinimalResponseDTO> searchCategory(
             CategorySearchRequestDTO searchRequestDTO, Pageable pageable) {
 
-        Query query = getQuery.apply(entityManager, QUERY_TO_SEARCH_CATEGORY.apply(searchRequestDTO));
+        Query query = createQuery.apply(entityManager, QUERY_TO_SEARCH_CATEGORY.apply(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
 
@@ -82,7 +82,7 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
     @Override
     public List<Object[]> fetchCategoryByNameOrCode(String name, String code) {
 
-        Query query = getQuery.apply(entityManager, FETCH_CATEGORY_BY_NAME_AND_CODE)
+        Query query = createQuery.apply(entityManager, FETCH_CATEGORY_BY_NAME_AND_CODE)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
 
@@ -91,7 +91,7 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
 
     @Override
     public List<Object[]> checkCategoryNameAndCodeIfExist(Long id, String name, String code) {
-        Query query = getQuery.apply(entityManager, CHECK_CATEGORY_NAME_AND_CODE_IF_EXIST)
+        Query query = createQuery.apply(entityManager, CHECK_CATEGORY_NAME_AND_CODE_IF_EXIST)
                 .setParameter(ID,id)
                 .setParameter(NAME, name)
                 .setParameter(CODE, code);
@@ -102,7 +102,7 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
     @Override
     public CategoryResponseDTO fetchCategoryDetails(Long id) {
 
-        Query query = getQuery.apply(entityManager, FETCH_CATEGORY_DETAILS)
+        Query query = createQuery.apply(entityManager, FETCH_CATEGORY_DETAILS)
                 .setParameter(ID, id);
 
         try {
