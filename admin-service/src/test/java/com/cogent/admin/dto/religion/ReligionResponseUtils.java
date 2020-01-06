@@ -1,4 +1,4 @@
-package com.cogent.admin.dto.request.religion;
+package com.cogent.admin.dto.religion;
 
 import com.cogent.admin.dto.response.religion.ReligionDropdownDTO;
 import com.cogent.admin.dto.response.religion.ReligionResponseDTO;

@@ -43,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
                 .antMatchers(HttpMethod.GET, jwtConfig.getUri()).permitAll()
                 .antMatchers(Modules.ACCOUNTING).hasRole(ApplicationModules.ACCOUNTING_APPLICATION_MODULE)
-                .antMatchers(Modules.PHARMACY).hasRole(ApplicationModules.PHARMACY_APPLICATION_MODULE)
+//                .antMatchers(Modules.PHARMACY).hasRole(ApplicationModules.PHARMACY_APPLICATION_MODULE)
+                .antMatchers(Modules.PHARMACY_ONLY).hasRole(ApplicationModules.PHARMACY_APPLICATION_MODULE)
                 .anyRequest().authenticated();
     }
 

@@ -12,4 +12,10 @@ public class Modules {
                     "/accounting/**",
 
             };
+
+    public static String[] PHARMACY_ONLY =
+            {
+                    "/pharmacy/**",
+
+            };
 }

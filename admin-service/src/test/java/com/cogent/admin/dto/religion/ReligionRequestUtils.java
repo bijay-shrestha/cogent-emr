@@ -1,4 +1,8 @@
-package com.cogent.admin.dto.request.religion;
+package com.cogent.admin.dto.religion;
+
+import com.cogent.admin.dto.request.religion.ReligionRequestDTO;
+import com.cogent.admin.dto.request.religion.ReligionSearchRequestDTO;
+import com.cogent.admin.dto.request.religion.ReligionUpdateRequestDTO;
 
 public class ReligionRequestUtils {
 
