@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 
 @Getter
+@Component
 public class JwtConfig {
     @Value("${security.jwt.uri:/auth/**}")
     private String Uri;

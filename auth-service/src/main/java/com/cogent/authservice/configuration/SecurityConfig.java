@@ -1,10 +1,10 @@
 package com.cogent.authservice.configuration;
 
 import com.cogent.genericservice.security.JwtConfig;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,16 +16,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 @EntityScan(basePackages = {"com.cogent.persistence.model"})
+@ComponentScan({
+        "com.cogent.genericservice.security"
+})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
-    private final JwtConfig jwtConfig;
-
-    public SecurityConfig(@Qualifier("userDetailsServiceImpl") @Lazy UserDetailsService userDetailsService,
-                          @Lazy JwtConfig jwtConfig) {
-        this.userDetailsService = userDetailsService;
-        this.jwtConfig = jwtConfig;
-    }
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private JwtConfig jwtConfig;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -51,3 +50,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
+

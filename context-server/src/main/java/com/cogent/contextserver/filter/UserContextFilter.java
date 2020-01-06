@@ -10,7 +10,7 @@ import java.io.IOException;
 @Component
 public class UserContextFilter implements Filter {
 
-    private final JwtConfig jwtConfig;
+    private JwtConfig jwtConfig;
 
     public UserContextFilter(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
