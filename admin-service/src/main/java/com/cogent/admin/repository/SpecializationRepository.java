@@ -20,4 +20,7 @@ public interface SpecializationRepository extends JpaRepository<Specialization, 
 
     @Query("SELECT s FROM Specialization s WHERE s.status='Y' AND s.id = :id")
     Optional<Specialization> findActiveSpecializationById(@Param("id") Long id);
+
+    @Query("FROM Specialization s WHERE s.status='Y' AND s.id = :id")
+   Specialization fetchActiveSpecializationById(@Param("id") Long id);
 }

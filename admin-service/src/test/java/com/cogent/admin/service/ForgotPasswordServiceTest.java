@@ -19,11 +19,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static com.cogent.admin.dto.admin.AdminResponseUtils.getAdmin;
-import static com.cogent.admin.dto.admin.AdminResponseUtils.getDeletedAdminInfo;
 import static com.cogent.admin.dto.forgotPassword.ForgotPasswordRequestUtils.*;
 import static com.cogent.admin.dto.forgotPassword.ForgotPasswordResponseUtils.fetchExpiredTime;
 import static com.cogent.admin.dto.forgotPassword.ForgotPasswordResponseUtils.getForgotPasswordVerification;
+import static com.cogent.admin.dto.admin.AdminResponseUtils.getAdmin;
+import static com.cogent.admin.dto.admin.AdminResponseUtils.getDeletedAdminInfo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;

@@ -53,6 +53,11 @@ public class MicroServiceConstants {
     //N
 
     //O
+    public interface BillingConstants {
+        String BASE_OPD_BILLING = "/opdBillings";
+        String ADMIN="/admin";
+        String INSURANCE_COMPANY="/insuranceCompany";
+    }
 
     //P
 

@@ -1,9 +1,9 @@
-package com.cogent.admin.controller.v1;
+package com.cogent.admin.feign.controller;
 
 
-import com.cogent.admin.dto.request.patient.PatientRequestDTO;
-import com.cogent.admin.dto.response.patient.ResponseDTO;
-import com.cogent.admin.service.PatientService;
+import com.cogent.admin.feign.dto.request.patient.PatientRequestDTO;
+import com.cogent.admin.feign.dto.response.patient.PatientResponseDTO;
+import com.cogent.admin.feign.service.PatientService;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +27,7 @@ public class PatientController {
     }
 
     @PutMapping(DETAILS)
-    public ResponseDTO getPatientDetails(@RequestBody PatientRequestDTO requestDTO) {
+    public PatientResponseDTO getPatientDetails(@RequestBody PatientRequestDTO requestDTO) {
         return patientService.getPatientDetails(requestDTO);
     }
 

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PasswordRequestDTO implements Serializable {
+public class AdminPasswordRequestDTO implements Serializable {
     @NotNull
     @NotEmpty
     private String token;

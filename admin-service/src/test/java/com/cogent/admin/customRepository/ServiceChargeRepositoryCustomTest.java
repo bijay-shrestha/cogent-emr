@@ -6,6 +6,7 @@ import com.cogent.admin.dto.response.servicecharge.ServiceChargeDropDownResponse
 import com.cogent.admin.dto.response.servicecharge.ServiceChargeMinimalResponseDTO;
 import com.cogent.admin.dto.response.servicecharge.ServiceChargeResponseDTO;
 import com.cogent.admin.repository.ServiceChargeRepository;
+import com.cogent.persistence.model.ServiceCharge;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +102,15 @@ public class ServiceChargeRepositoryCustomTest {
 
         assertNotNull(dropDownList);
     }
+    @Test
+    public void fetchLisByBillingModeIdAndServiceId() {
+        List<ServiceCharge> serviceCharges = repository
+                .fetchLisByBillingModeIdAndServiceId(3L,1L);
+
+        assertNotNull(serviceCharges);
+    }
+
+
 }
 
 

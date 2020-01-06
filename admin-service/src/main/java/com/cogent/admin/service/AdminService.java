@@ -34,7 +34,7 @@ public interface AdminService {
 
     void verifyConfirmationToken(String token);
 
-    void savePassword(PasswordRequestDTO requestDTO);
+    void savePassword(AdminPasswordRequestDTO requestDTO);
 
     AdminInfoResponseDTO fetchLoggedInAdminInfo(AdminInfoRequestDTO requestDTO);
 

@@ -1,4 +1,4 @@
-package com.cogent.admin.dto.request.patient;
+package com.cogent.admin.feign.dto.request.patient;
 
 import lombok.*;
 

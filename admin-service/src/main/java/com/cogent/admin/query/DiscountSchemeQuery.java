@@ -1,6 +1,6 @@
 package com.cogent.admin.query;
 
-import com.cogent.admin.dto.request.discountscheme.DiscountSchemeSearchRequestDTO;
+import com.cogent.admin.dto.discountscheme.DiscountSchemeSearchRequestDTO;
 import org.springframework.util.ObjectUtils;
 
 import java.util.function.Function;
@@ -85,7 +85,7 @@ public class DiscountSchemeQuery {
                     " Group_concat(DISTINCT d.name) as departmentName," +
                     " Group_concat(DISTINCT s.name) as serviceName," +
                     " Group_Concat(DISTINCT dds.discount_percentage) as departmentDiscount," +
-                    " Group_concat(DISTINCT sd.discount_percentage) as serviceDiscount ";
+                    " Group_concat(DISTINCT sd.discount_percentage) as serviceDiscountRate ";
 
     private static final String QUERY_TO_LEFT_JOIN =
             " LEFT JOIN department_discount dds ON dds.discountscheme_id=ds.id AND dds.status!='D'" +
@@ -101,7 +101,7 @@ public class DiscountSchemeQuery {
                     " Group_concat(DISTINCT d.name) as departmentName," +
                     " Group_concat(DISTINCT s.name) as serviceName," +
                     " Group_Concat(DISTINCT dds.discount_percentage) as departmentDiscount," +
-                    " Group_concat(DISTINCT sd.discount_percentage) as serviceDiscount ";
+                    " Group_concat(DISTINCT sd.discount_percentage) as serviceDiscountRate ";
 
 
     public static final String QUERY_TO_GET_DISCOUNT_DETAILS =

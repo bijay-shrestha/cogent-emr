@@ -34,9 +34,4 @@ public class SideBarResource {
     public ResponseEntity<?> fetchAssignedProfileResponse(@Valid @RequestBody ProfileMenuSearchRequestDTO requestDTO) {
         return ok(profileService.fetchAssignedProfileResponseDto(requestDTO));
     }
-
-    @GetMapping("/test")
-    public String hello(){
-        return "hello";
-    }
 }
