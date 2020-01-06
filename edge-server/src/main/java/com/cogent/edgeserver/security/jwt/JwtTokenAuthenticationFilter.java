@@ -23,6 +23,7 @@ import static com.cogent.edgeserver.constants.TokenConstants.AUTHORITIES;
 import static com.cogent.edgeserver.constants.TokenConstants.USERNAME;
 import static com.cogent.edgeserver.cookies.CookieCheckpoint.cookieCheckpoint;
 import static com.cogent.edgeserver.log.EdgeServerLog.LOGOUT;
+import static com.cogent.edgeserver.log.EdgeServerLog.REQUESTED_API;
 import static com.cogent.edgeserver.security.jwt.JwtTokenProvider.fetchUsernameFromClaims;
 import static com.cogent.edgeserver.security.jwt.JwtTokenProvider.validateJwtToken;
 import static com.cogent.genericservice.cookies.CookieConstants.key;
@@ -86,6 +87,8 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
             request.setAttribute(USERNAME, username);
 
             chain.doFilter(request, response);
+
+            log.info(REQUESTED_API, request.getMethod(), request.getRequestURL());
         }
     }
 }

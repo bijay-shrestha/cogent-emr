@@ -11,6 +11,11 @@ public class NoContentFoundException extends RuntimeException {
 
     private ExceptionResponse exception;
 
+    public NoContentFoundException(String errorMessage) {
+        super(errorMessage);
+        setErrorResponse(errorMessage, errorMessage);
+    }
+
     public NoContentFoundException(Class clazz) {
         super(generateMessage(clazz));
         setErrorResponse(generateMessage(clazz), generateDebugMessage(clazz));

@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         AdminInfoByUsernameResponseDTO responseDTO = adminService.fetchAdminInfoByUsernameResponseDTO(username)
-                .orElseThrow(() -> new NoContentFoundException(USERNAME_NOT_FOUND));
+                .orElseThrow(() -> new NoContentFoundException(String.format(USERNAME_NOT_FOUND, username)));
 
         List<GrantedAuthority> grantedAuthorities = responseDTO.getAssignedApplicationModuleCodes()
                 .stream().map(code -> new SimpleGrantedAuthority("ROLE_" + code))

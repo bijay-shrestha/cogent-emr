@@ -1,4 +1,4 @@
-package com.cogent.authservice;
+package com.cogent.authservice.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +15,4 @@ public class LoginRequestDTO implements Serializable {
     private String username;
 
     private String password;
-
-    private String subDepartmentCode;
 }

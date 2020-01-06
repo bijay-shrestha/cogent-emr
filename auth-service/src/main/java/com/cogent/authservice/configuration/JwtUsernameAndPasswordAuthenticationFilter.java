@@ -1,17 +1,15 @@
 package com.cogent.authservice.configuration;
 
-import com.cogent.authservice.LoginRequestDTO;
+import com.cogent.authservice.dto.LoginRequestDTO;
 import com.cogent.genericservice.cookies.CookieUtils;
+import com.cogent.genericservice.exception.UnauthorisedException;
 import com.cogent.genericservice.security.JwtConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -22,18 +20,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Date;
-import java.util.stream.Collectors;
 
-import static com.cogent.authservice.constants.StringConstants.AUTHORITIES;
 import static com.cogent.authservice.log.AuthLog.*;
+import static com.cogent.authservice.utils.AuthUtils.createToken;
 import static com.cogent.authservice.utils.AuthUtils.parseToLoginResponse;
 import static com.cogent.genericservice.cookies.CookieConstants.key;
+import static com.cogent.genericservice.utils.ObjectToJSONUtils.writeValueAsString;
 
 @Slf4j
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authManager;
+
     private final JwtConfig jwtConfig;
 
     public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authManager,
@@ -43,6 +41,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(jwtConfig.getUri(), "POST"));
     }
 
+    @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
 
@@ -75,7 +74,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         log.info(SECRET, jwtConfig.getSecret());
         log.info(EXPIRATION_TIME, jwtConfig.getExpiration());
 
-        String token = createToken(auth);
+        String token = createToken(auth, jwtConfig);
 
         SecurityContextHolder.getContext().setAuthentication(auth);
 
@@ -90,21 +89,15 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         log.info(AUTHENTICATION_PROCESS_COMPLETED, auth.getName(), token);
     }
 
-    private String createToken(Authentication auth) {
-        return Jwts.builder()
-                .setSubject(auth.getName())
-                .claim(AUTHORITIES, auth.getAuthorities()
-                        .stream()
-                        .map(GrantedAuthority::getAuthority)
-                        .collect(Collectors.toList()))
-                .setIssuedAt(new Date())
-                .setExpiration(calculateExpirationDate())
-                .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
-                .compact();
+    @Override
+    public void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                           AuthenticationException exception) throws IOException {
+
+        log.info(FAILED_AUTHENTICATION);
+        UnauthorisedException unauthorisedException = new UnauthorisedException(exception.getMessage());
+
+        response.getOutputStream()
+                .println(writeValueAsString(unauthorisedException.getException()));
     }
 
-    private Date calculateExpirationDate() {
-        long now = System.currentTimeMillis();
-        return new Date(now + jwtConfig.getExpiration() * 1000);
-    }
 }
