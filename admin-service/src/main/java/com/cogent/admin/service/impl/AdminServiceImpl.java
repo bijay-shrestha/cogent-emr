@@ -21,6 +21,7 @@ import com.cogent.admin.utils.AdminUtils;
 import com.cogent.admin.validator.LoginValidator;
 import com.cogent.persistence.model.*;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -29,11 +30,13 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.Validator;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static com.cogent.admin.constants.ErrorMessageConstants.AdminServiceMessages.*;
@@ -305,6 +308,8 @@ public class AdminServiceImpl implements AdminService {
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
         log.info(FETCHING_PROCESS_STARTED,  ADMIN);
+
+        log.error("test");
 
         List<AdminSubDepartmentResponseDTO> responseDTO = adminRepository.fetchLoggedInAdminSubdepartmentList(requestDTO);
 
