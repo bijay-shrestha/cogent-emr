@@ -1,4 +1,4 @@
-package com.cogent.edgeserver.security;
+package com.cogent.edgeserver.filters;
 
 import com.cogent.edgeserver.checkpoint.CookieCheckpoint;
 import com.cogent.edgeserver.checkpoint.JwtTokenCheckpoint;

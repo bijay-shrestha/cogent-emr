@@ -1,10 +1,11 @@
-package com.cogent.edgeserver.security;
+package com.cogent.edgeserver.filters;
 
-import com.cogent.edgeserver.filters.AddRequestHeaderFilter;
 import com.cogent.edgeserver.modules.Modules;
 import com.cogent.edgeserver.modules.Roles;
 import com.cogent.genericservice.security.JwtConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,8 +17,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity
+@ComponentScan({
+        "com.cogent.genericservice.security"
+})
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
     private JwtConfig jwtConfig;
 
     public SecurityTokenConfig(@Lazy JwtConfig jwtConfig) {
@@ -41,8 +46,8 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
                 .antMatchers(HttpMethod.GET, jwtConfig.getUri()).permitAll()
-                .antMatchers(Modules.ACCOUNTING).hasRole(Roles.ACCOUNTING_ROLE)
-                .antMatchers(Modules.PHARMACY).hasRole(Roles.PHARMACY_ROLE)
+                    .antMatchers(Modules.ACCOUNTING).hasRole(Roles.ACCOUNTING_ROLE)
+                .antMatchers(Modules.PHARMACY).hasRole(Roles.SUPER_ADMIN_ROLE)
                 .anyRequest().authenticated();
     }
 
@@ -50,10 +55,13 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
     public AddRequestHeaderFilter addRequestHeaderFilter(JwtConfig jwtConfig) {
         return new AddRequestHeaderFilter(jwtConfig);
     }
+<<<<<<< Updated upstream:edge-server/src/main/java/com/cogent/edgeserver/security/SecurityTokenConfig.java
 
 
     @Bean
     public JwtConfig jwtConfig(){
         return new JwtConfig();
     }
+=======
+>>>>>>> Stashed changes:edge-server/src/main/java/com/cogent/edgeserver/filters/SecurityTokenConfig.java
 }
