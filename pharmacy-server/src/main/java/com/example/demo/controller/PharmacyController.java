@@ -19,12 +19,12 @@ public class PharmacyController {
         this.userMenuService = userMenuService;
     }
 
-//    @GetMapping("/")
-//    public ResponseEntity<?> pharmacy() {
-//
-//        String pharmacy = "This is PHARMACY module------------------------------";
-//        return ResponseEntity.ok(pharmacy);
-//    }
+    @GetMapping("/")
+    public ResponseEntity<?> pharmacy() {
+
+        String pharmacy = "This is PHARMACY module------------------------------";
+        return ResponseEntity.ok(pharmacy);
+    }
 
     @PutMapping(BASE_SIDE_BAR)
     public ResponseEntity<?> getUserMenuResponse(@RequestBody UserMenuRequestDTO requestDTO) {

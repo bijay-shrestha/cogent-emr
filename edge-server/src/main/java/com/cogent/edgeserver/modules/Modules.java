@@ -7,6 +7,13 @@ public class Modules {
                     "/pharmacy/**",
 
             };
+
+    public static String[] SUPER_ADMIN_APPLICATION =
+            {
+                    "/admin/**",
+                    "/pharmacy/**",
+
+            };
     public static String[] ACCOUNTING =
             {
                     "/accounting/**",

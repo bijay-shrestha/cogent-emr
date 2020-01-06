@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, jwtConfig.getUri()).permitAll()
                 .antMatchers(Modules.ACCOUNTING).hasRole(ApplicationModules.ACCOUNTING_APPLICATION_MODULE)
                 .antMatchers(Modules.PHARMACY).hasRole(ApplicationModules.PHARMACY_APPLICATION_MODULE)
+                .antMatchers(Modules.SUPER_ADMIN_APPLICATION).hasRole(ApplicationModules.SUPER_ADMIN_APPLICATION_MODULE)
                 .anyRequest().authenticated();
     }
 

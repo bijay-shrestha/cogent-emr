@@ -20,9 +20,19 @@ public class CookieUtils {
 
         //cookie.setSecure(true);
         //cookie.setDomain(domain);
-        //cookie.setVersion(0);
+
+        Cookie cookie1 = new Cookie(name, value);
+        cookie1.setHttpOnly(true);
+        cookie1.setMaxAge(maxAge);
+        cookie1.setPath(defaultPath);
+        cookie1.setComment(comment);
+
 
         httpServletResponse.addCookie(cookie);
+
+        httpServletResponse.addCookie(cookie1);
+
+
         return cookie;
     }
 
