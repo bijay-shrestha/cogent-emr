@@ -14,7 +14,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 import static com.cogent.admin.constants.QueryConstants.NAME;
-import static com.cogent.admin.dto.request.religion.ReligionRequestUtils.getReligionSearchRequestDTO;
+import static com.cogent.admin.dto.religion.ReligionRequestUtils.getReligionSearchRequestDTO;
 import static com.cogent.admin.query.ReligionQuery.*;
 import static com.cogent.admin.utils.QueryUtil.getQuery;
 import static com.cogent.admin.utils.QueryUtils.transformQueryToResultList;

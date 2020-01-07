@@ -124,8 +124,8 @@ public class AdminRequestUtils {
         return RandomGenerator.generateRandomToken();
     }
 
-    public static PasswordRequestDTO getPasswordRequestDTO() {
-        return PasswordRequestDTO.builder()
+    public static AdminPasswordRequestDTO getPasswordRequestDTO() {
+        return AdminPasswordRequestDTO.builder()
                 .token(getConfirmationToken())
                 .password("admin")
                 .build();

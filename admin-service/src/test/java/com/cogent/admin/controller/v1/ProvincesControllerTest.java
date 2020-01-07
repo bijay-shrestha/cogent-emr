@@ -25,7 +25,7 @@ import java.util.List;
 
 import static com.cogent.admin.constants.WebResourceKeyConstants.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.ProvincesConstants.BASE_PROVINCES;
-import static com.cogent.admin.dto.request.provinces.ProvincesTestUtils.*;
+import static com.cogent.admin.dto.provinces.ProvincesTestUtils.*;
 import static com.cogent.admin.utils.ObjectToJSONUtils.writeObjectToJson;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;

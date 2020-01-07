@@ -11,19 +11,28 @@ public class CookieUtils {
                                       String name,
                                       String value) {
 
-        Cookie cookie = new Cookie(name, value);
-        cookie.setHttpOnly(true);
-        cookie.setMaxAge(maxAge);
-        cookie.setPath(defaultPath);
-        cookie.setComment(comment);
-        cookie.setDomain(domain);
+//        Cookie cookie = new Cookie(name, value);
+//        cookie.setHttpOnly(true);
+//        cookie.setMaxAge(maxAge);
+//        cookie.setPath(defaultPath);
+//        cookie.setComment(comment);
+//        cookie.setDomain(domain);
+//        cookie.setSecure(true);
 
-        //cookie.setSecure(true);
         //cookie.setDomain(domain);
         //cookie.setVersion(0);
 
-        httpServletResponse.addCookie(cookie);
-        return cookie;
+        Cookie cookie1 = new Cookie(name, value);
+        cookie1.setHttpOnly(true);
+        cookie1.setMaxAge(maxAge);
+        cookie1.setPath(defaultPath);
+        cookie1.setComment(comment);
+//        cookie.setDomain(domain);
+
+
+//        httpServletResponse.addCookie(cookie);
+        httpServletResponse.addCookie(cookie1);
+        return cookie1;
     }
 
     public static void clear(HttpServletResponse httpServletResponse, String name) {

@@ -22,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.cogent.admin.log.CommonLogConstant.*;
 import static com.cogent.admin.log.constants.ServiceLog.SERVICE;
@@ -68,18 +69,11 @@ public class ServiceServiceImpl implements ServiceService {
                 requestDTO.getCode()), requestDTO.getName(),
                 requestDTO.getCode(), Service.class);
 
-        if (requestDTO.getSubDepartmentId() == null) {
-            save(parseToService(requestDTO,
-                    getActiveDepartmentById(requestDTO.getDepartmentId()),
-                    null,
-                    getActiveServiceTypeById(requestDTO.getServiceTypeId())));
-        } else {
-            save(parseToService(requestDTO,
-                    getActiveDepartmentById(requestDTO.getDepartmentId()),
-                    getActiveSubDepartmentById(requestDTO.getSubDepartmentId()),
-                    getActiveServiceTypeById(requestDTO.getServiceTypeId())));
-
-        }
+        save(parseToService(requestDTO,
+                getActiveDepartmentById(requestDTO.getDepartmentId()),
+                !Objects.isNull(requestDTO.getSubDepartmentId()) ?
+                        getActiveSubDepartmentById(requestDTO.getSubDepartmentId()) : null,
+                getActiveServiceTypeById(requestDTO.getServiceTypeId())));
 
         log.info(SAVING_PROCESS_COMPLETED, SERVICE, getDifferenceBetweenTwoTime(startTime));
     }
@@ -109,21 +103,12 @@ public class ServiceServiceImpl implements ServiceService {
                 requestDTO.getId(), requestDTO.getName(), requestDTO.getCode()),
                 requestDTO.getName(), requestDTO.getCode(), Service.class);
 
-
-        if (requestDTO.getSubDepartmentId() == null) {
-            update(requestDTO,
-                    serviceToUpdate,
-                    getActiveDepartmentById(requestDTO.getDepartmentId()),
-                    null,
-                    getActiveServiceTypeById(requestDTO.getServiceTypeId()));
-        } else {
-            update(requestDTO,
-                    serviceToUpdate,
-                    getActiveDepartmentById(requestDTO.getDepartmentId()),
-                    getActiveSubDepartmentById(requestDTO.getSubDepartmentId()),
-                    getActiveServiceTypeById(requestDTO.getServiceTypeId()));
-
-        }
+        update(requestDTO,
+                serviceToUpdate,
+                getActiveDepartmentById(requestDTO.getDepartmentId()),
+                !Objects.isNull(requestDTO.getSubDepartmentId()) ?
+                        getActiveSubDepartmentById(requestDTO.getSubDepartmentId()) : null,
+                getActiveServiceTypeById(requestDTO.getServiceTypeId()));
 
         log.info(UPDATING_PROCESS_COMPLETED, SERVICE, getDifferenceBetweenTwoTime(startTime));
     }

@@ -35,8 +35,8 @@ import java.util.Optional;
 import static com.cogent.admin.dto.profile.ProfileRequestUtils.getProfileInfo;
 import static com.cogent.admin.dto.subdepartment.SubDepartmentTestUtlis.*;
 import static com.cogent.admin.utils.SubDepartmentUtils.parseToSubDepartment;
+import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -377,7 +377,7 @@ public class SubDepartmentServiceTest {
         given(subDepartmentRepository.fetchSubDepartmentDetail(1L))
                 .willReturn(Optional.of(subDepartmentResponseDTO));
 
-        assertNotNull(subDepartmentService.fetchSubDepartmentDetailsById(1L));
+        Assert.assertNotNull(subDepartmentService.fetchSubDepartmentDetailsById(1L));
 
         verify(subDepartmentRepository).fetchSubDepartmentDetail(1L);
     }

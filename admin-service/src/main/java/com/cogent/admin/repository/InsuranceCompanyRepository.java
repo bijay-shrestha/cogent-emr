@@ -23,6 +23,9 @@ public interface InsuranceCompanyRepository extends JpaRepository<InsuranceCompa
     @Query(value = "SELECT ic FROM InsuranceCompany ic WHERE  ic.id=:id AND ic.status ='Y'")
     Optional<InsuranceCompany> fetchActiveInsuranceCompanyById(@Param("id") Long id);
 
+    @Query( "FROM InsuranceCompany ic WHERE  ic.id=:id AND ic.status ='Y'")
+   InsuranceCompany findActiveInsuranceCompanyById(@Param("id") Long id);
+
     @Query("SELECT COUNT (ic.id) FROM InsuranceCompany ic WHERE ic.name=:name AND ic.status != 'D'")
     Long fetchInsuranceCompanyCountByName(@Param("name") String name);
 

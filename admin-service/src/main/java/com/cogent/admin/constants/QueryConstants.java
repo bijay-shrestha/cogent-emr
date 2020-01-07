@@ -25,7 +25,7 @@ public class QueryConstants {
     public static final String EMAIL = "email";
 
     //F
-    public static final String SERVICE_ID = "serviceId";
+
 
     public static final String FROM_DATE = "fromDate";
 
@@ -56,6 +56,8 @@ public class QueryConstants {
     public static final String RESET_CODE = "resetCode";
 
     //S
+    public static final String SERVICE_ID = "serviceId";
+
     public static final String SUB_DEPARTMENT_ID = "subDepartmentId";
 
     public static final String SPECIALIZATION_ID = "specializationId";

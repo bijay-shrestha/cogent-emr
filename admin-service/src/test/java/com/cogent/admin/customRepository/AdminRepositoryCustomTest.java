@@ -5,6 +5,7 @@ import com.cogent.admin.dto.response.admin.AdminMinimalResponseDTO;
 import com.cogent.admin.dto.response.admin.AdminResponseDTO;
 import com.cogent.admin.dto.response.admin.MacAddressInfoResponseDTO;
 import com.cogent.admin.utils.QueryUtils;
+import com.cogent.persistence.model.Patient;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -97,6 +98,8 @@ public class AdminRepositoryCustomTest {
         Object result = query.getSingleResult();
         assertNotNull(result);
     }
+
+
 
 
 }

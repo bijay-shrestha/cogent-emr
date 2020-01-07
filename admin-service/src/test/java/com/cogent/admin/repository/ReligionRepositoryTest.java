@@ -12,7 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.cogent.admin.dto.request.religion.ReligionResponseUtils.getReligion;
+import static com.cogent.admin.dto.religion.ReligionResponseUtils.getReligion;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)

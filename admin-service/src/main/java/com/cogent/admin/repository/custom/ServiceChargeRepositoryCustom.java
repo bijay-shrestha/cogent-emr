@@ -6,6 +6,7 @@ import com.cogent.admin.dto.response.servicecharge.BillingModeDropDownResponseDT
 import com.cogent.admin.dto.response.servicecharge.ServiceChargeDropDownResponseDTO;
 import com.cogent.admin.dto.response.servicecharge.ServiceChargeMinimalResponseDTO;
 import com.cogent.admin.dto.response.servicecharge.ServiceChargeResponseDTO;
+import com.cogent.persistence.model.ServiceCharge;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -42,4 +43,6 @@ public interface ServiceChargeRepositoryCustom {
     Optional<List<DropDownResponseDTO>> fetchDropDownListBydepartmentId(Long departmentId);
 
     Optional<List<DropDownResponseDTO>> fetchActiveDropDownListBydepartmentId(Long departmentId);
+
+    List<ServiceCharge> fetchLisByBillingModeIdAndServiceId(Long billingModeId,Long serviceId);
 }

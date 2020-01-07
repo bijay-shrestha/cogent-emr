@@ -1,6 +1,6 @@
 package com.cogent.admin.customRepository;
 
-import com.cogent.admin.dto.request.discountscheme.DiscountSchemeSearchRequestDTO;
+import com.cogent.admin.dto.discountscheme.DiscountSchemeSearchRequestDTO;
 import com.cogent.admin.dto.response.discountscheme.DiscountSchemeMinimalResponseDTO;
 import com.cogent.admin.dto.response.discountscheme.DiscountSchemeResponseDTO;
 import com.cogent.admin.dto.response.discountscheme.dropdown.DepartmentDiscountDropDownResponseDTO;

@@ -270,7 +270,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void savePassword(PasswordRequestDTO requestDTO) {
+    public void savePassword(AdminPasswordRequestDTO requestDTO) {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
@@ -281,7 +281,6 @@ public class AdminServiceImpl implements AdminService {
                         .orElseThrow(() -> CONFIRMATION_TOKEN_NOT_FOUND.apply(requestDTO.getToken()));
 
         save(saveAdminPassword(requestDTO, adminConfirmationToken));
-
         adminConfirmationToken.setStatus(INACTIVE);
 
         log.info(SAVING_PASSWORD_PROCESS_COMPLETED, getDifferenceBetweenTwoTime(startTime));

@@ -37,7 +37,7 @@ import static com.cogent.admin.dto.files.FileServerResponseUtils.getFileServerRe
 import static com.cogent.admin.dto.files.FileServerResponseUtils.getUpdatedFileServerResponse;
 import static com.cogent.admin.dto.files.MultipartFileUtils.getMockMultipartFile;
 import static com.cogent.admin.dto.gender.GenderResponseUtils.fetchGender;
-import static com.cogent.admin.dto.request.qualification.QualificationResponseUtils.fetchQualification;
+import static com.cogent.admin.dto.qualification.QualificationResponseUtils.fetchQualification;
 import static com.cogent.admin.dto.specialization.SpecializationResponseUtils.getSpecialization;
 import static com.cogent.admin.utils.DoctorUtils.convertFileToDoctorAvatar;
 import static com.cogent.admin.utils.DoctorUtils.convertFileToDoctorSignature;

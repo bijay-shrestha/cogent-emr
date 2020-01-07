@@ -264,7 +264,7 @@ public class AdminUtils {
                 .build();
     }
 
-    public static Admin saveAdminPassword(PasswordRequestDTO requestDTO,
+    public static Admin saveAdminPassword(AdminPasswordRequestDTO requestDTO,
                                           AdminConfirmationToken confirmationToken) {
         Admin admin = confirmationToken.getAdmin();
         admin.setPassword(BCrypt.hashpw(requestDTO.getPassword(), BCrypt.gensalt()));

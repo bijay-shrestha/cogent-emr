@@ -1,11 +1,11 @@
 package com.cogent.admin.service.impl;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
-import com.cogent.admin.dto.request.discountscheme.DiscountSchemeRequestDTO;
-import com.cogent.admin.dto.request.discountscheme.DiscountSchemeSearchRequestDTO;
-import com.cogent.admin.dto.request.discountscheme.DiscountSchemeUpdateRequestDTO;
-import com.cogent.admin.dto.request.discountscheme.discountschemedetails.DepartmentDiscountRequestDTO;
-import com.cogent.admin.dto.request.discountscheme.discountschemedetails.ServiceDiscountRequestDTO;
+import com.cogent.admin.dto.discountscheme.DiscountSchemeRequestDTO;
+import com.cogent.admin.dto.discountscheme.DiscountSchemeSearchRequestDTO;
+import com.cogent.admin.dto.discountscheme.DiscountSchemeUpdateRequestDTO;
+import com.cogent.admin.dto.discountscheme.discountschemedetails.DepartmentDiscountRequestDTO;
+import com.cogent.admin.dto.discountscheme.discountschemedetails.ServiceDiscountRequestDTO;
 import com.cogent.admin.dto.response.discountscheme.DiscountSchemeMinimalResponseDTO;
 import com.cogent.admin.dto.response.discountscheme.DiscountSchemeResponseDTO;
 import com.cogent.admin.dto.response.discountscheme.dropdown.DepartmentDiscountDropDownResponseDTO;

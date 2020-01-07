@@ -204,7 +204,7 @@ public class AdminControllerTest {
     public void savePassword() throws Exception {
         String URL = BASE_URL + PASSWORD;
 
-        doNothing().when(adminService).savePassword(any(PasswordRequestDTO.class));
+        doNothing().when(adminService).savePassword(any(AdminPasswordRequestDTO.class));
 
         mockMvc.perform(MockMvcRequestBuilders.post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -212,7 +212,7 @@ public class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
-        verify(adminService, times(1)).savePassword(any(PasswordRequestDTO.class));
+        verify(adminService, times(1)).savePassword(any(AdminPasswordRequestDTO.class));
         verifyNoMoreInteractions(adminService);
     }
 }

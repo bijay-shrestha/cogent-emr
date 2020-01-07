@@ -1,4 +1,4 @@
-package com.cogent.admin.dto.response.patient;
+package com.cogent.admin.feign.dto.response.patient;
 
 import com.cogent.persistence.model.*;
 import io.swagger.annotations.ApiModel;
@@ -18,7 +18,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @ApiModel
-public class ResponseDTO implements Serializable {
+public class PatientResponseDTO implements Serializable {
 
     private Nationality nationality;
 

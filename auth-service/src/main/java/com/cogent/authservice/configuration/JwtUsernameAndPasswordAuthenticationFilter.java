@@ -84,6 +84,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
         response.getWriter().write(parseToLoginResponse(cookie));
 
+//        response.addCookie(cookie);
+
         response.flushBuffer();
 
         log.info(AUTHENTICATION_PROCESS_COMPLETED, auth.getName(), token);
@@ -94,8 +96,9 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                            AuthenticationException exception) throws IOException {
 
         log.info(FAILED_AUTHENTICATION);
-        UnauthorisedException unauthorisedException = new UnauthorisedException(exception.getMessage());
 
+        UnauthorisedException unauthorisedException = new UnauthorisedException(exception.getMessage());
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.getOutputStream()
                 .println(writeValueAsString(unauthorisedException.getException()));
     }
