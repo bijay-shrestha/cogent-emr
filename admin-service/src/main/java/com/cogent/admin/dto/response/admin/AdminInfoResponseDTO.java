@@ -18,6 +18,8 @@ public class AdminInfoResponseDTO implements Serializable {
 
     private String fullName;
 
+    private Long departmentId;
+
     private Long subDepartmentId;
 
     private String subDepartmentName;

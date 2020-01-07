@@ -158,7 +158,8 @@ public class AdminQuery {
                     " a.username as username," +                                        //[1]
                     " a.fullName as fullName," +                                        //[2]
                     " sd.id as subDepartmentId," +                                      //[3]
-                    " sd.name as subDepartmentName," +                                  //[4]
+                    " sd.name as subDepartmentName," +
+                    " sd.department.id as departmentId," +                                  //[4]
                     " p.name as profileName," +                                         //[5]
                     " p.id as profileId" +                                              //[6]
                     " FROM Admin a " +
