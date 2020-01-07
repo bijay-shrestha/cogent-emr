@@ -162,7 +162,8 @@
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <root Level="WARN">
+    <root>
+        <Level value="WARN" />
         <appender-ref ref="FILE_ROOT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>

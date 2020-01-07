@@ -7,7 +7,6 @@ import com.cogent.admin.dto.request.unit.UnitSearchRequestDTO;
 import com.cogent.admin.dto.request.unit.UnitUpdateRequestDTO;
 import com.cogent.admin.dto.response.unit.UnitMinimalResponseDTO;
 import com.cogent.admin.dto.response.unit.UnitResponseDTO;
-import com.cogent.admin.exception.DataDuplicationException;
 import com.cogent.admin.exception.NoContentFoundException;
 import com.cogent.admin.repository.UnitRepository;
 import com.cogent.admin.repository.WardRepository;
@@ -20,12 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.cogent.admin.constants.ErrorMessageConstants.NAME_DUPLICATION_DEBUG_MESSAGE;
-import static com.cogent.admin.constants.ErrorMessageConstants.NAME_DUPLICATION_MESSAGE;
 import static com.cogent.admin.log.CommonLogConstant.*;
 import static com.cogent.admin.log.constants.UnitLog.UNIT;
 import static com.cogent.admin.utils.DateUtils.getDifferenceBetweenTwoTime;
 import static com.cogent.admin.utils.DateUtils.getTimeInMillisecondsFromLocalDate;
+import static com.cogent.admin.utils.LogLevel.Level.*;
+import static com.cogent.admin.utils.LogLevel.log;
 import static com.cogent.admin.utils.NameAndCodeValidationUtils.validatetDuplicityByNameOrCode;
 import static com.cogent.admin.utils.UnitUtils.*;
 
@@ -52,7 +51,9 @@ public class UnitServiceImpl implements UnitService {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
-        log.info(SAVING_PROCESS_STARTED, UNIT);
+        UnitServiceImpl.log.info(SAVING_PROCESS_STARTED, UNIT);
+
+        log(log, INFO, SAVING_PROCESS_STARTED + "INFO");
 
         validatetDuplicityByNameOrCode(unitRepository.fetchUnitByNameOrCode
                         (requestDTO.getName(), requestDTO.getCode()),
@@ -60,7 +61,7 @@ public class UnitServiceImpl implements UnitService {
 
         save(parseToUnit.apply(requestDTO));
 
-        log.info(SAVING_PROCESS_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
+        UnitServiceImpl.log.info(SAVING_PROCESS_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
 
     }
 
@@ -69,11 +70,11 @@ public class UnitServiceImpl implements UnitService {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
-        log.info(DELETING_PROCESS_STARTED, UNIT);
+        UnitServiceImpl.log.info(DELETING_PROCESS_STARTED, UNIT);
 
         save(deleteUnit.apply(fetchUnitById(deleteRequestDTO.getId()), deleteRequestDTO));
 
-        log.info(DELETING_PROCESS_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
+        UnitServiceImpl.log.info(DELETING_PROCESS_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
 
     }
 
@@ -82,17 +83,17 @@ public class UnitServiceImpl implements UnitService {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
-        log.info(UPDATING_PROCESS_STARTED, UNIT);
+        UnitServiceImpl.log.info(UPDATING_PROCESS_STARTED, UNIT);
 
         Unit toBeUpdatedUnit = fetchUnitById(updateRequestDTO.getId());
 
         validatetDuplicityByNameOrCode(unitRepository.checkUnitNameAndCodeIfExist(
-                updateRequestDTO.getId(),updateRequestDTO.getName(), updateRequestDTO.getCode()),
+                updateRequestDTO.getId(), updateRequestDTO.getName(), updateRequestDTO.getCode()),
                 updateRequestDTO.getName(), updateRequestDTO.getCode(), Unit.class);
 
         save(updateToUnit(toBeUpdatedUnit, updateRequestDTO));
 
-        log.info(UPDATING_PROCESS_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
+        UnitServiceImpl.log.info(UPDATING_PROCESS_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
 
     }
 
@@ -101,13 +102,13 @@ public class UnitServiceImpl implements UnitService {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
-        log.info(FETCHING_MINIMAL_PROCESS_STARTED, UNIT);
+        UnitServiceImpl.log.info(FETCHING_MINIMAL_PROCESS_STARTED, UNIT);
 
 
         List<UnitMinimalResponseDTO> minimalResponseDTOS = unitRepository
                 .searchUnit(searchRequestDTO, pageable);
 
-        log.info(FETCHING_MINIMAL_PROCESS_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
+        UnitServiceImpl.log.info(FETCHING_MINIMAL_PROCESS_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
 
         return minimalResponseDTOS;
 
@@ -118,11 +119,11 @@ public class UnitServiceImpl implements UnitService {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
-        log.info(FETCHING_DETAIL_PROCESS_STARTED, UNIT);
+        UnitServiceImpl.log.info(FETCHING_DETAIL_PROCESS_STARTED, UNIT);
 
         UnitResponseDTO responseDTO = unitRepository.fetchUnitDetails(id);
 
-        log.info(FETCHING_DETAIL_PROCESS_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
+        UnitServiceImpl.log.info(FETCHING_DETAIL_PROCESS_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
 
         return responseDTO;
 
@@ -133,13 +134,13 @@ public class UnitServiceImpl implements UnitService {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
-        log.info(FETCHING_PROCESS_STARTED_FOR_ACTIVE_DROPDOWN, UNIT);
+        UnitServiceImpl.log.info(FETCHING_PROCESS_STARTED_FOR_ACTIVE_DROPDOWN, UNIT);
 
 
         List<DropDownResponseDTO> dropDownResponseDTOS = unitRepository.activeDropDownList()
                 .orElseThrow(() -> new NoContentFoundException(Unit.class));
 
-        log.info(FETCHING_PROCESS_FOR_ACTIVE_DROPDOWN_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
+        UnitServiceImpl.log.info(FETCHING_PROCESS_FOR_ACTIVE_DROPDOWN_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
 
         return dropDownResponseDTOS;
 
@@ -150,13 +151,13 @@ public class UnitServiceImpl implements UnitService {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
-        log.info(FETCHING_PROCESS_STARTED_FOR_ACTIVE_DROPDOWN, UNIT);
+        UnitServiceImpl.log.info(FETCHING_PROCESS_STARTED_FOR_ACTIVE_DROPDOWN, UNIT);
 
 
         List<DropDownResponseDTO> dropDownResponseDTOS = unitRepository.dropDownList()
                 .orElseThrow(() -> new NoContentFoundException(Unit.class));
 
-        log.info(FETCHING_PROCESS_FOR_ACTIVE_DROPDOWN_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
+        UnitServiceImpl.log.info(FETCHING_PROCESS_FOR_ACTIVE_DROPDOWN_COMPLETED, UNIT, getDifferenceBetweenTwoTime(startTime));
 
         return dropDownResponseDTOS;
 
