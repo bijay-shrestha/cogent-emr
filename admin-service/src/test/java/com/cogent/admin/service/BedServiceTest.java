@@ -21,7 +21,9 @@ import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -360,6 +362,18 @@ public class BedServiceTest {
         bedService.fetchActiveDropDownList();
 
         verify(bedRepository).activeDropDownList();
+    }
+
+
+    @Test
+    public void test(){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        System.out.println(formatter.format(new Date()));
+
+        System.out.println(formatter);
+
     }
 
 }

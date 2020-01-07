@@ -1,4 +1,4 @@
-package com.cogent.admin.dto.request.discountscheme;
+package com.cogent.admin.dto.discountscheme;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

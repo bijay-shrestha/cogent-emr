@@ -1,4 +1,8 @@
-package com.cogent.admin.dto.request.qualification;
+package com.cogent.admin.dto.qualification;
+
+import com.cogent.admin.dto.request.qualification.QualificationRequestDTO;
+import com.cogent.admin.dto.request.qualification.QualificationSearchRequestDTO;
+import com.cogent.admin.dto.request.qualification.QualificationUpdateRequestDTO;
 
 /**
  * @author smriti on 11/11/2019

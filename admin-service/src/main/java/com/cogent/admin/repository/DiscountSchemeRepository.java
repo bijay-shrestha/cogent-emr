@@ -18,4 +18,7 @@ public interface DiscountSchemeRepository extends JpaRepository<DiscountScheme, 
 
     @Query("FROM DiscountScheme ds WHERE  ds.id=:id AND ds.status !='D'")
     Optional<DiscountScheme> fetchDiscountSchemeById(@Param("id") Long id);
+
+    @Query("FROM DiscountScheme ds WHERE  ds.id=:id AND ds.status ='Y'")
+    DiscountScheme fetchActiveDiscountSchemeById(@Param("id") Long id);
 }

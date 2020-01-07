@@ -1,11 +1,11 @@
 package com.cogent.admin.service;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
+import com.cogent.admin.dto.religion.ReligionResponseUtils;
 import com.cogent.admin.dto.request.religion.ReligionRequestDTO;
 import com.cogent.admin.dto.request.religion.ReligionSearchRequestDTO;
 import com.cogent.admin.dto.request.religion.ReligionUpdateRequestDTO;
 import com.cogent.admin.dto.response.religion.ReligionResponseDTO;
-import com.cogent.admin.dto.request.religion.ReligionResponseUtils;
 import com.cogent.admin.dto.surname.SurnameResponseUtils;
 import com.cogent.admin.exception.DataDuplicationException;
 import com.cogent.admin.exception.NoContentFoundException;
@@ -29,8 +29,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.cogent.admin.dto.CommonRequestUtils.getDeleteRequestDTO;
-import static com.cogent.admin.dto.request.religion.ReligionRequestUtils.*;
-import static com.cogent.admin.dto.request.religion.ReligionResponseUtils.*;
+import static com.cogent.admin.dto.religion.ReligionRequestUtils.*;
+import static com.cogent.admin.dto.religion.ReligionResponseUtils.*;
 import static com.cogent.admin.utils.ReligionUtils.convertDTOToReligion;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.samePropertyValuesAs;

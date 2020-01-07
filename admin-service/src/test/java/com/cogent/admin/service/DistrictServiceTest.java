@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.cogent.admin.dto.district.DistrictTestUtils.*;
-import static com.cogent.admin.dto.request.provinces.ProvincesTestUtils.getProvincesInfo;
+import static com.cogent.admin.dto.provinces.ProvincesTestUtils.getProvincesInfo;
 import static com.cogent.admin.utils.CommonConverterUtils.ConvertToDeleteRequestDTO;
 import static com.cogent.admin.utils.DistrictUtils.parseToDistrict;
 import static com.cogent.admin.utils.DistrictUtils.updateDistrict;

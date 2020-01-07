@@ -1,4 +1,4 @@
-package com.cogent.admin.dto.request.qualification;
+package com.cogent.admin.dto.qualification;
 
 import com.cogent.admin.dto.response.qualification.QualificationDropdownDTO;
 import com.cogent.admin.dto.response.qualification.QualificationMinimalResponseDTO;

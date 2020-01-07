@@ -129,7 +129,7 @@ public class AdminController {
 
     @PostMapping(PASSWORD)
     @ApiOperation(SAVE_PASSWORD_OPERATION)
-    public ResponseEntity<?> savePassword(@Valid @RequestBody PasswordRequestDTO requestDTO) {
+    public ResponseEntity<?> savePassword(@Valid @RequestBody AdminPasswordRequestDTO requestDTO) {
         adminService.savePassword(requestDTO);
         return ok().build();
     }
@@ -145,8 +145,9 @@ public class AdminController {
     public AdminInfoByUsernameResponseDTO fetchAdminInfoByUsername(@PathVariable("username") String username) {
         return adminService.fetchAdminInfoByUsername(username);
     }
+
     @PutMapping(SUB_DEPARTMENT)
-    @ApiOperation(FETCH_LOGGED_IN_ADMIN_INFO)
+    @ApiOperation(FETCH_ASSIGNED_SUB_DEPARTMENTS)
     public ResponseEntity<?> fetchLoggedInAdminSubDepartmentInfo(@Valid @RequestBody AdminSubDepartmentRequestDTO requestDTO) {
         return ok(adminService.fetchLoggedInAdminSubDepartmentList(requestDTO));
     }

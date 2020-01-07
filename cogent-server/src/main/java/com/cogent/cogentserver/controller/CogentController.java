@@ -11,7 +11,7 @@ public class CogentController {
 
     @GetMapping("/")
     public ResponseEntity<?> cogent() {
-
+        System.out.println("SERVER IS RUNNING");
         return ok("Server is Running-----");
     }
     

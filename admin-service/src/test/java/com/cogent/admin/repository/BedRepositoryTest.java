@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.awt.*;
 import java.util.Optional;
 
 import static org.junit.Assert.assertTrue;
@@ -29,5 +30,7 @@ public class BedRepositoryTest {
 
         assertTrue(!bed.equals(Optional.empty()));
     }
+
+
 
 }

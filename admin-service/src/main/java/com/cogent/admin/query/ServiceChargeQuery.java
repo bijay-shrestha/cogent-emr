@@ -174,11 +174,39 @@ public class ServiceChargeQuery {
 
     public static final String QUERY_FOR_ACTIVE_DROP_DOWN_SERVICE_CHARGE_BY_BILLING_MODE_ID =
            "SELECT " +
-                   " scbm.billing_modes_id as value," +
+                   " s.id as value," +
                    " s.name as label," +
                    " sc.price as price" +
                    " FROM service_charge_billing_modes scbm" +
                    " LEFT JOIN service_charge sc ON sc.id= scbm.service_charge_id" +
                    " LEFT JOIN service s ON s.id=sc.service_id" +
                    " WHERE billing_modes_id=:billingModeId";
+    public static final String QUERY_TO_FETCH_LIST_BY_BILLING_MODE_ID_AND_SERVICE_ID =
+            "SELECT" +
+                    " sc.id," +
+                    " sc.price," +
+                    " sc.remarks," +
+                    " sc.status," +
+                    " sc.service_id" +
+                    " FROM" +
+                    " service_charge sc" +
+                    " LEFT JOIN service_charge_billing_modes sb ON sb.service_charge_id = sc.id" +
+                    " WHERE sb.billing_modes_id = :billingModeId" +
+                    " AND sc.service_id = :serviceId";
+
+    public static final String QUERY_TO_FETCH_SERVICE_BY_SERVICE_ID =
+            "SELECT" +
+                    " s.id as id," +
+                    " s.code as code," +
+                    " s.name as name," +
+                    " s.remarks as remarks," +
+                    " s.status as status," +
+                    " s.department as department," +
+                    " s.serviceType as serviceType," +
+                    " s.subDepartment as subDepartment" +
+                    " FROM" +
+                    " Service s" +
+                    " WHERE s.id=:id" +
+                    " AND s.status!='D'";
+
 }

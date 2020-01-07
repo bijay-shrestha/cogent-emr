@@ -26,7 +26,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
-import static com.cogent.admin.dto.request.provinces.ProvincesTestUtils.*;
+import static com.cogent.admin.dto.provinces.ProvincesTestUtils.*;
 import static com.cogent.admin.utils.ProvincesUtils.convertToProvincesInfo;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;

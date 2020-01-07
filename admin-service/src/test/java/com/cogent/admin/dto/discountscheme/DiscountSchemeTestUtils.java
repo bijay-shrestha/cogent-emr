@@ -1,7 +1,7 @@
-package com.cogent.admin.dto.request.discountscheme;
+package com.cogent.admin.dto.discountscheme;
 
-import com.cogent.admin.dto.request.discountscheme.discountschemedetails.DepartmentDiscountRequestDTO;
-import com.cogent.admin.dto.request.discountscheme.discountschemedetails.ServiceDiscountRequestDTO;
+import com.cogent.admin.dto.discountscheme.discountschemedetails.DepartmentDiscountRequestDTO;
+import com.cogent.admin.dto.discountscheme.discountschemedetails.ServiceDiscountRequestDTO;
 import com.cogent.admin.dto.response.discountscheme.DiscountSchemeMinimalResponseDTO;
 import com.cogent.admin.dto.response.discountscheme.DiscountSchemeResponseDTO;
 import com.cogent.admin.dto.response.discountscheme.dropdown.DepartmentDiscountDropDownResponseDTO;

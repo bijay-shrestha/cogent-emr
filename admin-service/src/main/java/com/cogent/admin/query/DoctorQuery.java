@@ -284,4 +284,16 @@ public class DoctorQuery {
                     " AND cs.status = 'Y'" +
                     " AND c.status = 'Y'";
 
+    public static String QUERY_TO_FETCH_DOCTOR_BY_DOCTOR_ID =
+            "SELECT" +
+                    " d" +
+                    " c" +
+                    " g"+
+                    " FROM Doctor d" +
+                    " LEFT JOIN Country c On c.id=d.country.id" +
+                    " LEFT JOIN Gender g on g.id=d.gender.id" +
+                    " WHERE d.id=:id" +
+                    " AND d.status='Y'";
+
+
 }

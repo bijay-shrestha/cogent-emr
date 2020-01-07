@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.cogent.admin.dto.CommonRequestUtils.getDeleteRequestDTO;
-import static com.cogent.admin.dto.profile.ProfileRequestUtils.*;
 import static com.cogent.admin.dto.profile.ProfileResponseUtils.*;
+import static com.cogent.admin.dto.profile.ProfileRequestUtils.*;
 import static com.cogent.admin.dto.subdepartment.SubDepartmentTestUtlis.getSubDepartmentInfo;
 import static com.cogent.admin.utils.ProfileUtils.*;
 import static java.util.Optional.of;

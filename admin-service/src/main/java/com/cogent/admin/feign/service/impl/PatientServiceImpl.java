@@ -1,7 +1,8 @@
-package com.cogent.admin.service.impl;
+package com.cogent.admin.feign.service.impl;
 
-import com.cogent.admin.dto.request.patient.PatientRequestDTO;
-import com.cogent.admin.dto.response.patient.ResponseDTO;
+import com.cogent.admin.feign.dto.request.patient.PatientRequestDTO;
+import com.cogent.admin.feign.dto.response.patient.PatientResponseDTO;
+import com.cogent.admin.feign.service.PatientService;
 import com.cogent.admin.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,6 @@ public class PatientServiceImpl implements PatientService {
     private final MunicipalityService municipalityService;
 
     private final NationalityService nationalityService;
-
 
     private final SurnameService surnameService;
 
@@ -52,8 +52,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public ResponseDTO getPatientDetails(PatientRequestDTO requestDTO) {
-        ResponseDTO patientResponseDTO = parseToPatientResponseDTO(
+    public PatientResponseDTO getPatientDetails(PatientRequestDTO requestDTO) {
+        PatientResponseDTO patientResponseDTO = parseToPatientResponseDTO(
                 nationalityService.fetchNatioanlity(requestDTO.getNationalityId()),
                 municipalityService.fetchMunicipalityById(requestDTO.getMunicipalityId()),
                 surnameService.fetchSurname(requestDTO.getSurnameId()),

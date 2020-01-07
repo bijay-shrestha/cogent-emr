@@ -1,9 +1,9 @@
 package com.cogent.admin.dto.district;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
+import com.cogent.admin.dto.provinces.ProvincesTestUtils;
 import com.cogent.admin.dto.request.district.DistrictRequestDTO;
 import com.cogent.admin.dto.request.district.DistrictUpdateRequestDTO;
-import com.cogent.admin.dto.request.provinces.ProvincesTestUtils;
 import com.cogent.admin.dto.response.district.DistrictDropDownResponseDTO;
 import com.cogent.admin.dto.response.district.DistrictMinimalResponseDTO;
 import com.cogent.admin.dto.response.district.DistrictResponseDTO;

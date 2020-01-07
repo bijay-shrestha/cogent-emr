@@ -38,7 +38,7 @@ public class ServiceChargeRepositoryCustomImpl implements ServiceChargeRepositor
     public BigInteger fetchServiceChargeCountByServiceIdAndBillingModeId(Long serviceId, Long billingModeId) {
         Query query = createNativeQuery.apply(entityManager, FETCH_SERVICE_CHARGE_COUNT_BY_SERVICE_ID_AND_BILLING_MODE_ID)
                 .setParameter(SERVICE_ID, serviceId)
-                .setParameter(BILLING_MODE_ID,billingModeId);
+                .setParameter(BILLING_MODE_ID, billingModeId);
 
 
         return (BigInteger) query.getSingleResult();
@@ -49,7 +49,7 @@ public class ServiceChargeRepositoryCustomImpl implements ServiceChargeRepositor
         Query query = createNativeQuery.apply(entityManager, CHECK_IF_SERVICE_ALREADY_EXISTS)
                 .setParameter(ID, id)
                 .setParameter(SERVICE_ID, serviceId)
-                .setParameter(BILLING_MODE_ID,billingModeId);
+                .setParameter(BILLING_MODE_ID, billingModeId);
 
 
         return (BigInteger) query.getSingleResult();
@@ -107,7 +107,7 @@ public class ServiceChargeRepositoryCustomImpl implements ServiceChargeRepositor
     @Override
     public Optional<List<BillingModeDropDownResponseDTO>> fetchActiveDropDownListByBillingModeId(Long billingModeId) {
         Query query = createNativeQuery.apply(entityManager, QUERY_FOR_ACTIVE_DROP_DOWN_SERVICE_CHARGE_BY_BILLING_MODE_ID)
-                .setParameter(BILLING_MODE_ID,billingModeId);
+                .setParameter(BILLING_MODE_ID, billingModeId);
 
         List<BillingModeDropDownResponseDTO> dropDownDTOS = transformNativeQueryToResultList(query,
                 BillingModeDropDownResponseDTO.class);
@@ -135,5 +135,17 @@ public class ServiceChargeRepositoryCustomImpl implements ServiceChargeRepositor
                 DropDownResponseDTO.class);
 
         return dropDownDTOS.isEmpty() ? Optional.empty() : Optional.of(dropDownDTOS);
+    }
+
+    @Override
+    public List<ServiceCharge> fetchLisByBillingModeIdAndServiceId(Long billingModeId, Long serviceId) {
+
+        List<ServiceCharge> serviceCharges = entityManager.createNativeQuery(
+                QUERY_TO_FETCH_LIST_BY_BILLING_MODE_ID_AND_SERVICE_ID, ServiceCharge.class)
+                .setParameter(BILLING_MODE_ID, billingModeId)
+                .setParameter(SERVICE_ID, serviceId)
+                .getResultList();
+
+        return serviceCharges;
     }
 }

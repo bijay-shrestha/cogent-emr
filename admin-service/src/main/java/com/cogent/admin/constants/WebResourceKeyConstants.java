@@ -80,7 +80,7 @@ public class WebResourceKeyConstants {
     public interface DiscountSchemeConstants {
         String BASE_DISCOUNT_SCHEME = "/discountSchemes";
         String DEPARTMENT_DISCOUNT = "/departmentDiscount";
-        String SERVICE_DISCOUNT = "/serviceDiscount";
+        String SERVICE_DISCOUNT = "/serviceDiscountRate";
     }
 
     public interface DistrictConstants {

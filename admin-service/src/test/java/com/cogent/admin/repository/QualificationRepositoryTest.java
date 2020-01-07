@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.persistence.Query;
 import java.util.List;
 
-import static com.cogent.admin.dto.request.qualification.QualificationRequestUtils.getQualificationSearchRequestDTO;
+import static com.cogent.admin.dto.qualification.QualificationRequestUtils.getQualificationSearchRequestDTO;
 import static com.cogent.admin.query.QualificationQuery.*;
 import static com.cogent.admin.utils.QueryUtil.getQuery;
 import static junit.framework.TestCase.assertFalse;

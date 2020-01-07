@@ -1,8 +1,8 @@
 package com.cogent.admin.controller.v1;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
+import com.cogent.admin.dto.religion.ReligionRequestUtils;
 import com.cogent.admin.dto.request.religion.ReligionRequestDTO;
-import com.cogent.admin.dto.request.religion.ReligionRequestUtils;
 import com.cogent.admin.dto.request.religion.ReligionSearchRequestDTO;
 import com.cogent.admin.dto.request.religion.ReligionUpdateRequestDTO;
 import com.cogent.admin.service.ReligionService;
@@ -22,8 +22,8 @@ import static com.cogent.admin.constants.WebResourceKeyConstants.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.ReligionConstants.BASE_RELIGION;
 import static com.cogent.admin.dto.CommonRequestUtils.getDeleteRequestDTO;
 import static com.cogent.admin.dto.CommonRequestUtils.getInvalidInputForDelete;
-import static com.cogent.admin.dto.request.religion.ReligionRequestUtils.*;
-import static com.cogent.admin.dto.request.religion.ReligionResponseUtils.*;
+import static com.cogent.admin.dto.religion.ReligionRequestUtils.*;
+import static com.cogent.admin.dto.religion.ReligionResponseUtils.*;
 import static com.cogent.admin.utils.ObjectToJSONUtils.writeObjectToJson;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;

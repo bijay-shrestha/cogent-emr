@@ -1,6 +1,6 @@
 package com.cogent.admin.utils;
 
-import com.cogent.admin.dto.response.patient.ResponseDTO;
+import com.cogent.admin.feign.dto.response.patient.PatientResponseDTO;
 import com.cogent.persistence.model.*;
 
 /**
@@ -8,14 +8,14 @@ import com.cogent.persistence.model.*;
  */
 public class PatientUtils {
 
-    public static ResponseDTO parseToPatientResponseDTO(Nationality nationality,
-                                                        Municipality municipality,
-                                                        Surname surname,
-                                                        Religion religion,
-                                                        MaritalStatus maritalStatus,
-                                                        Title title,
-                                                        Category category) {
-        return ResponseDTO
+    public static PatientResponseDTO parseToPatientResponseDTO(Nationality nationality,
+                                                               Municipality municipality,
+                                                               Surname surname,
+                                                               Religion religion,
+                                                               MaritalStatus maritalStatus,
+                                                               Title title,
+                                                               Category category) {
+        return PatientResponseDTO
                 .builder()
                 .nationality(nationality)
                 .municipality(municipality)

@@ -17,4 +17,8 @@ public interface ReferrerRepository extends JpaRepository<Referrer,Long>, Referr
 
     @Query("SELECT r FROM Referrer r WHERE r.status='Y' AND r.id = :id")
     Optional<Referrer> findReferrerStatusById(@Param("id") Long id);
+
+    @Query("FROM Referrer r WHERE r.status='Y' AND r.id = :id")
+    Referrer fetchActiveReferrerById(@Param("id") Long id);
 }
+

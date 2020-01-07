@@ -27,8 +27,8 @@ import java.util.Optional;
 
 import static com.cogent.admin.dto.CommonRequestUtils.getDeleteRequestDTO;
 import static com.cogent.admin.dto.country.CountryResponseUtils.fetchCountry;
-import static com.cogent.admin.dto.request.qualification.QualificationRequestUtils.*;
-import static com.cogent.admin.dto.request.qualification.QualificationResponseUtils.*;
+import static com.cogent.admin.dto.qualification.QualificationRequestUtils.*;
+import static com.cogent.admin.dto.qualification.QualificationResponseUtils.*;
 import static com.cogent.admin.dto.qualificationAlias.QualificationAliasResponseUtils.fetchQualificationAlias;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;

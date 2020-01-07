@@ -25,7 +25,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Validator;
@@ -38,8 +37,8 @@ import static com.cogent.admin.dto.admin.AdminResponseUtils.*;
 import static com.cogent.admin.dto.adminCategory.AdminCategoryResponseUtils.getAdminCategory;
 import static com.cogent.admin.dto.files.MultipartFileUtils.getMockMultipartFile;
 import static com.cogent.admin.dto.files.MultipartFileUtils.getUpdatedMultipartFile;
-import static com.cogent.admin.dto.profile.ProfileRequestUtils.getProfileInfo;
 import static com.cogent.admin.dto.profile.ProfileResponseUtils.getProfilesForDropdown;
+import static com.cogent.admin.dto.profile.ProfileRequestUtils.getProfileInfo;
 import static com.cogent.admin.utils.AdminUtils.convertFileToAdminAvatar;
 import static com.cogent.admin.utils.HttpServletRequestUtils.getMockHttpServletRequest;
 import static java.util.Optional.of;
@@ -732,7 +731,7 @@ public class AdminServiceTest {
 
     @Test
     public void savePassword_ShouldThrowException() {
-        PasswordRequestDTO requestDTO = getPasswordRequestDTO();
+        AdminPasswordRequestDTO requestDTO = getPasswordRequestDTO();
 
         given(confirmationTokenRepository.findAdminConfirmationTokenByToken(requestDTO.getToken()))
                 .willReturn(Optional.empty());
@@ -743,7 +742,7 @@ public class AdminServiceTest {
 
     @Test
     public void Should_Successfully_Save_Password() {
-        PasswordRequestDTO requestDTO = getPasswordRequestDTO();
+        AdminPasswordRequestDTO requestDTO = getPasswordRequestDTO();
 
         given(confirmationTokenRepository.findAdminConfirmationTokenByToken(requestDTO.getToken()))
                 .willReturn(Optional.of(getAdminConfirmationToken()));
@@ -751,15 +750,6 @@ public class AdminServiceTest {
         adminService.savePassword(requestDTO);
         verify(confirmationTokenRepository, times(1)).save(any(AdminConfirmationToken.class));
         verify(adminRepository, times(1)).save(any(Admin.class));
-    }
-
-    @Test
-    public void test(){
-
-        String password = "admin";
-        String encrypt = BCrypt.hashpw(password, BCrypt.gensalt());
-
-        System.out.println(encrypt);
     }
 }
 
