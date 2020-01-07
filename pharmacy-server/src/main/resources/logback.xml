@@ -86,6 +86,24 @@
         </encoder>
     </appender>
 
+    <appender name="FILE_WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${PROD_HOME}/pharmacy-server/warn.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${PROD_HOME}/archived/pharmacy-server/warn.%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${PROD_HOME}/pharmacy-server/log.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -125,38 +143,44 @@
     </appender>
 
     <!--send info logs to file-->
-    <logger name="com.example.demo.service" level="INFO">
+    <logger name="com.example.demo.service" additivity="false">
+        <Level value="INFO" />
         <appender-ref ref="FILE_INFO"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="com.example.demo" Level="INFO" additivity="false">
+    <logger name="com.example.demo" additivity="false">
+        <Level value="INFO" />
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
-    <logger name="com.example.demo" Level="ERROR" additivity="false">
+    <logger name="com.example.demo" additivity="false">
+        <Level value="ERROR" />
         <appender-ref ref="FILE_ERROR"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework" Level="INFO" additivity="false">
+    <logger name="org.springframework" additivity="false">
+        <Level value="INFO" />
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework.web" Level="ERROR" >
+    <logger name="org.springframework.web" additivity="false" >
+        <Level value="ERROR" />
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework.transaction" Level="ERROR" >
+    <logger name="org.springframework.transaction" additivity="false" >
+        <Level value="ERROR" />
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>

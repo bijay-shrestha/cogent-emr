@@ -67,6 +67,24 @@
         </encoder>
     </appender>
 
+    <appender name="FILE_WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${PROD_HOME}/auth-servic/warn.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${PROD_HOME}/archived/auth-servic/warn.%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
 
     <appender name="FILE_ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${PROD_HOME}/auth-service/root.log</file>
@@ -125,53 +143,76 @@
     </appender>
 
     <!--send info logs to file-->
-    <logger name="com.cogent.authservice.service" level="INFO">
+    <logger name="com.cogent.authservice.service" additivity="false">
+        <Level value="INFO" />
         <appender-ref ref="FILE_INFO"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="com.cogent.authservice.repository" Level="INFO">
+    <!--    <logger name="com.cogent.admin.service.impl" additivity="false" >-->
+    <!--        <Level value="ERROR" />-->
+    <!--        <appender-ref ref="FILE_ERROR"/>-->
+    <!--        <appender-ref ref="CONSOLE"/>-->
+    <!--        <appender-ref ref="FILE"/>-->
+    <!--        <appender-ref ref="COMMON"/>-->
+    <!--    </logger>-->
+
+    <logger name="org.springframework" additivity="false">
+        <Level value="WARN"/>
+        <appender-ref ref="FILE_WARN"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="COMMON"/>
+    </logger>
+
+
+    <logger name="com.cogent.authservice.repository" additivity="false">
+        <Level value="INFO"/>
         <appender-ref ref="FILE_INFO_REPO"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="com.cogent.authservice" Level="INFO" additivity="false">
+    <logger name="com.cogent.authservice" additivity="false">
+        <Level value="INFO"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="com.cogent.authservice" Level="ERROR" additivity="false">
+    <logger name="com.cogent.authservice" additivity="false">
+        <Level value="ERROR"/>
         <appender-ref ref="FILE_ERROR"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework" Level="INFO" additivity="false">
+    <logger name="org.springframework" additivity="false">
+        <Level value="INFO"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework.web" Level="ERROR" >
+    <logger name="org.springframework.web" additivity="false">
+        <Level value="ERROR"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework.transaction" Level="ERROR" >
+    <logger name="org.springframework.transaction" Level="ERROR" additivity="false">
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
     <root>
-        <Level value="WARN" />
+        <Level value="WARN"/>
         <appender-ref ref="FILE_ROOT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>

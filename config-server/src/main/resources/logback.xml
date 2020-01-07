@@ -124,32 +124,55 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="com.cogent.configserver" level="INFO" additivity="false">
+    <appender name="FILE_WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${PROD_HOME}/config-server/warn.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${PROD_HOME}/archived/config-server/warn.%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.cogent.configserver" additivity="false">
+        <Level value="INFO" />
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="com.cogent.configserver" Level="ERROR" additivity="false">
+    <logger name="com.cogent.configserver" additivity="false">
+        <Level value="ERROR" />
         <appender-ref ref="FILE_ERROR"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework" Level="INFO" additivity="false">
+    <logger name="org.springframework" additivity="false">
+        <Level value="INFO" />
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework.web" Level="ERROR" >
+    <logger name="org.springframework.web" additivity="false" >
+        <Level value="ERROR" />
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
     </logger>
 
-    <logger name="org.springframework.transaction" Level="ERROR" >
+    <logger name="org.springframework.transaction" additivity="false" >
+        <Level value="ERROR" />
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="COMMON"/>
