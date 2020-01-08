@@ -7,8 +7,12 @@ public class UserContext {
 
     private static final ThreadLocal<String> userName = new ThreadLocal<String>();
 
-    public static String getUsername() { return userName.get(); }
-    public static void setUsername(String arg) {userName.set(arg);}
+    public static String getUsername() {
+        return userName.get();
+    }
+    public static void setUsername(String arg) {
+        userName.set(arg);
+    }
 
 
 }
