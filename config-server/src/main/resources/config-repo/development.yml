@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/cogent-emr
     username: cogent
-    password: cogent9
+    password: cogent
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
