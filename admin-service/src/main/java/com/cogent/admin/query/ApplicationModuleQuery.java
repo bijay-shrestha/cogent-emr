@@ -52,11 +52,11 @@ public class ApplicationModuleQuery {
 
     public static final String QUERY_TO_FETCH_ACTIVE_APPLICATION_MODULE_FOR_DROPDOWN =
             " SELECT" +
-                    " a.id as id," +                                      //[0]
-                    " a.name as name," +                                  //[1]
-                    " a.subDepartmentId.id as subDepartmentId" +          //[2]
-                    " FROM" +
-                    " ApplicationModule a" +
-                    " WHERE a.status ='Y'";
-
+                    " DISTINCT(a.id) as id ," +                                            //[0]
+                    " a.name as name," +                                                   //[1]
+                    " a.subDepartmentId.id as subDepartmentId" +                           //[2]
+                    " FROM Profile p" +
+                    " LEFT JOIN ApplicationModule a ON a.subDepartmentId.id = p.subDepartment.id" +
+                    " WHERE a.status = 'Y'" +
+                    " AND p.status = 'Y'";
 }
