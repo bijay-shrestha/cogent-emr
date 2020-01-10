@@ -1,14 +1,14 @@
-package com.cogent.edgeserver.security;
+package com.cogent.edgeserver.filters;
 
 import com.cogent.contextserver.security.JwtConfig;
 import com.cogent.edgeserver.filters.AddRequestHeaderFilter;
+import com.cogent.edgeserver.filters.JwtTokenAuthenticationFilter;
 import com.cogent.edgeserver.modules.Modules;
 import com.cogent.edgeserver.modules.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,8 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.http.HttpServletResponse;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+
 @EnableWebSecurity
-@Configuration
 @ComponentScan({
         "com.cogent.contextserver.security"
 })
@@ -47,9 +49,10 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig),
                         UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
-                .antMatchers(HttpMethod.GET, jwtConfig.getUri()).permitAll()
+                .antMatchers(POST, jwtConfig.getUri()).permitAll()
+                .antMatchers(GET, jwtConfig.getUri()).permitAll()
                 .antMatchers(Modules.ACCOUNTING).hasRole(Roles.ACCOUNTING_ROLE)
+                .antMatchers(Modules.ADMIN).hasRole(Roles.ADMIN)
                 .antMatchers(Modules.PHARMACY).hasRole(Roles.PHARMACY_ROLE)
                 .anyRequest().authenticated();
     }

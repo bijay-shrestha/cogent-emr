@@ -13,9 +13,4 @@ public class AuthServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AuthServiceApplication.class, args);
 	}
-
-	@Bean
-    public JwtConfig jwtConfig(){
-	    return new JwtConfig();
-    }
 }

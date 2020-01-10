@@ -1,4 +1,4 @@
-package com.cogent.edgeserver.security;
+package com.cogent.edgeserver.filters;
 
 import com.cogent.contextserver.security.JwtConfig;
 import com.cogent.edgeserver.checkpoint.CookieCheckpoint;
@@ -6,12 +6,11 @@ import com.cogent.edgeserver.checkpoint.JwtTokenCheckpoint;
 import com.cogent.genericservice.cookies.CookieUtils;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -27,7 +26,6 @@ import java.util.stream.Collectors;
 import static com.cogent.genericservice.cookies.CookieConstants.key;
 
 @Slf4j
-@Component
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtConfig jwtConfig;
@@ -41,6 +39,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
 
+        log.info(" :::::: ===== JwtTokenAuthenticationFilter.class (edge-server) ====== ::::::");
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
 
@@ -60,7 +59,10 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     }
 
-    public void authorization(HttpServletRequest request, HttpServletResponse response, Cookie[] cookies, FilterChain chain) throws IOException, ServletException {
+    public void authorization(HttpServletRequest request,
+                              HttpServletResponse response,
+                              Cookie[] cookies,
+                              FilterChain chain) throws IOException, ServletException {
 
 
         Optional<String> token = CookieCheckpoint.cookieCheckpoint(cookies);

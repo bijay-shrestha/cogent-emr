@@ -29,8 +29,6 @@ public class JwtTokenCheckpoint {
 
             }
 
-            System.out.println(username);
-
             return claims;
         } catch (Exception e) {
             SecurityContextHolder.clearContext();
@@ -48,8 +46,6 @@ public class JwtTokenCheckpoint {
                 throw new InvalidCredentialException("Token expired");
 
             }
-
-            System.out.println(username);
 
             return username;
         } catch (Exception e) {

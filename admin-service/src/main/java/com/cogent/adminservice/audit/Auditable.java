@@ -1,4 +1,4 @@
-package com.cogent.contextserver.config;
+package com.cogent.adminservice.audit;
 
 import lombok.Getter;
 import lombok.Setter;

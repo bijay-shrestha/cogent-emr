@@ -1,13 +1,12 @@
 package com.cogent.adminservice.controller;
 
 import com.cogent.adminservice.dto.response.AssignedProfileMenuResponseDTO;
+import com.cogent.adminservice.model.User;
 import com.cogent.adminservice.service.AdminService;
 import com.cogent.adminservice.service.UserService;
-import com.cogent.contextserver.filter.UserContext;
-import com.cogent.contextserver.model.User;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +17,9 @@ import java.util.ArrayList;
 
 import static org.springframework.http.ResponseEntity.ok;
 
-@RestController("/gallery")
+@RestController
+@RequestMapping("/gallery")
+@Slf4j
 public class GalleryController {
 
     private UserService userService;
@@ -39,35 +40,29 @@ public class GalleryController {
         return ok().body(assignedProfileMenuResponseDTO);
     }
 
-    @GetMapping("/home")
+    @GetMapping("/user")
     public ResponseEntity<?> home() {
 
-        String userName = UserContext.getUsername();
-        System.out.println(userName);
-
-        String username;
-        Object principal =
-                SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
+        String username = "bijay";
 
         User user = User.builder()
+                .id(1L)
                 .firstName("Rupak")
                 .lastName("Chaulagain")
                 .email("rupakchaulagain@gmail.com")
-                .username(userName)
+                .username(username)
                 .build();
 
         userService.save(user);
 
-        return ok().body("Welcome to the Gallery Server " + userName);
+        return ok().body("Welcome to the Gallery Server " + user);
 
     }
 
+    @GetMapping("/hello")
+    public String getGallery(){
+        return  "Bijay :: is running ...";
+    }
 
     // Function to remove duplicates from an ArrayList
     public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list) {

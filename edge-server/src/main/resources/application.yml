@@ -23,8 +23,6 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:${eureka.instance.secure-port}/eureka/
 
 zuul:
-  strip-prefix: false
-  ignored-services: '*'
   routes:
     auth-service:
       path: /auth/**
@@ -34,10 +32,13 @@ zuul:
     admin-service:
       path: /admin/**
       serviceId: ADMIN-SERVICE
-      sensitiveHeader: Cookie
+      sensitiveHeaders:
     cogent-server:
-      path: /**
+      path: /cogent/**
       serviceId: COGENT-SERVER
+      sensitiveHeaders:
+  retryable: true
+  ignored-services: '*'
 
 
 

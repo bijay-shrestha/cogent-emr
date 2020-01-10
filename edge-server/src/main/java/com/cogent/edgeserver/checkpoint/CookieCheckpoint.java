@@ -13,8 +13,6 @@ public class CookieCheckpoint {
         if (CookieRequestUtils.checkCookies(cookies)) {
             token = CookieRequestUtils.readCookies(cookies);
         }
-
-        System.out.println("Token form the cookies=" + token.get());
         return token;
 
     }

@@ -4,6 +4,7 @@ import com.cogent.authservice.repository.AdminRepository;
 import com.cogent.authservice.repository.RoleRepository;
 import com.cogent.persistence.model.Admin;
 import com.cogent.persistence.model.Roles;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Service ("userDetailService")
+@Service ("userDetailServiceImpl")
+@Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -37,29 +39,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-//                final List<Admin> admins = Arrays.asList(
-//                new Admin(1L, "bijay", encoder.encode("1234"), "GAL"),
-//                new Admin(2L, "pharmacy", encoder.encode("pharmacy"), "PHA"),
-//                new Admin(2L, "bishow", encoder.encode("12345"), "IMG"),
-//                new Admin(2L, "account", encoder.encode("account"), "ACC")
-//
-//        );
-
-        /* for modules*/
-//        final List<Admin> admins = Arrays.asList(
-//                new Admin(1L, "bijay", encoder.encode("12345678"), RoleList.roleList1()),
-//                new Admin(2L, "account", encoder.encode("account"), RoleList.roleList2())
-//
-//        );
-
         List<Admin> admins = adminRepository.findAll();
 
         for (Admin admin : admins) {
             if (admin.getUsername().equals(username)) {
 
                 Collection<? extends GrantedAuthority> grantedAuthorities = getAuthorities(admin);
-//                List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-//                        .commaSeparatedStringToAuthorityList("ROLE_" + admin.getRoles());
                 return new User(admin.getUsername(), admin.getPassword(), grantedAuthorities);
             }
 
@@ -69,13 +54,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private Collection<? extends GrantedAuthority> getAuthorities(Admin admin) {
 
-        List<GrantedAuthority> list = new ArrayList<>();
-        List<Roles> roleList = roleRepository.findRolesByAdminId(admin.getId());
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        List<Roles> roles = roleRepository.findRolesByAdminId(admin.getId());
 
-        for (Roles roles : roleList) {
-            list.add(new SimpleGrantedAuthority("ROLE_" + roles.getRole()));
+        for (Roles role : roles) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole()));
         }
 
-        return list;
+        log.info(" ::::: UserDetailsServiceImpl.class ----- assigned roles {}", authorities);
+
+        return authorities;
     }
 }

@@ -1,6 +1,8 @@
 package com.cogent.contextserver.filter;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Component
 public class UserContext {

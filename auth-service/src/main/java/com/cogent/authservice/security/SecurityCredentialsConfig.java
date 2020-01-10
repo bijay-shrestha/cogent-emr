@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -27,14 +28,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Configuration
 @EnableWebSecurity
 @EntityScan(basePackages = {"com.cogent.persistence.model"})
 @ComponentScan({"com.cogent.contextserver.security"})
 public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("userDetailService")
+    @Qualifier("userDetailServiceImpl")
     private UserDetailsService userDetailsService;
+
     @Autowired
     private JwtConfig jwtConfig;
 
@@ -46,7 +49,6 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
-//                (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Unauthorised Credentails"))
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
                 .authorizeRequests()
@@ -73,7 +75,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 
                 LoginErrorResponse loginResponse = LoginErrorResponse.builder().
                         status(401)
-                        .message("Unauthorised")
+                        .message("Sorry, it looks unauthorized from here!::::")
                         .build();
 
                 String json = null;

@@ -1,9 +1,8 @@
-package com.cogent.contextserver.model;
+package com.cogent.adminservice.model;
 
-import com.cogent.contextserver.config.Auditable;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+
+import com.cogent.adminservice.audit.Auditable;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -12,8 +11,10 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Setter
-@Table(name = "user")
+@Table(name = "master_user")
 @EntityListeners(AuditingEntityListener.class)
+@AllArgsConstructor
+@NoArgsConstructor
 public class User extends Auditable<String> {
 
     @Id
@@ -31,5 +32,4 @@ public class User extends Auditable<String> {
 
     @Column(name="username", nullable = false)
     private String username;
-
 }
