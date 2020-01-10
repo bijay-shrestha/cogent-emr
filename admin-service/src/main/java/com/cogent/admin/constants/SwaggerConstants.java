@@ -67,7 +67,8 @@ public class SwaggerConstants {
         String DELETE_OPERATION = "Set Application Module status as 'D' when deleted";
         String SEARCH_OPERATION = "Search Application Module according to given request parameters";
         String DETAILS_OPERATION = "Fetch Application Module details by its id";
-        String FETCH_DETAILS_FOR_DROPDOWN = "Fetch minimal Application Module details (id, name and sub-department id) for dropdown";
+        String FETCH_DETAILS_FOR_DROPDOWN = "Fetch minimal Application Module details (id, name and sub-department id) for dropdown." +
+                " Fetch only active application modules and whose profile is active for the same sub-department.";
     }
 
     public interface AssignBedConstant {

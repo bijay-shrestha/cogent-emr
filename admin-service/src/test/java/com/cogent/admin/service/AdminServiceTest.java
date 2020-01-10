@@ -37,8 +37,9 @@ import static com.cogent.admin.dto.admin.AdminResponseUtils.*;
 import static com.cogent.admin.dto.adminCategory.AdminCategoryResponseUtils.getAdminCategory;
 import static com.cogent.admin.dto.files.MultipartFileUtils.getMockMultipartFile;
 import static com.cogent.admin.dto.files.MultipartFileUtils.getUpdatedMultipartFile;
-import static com.cogent.admin.dto.profile.ProfileResponseUtils.getProfilesForDropdown;
+import static com.cogent.admin.dto.hospital.HospitalResponseUtils.getHospital;
 import static com.cogent.admin.dto.profile.ProfileRequestUtils.getProfileInfo;
+import static com.cogent.admin.dto.profile.ProfileResponseUtils.getProfilesForDropdown;
 import static com.cogent.admin.utils.AdminUtils.convertFileToAdminAvatar;
 import static com.cogent.admin.utils.HttpServletRequestUtils.getMockHttpServletRequest;
 import static java.util.Optional.of;
@@ -235,7 +236,7 @@ public class AdminServiceTest {
         AdminRequestDTO adminRequestDTO = getAdminRequestDTO();
 
         Admin expected = AdminUtils.convertAdminRequestDTOToAdmin(adminRequestDTO,
-                getAdminCategory());
+                getAdminCategory(), getHospital());
 
         saveAdmin(adminRequestDTO);
 

@@ -46,6 +46,9 @@ public class AdminUpdateRequestDTO implements Serializable {
     private Long adminCategoryId;
 
     @NotNull
+    private Long hospitalId;
+
+    @NotNull
     @NotEmpty
     private String remarks;
 

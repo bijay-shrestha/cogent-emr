@@ -30,4 +30,4 @@ build/
 ### VS Code ###
 .vscode/
 
-/config-repo/development.yml
+./config-repo/development.yml

@@ -35,7 +35,8 @@ import static com.cogent.admin.utils.StringUtil.toUpperCase;
 public class AdminUtils {
 
     public static Admin convertAdminRequestDTOToAdmin(AdminRequestDTO adminRequestDTO,
-                                                      AdminCategory adminCategory) {
+                                                      AdminCategory adminCategory,
+                                                      Hospital hospital) {
         Admin admin = new Admin();
         admin.setUsername(adminRequestDTO.getUsername());
         admin.setFullName(toUpperCase(adminRequestDTO.getFullName()));
@@ -44,13 +45,15 @@ public class AdminUtils {
         admin.setStatus(adminRequestDTO.getStatus());
         admin.setHasMacBinding(adminRequestDTO.getHasMacBinding());
         admin.setAdminCategory(adminCategory);
+        admin.setHospital(hospital);
         admin.setIsFirstLogin(YES);
         return admin;
     }
 
     public static void convertAdminUpdateRequestDTOToAdmin(Admin admin,
                                                            AdminUpdateRequestDTO adminRequestDTO,
-                                                           AdminCategory adminCategory) {
+                                                           AdminCategory adminCategory,
+                                                           Hospital hospital) {
 
         admin.setFullName(toUpperCase(adminRequestDTO.getFullName()));
         admin.setEmail(adminRequestDTO.getEmail());
@@ -58,6 +61,7 @@ public class AdminUtils {
         admin.setStatus(adminRequestDTO.getStatus());
         admin.setHasMacBinding(adminRequestDTO.getHasMacBinding());
         admin.setAdminCategory(adminCategory);
+        admin.setHospital(hospital);
         admin.setRemarks(adminRequestDTO.getRemarks());
         /*MODIFIED DATE AND MODIFIED BY*/
     }
@@ -289,6 +293,8 @@ public class AdminUtils {
         final int PROFILE_ID_INDEX = 13;
         final int ADMIN_APPLICATION_MODULE_ID_INDEX = 14;
         final int APPLICATION_MODULE_INDEX = 15;
+        final int HOSPITAL_NAME_INDEX = 16;
+        final int HOSPITAL_ID_INDEX = 17;
 
         String[] adminProfileIds = objects[ADMIN_PROFILE_ID_INDEX].toString().split(COMMA_SEPARATED);
         String[] profileIds = objects[PROFILE_ID_INDEX].toString().split(COMMA_SEPARATED);
@@ -305,13 +311,17 @@ public class AdminUtils {
                 .status(objects[STATUS_INDEX].toString().charAt(0))
                 .hasMacBinding(objects[HAS_MAC_BINDING_INDEX].toString().charAt(0))
                 .adminCategoryName(objects[ADMIN_CATEGORY_NAME_INDEX].toString())
-                .fileUri(objects[ADMIN_AVATAR_FILE_URI_INDEX].toString())
-                .isDefaultImage(objects[ADMIN_AVATAR_IS_DEFAULT_INDEX].toString().charAt(0))
+                .fileUri(Objects.isNull(objects[ADMIN_AVATAR_FILE_URI_INDEX]) ? null :
+                        objects[ADMIN_AVATAR_FILE_URI_INDEX].toString())
+                .isDefaultImage(Objects.isNull(objects[ADMIN_AVATAR_IS_DEFAULT_INDEX]) ? null :
+                        objects[ADMIN_AVATAR_IS_DEFAULT_INDEX].toString().charAt(0))
                 .adminCategoryId(Long.parseLong(objects[ADMIN_CATEGORY_ID_INDEX].toString()))
-                .remarks(objects[REMARKS_INDEX].toString())
+                .remarks(Objects.isNull(objects[REMARKS_INDEX]) ? null : objects[REMARKS_INDEX].toString())
                 .adminProfileResponseDTOS(getAdminProfileResponseDTOS(adminProfileIds, profileIds))
                 .adminApplicationModuleResponseDTOS(getAdminApplicationModuleResponseDTOS(
                         adminApplicationModuleIds, applicationModuleIds))
+                .hospitalName(objects[HOSPITAL_NAME_INDEX].toString())
+                .hospitalId(Long.parseLong(objects[HOSPITAL_ID_INDEX].toString()))
                 .build();
     };
 

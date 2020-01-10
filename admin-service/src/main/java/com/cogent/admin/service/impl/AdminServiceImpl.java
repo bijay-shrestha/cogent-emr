@@ -14,10 +14,7 @@ import com.cogent.admin.exception.OperationUnsuccessfulException;
 import com.cogent.admin.feign.dto.request.email.EmailRequestDTO;
 import com.cogent.admin.feign.service.EmailService;
 import com.cogent.admin.repository.*;
-import com.cogent.admin.service.AdminCategoryService;
-import com.cogent.admin.service.AdminService;
-import com.cogent.admin.service.ProfileService;
-import com.cogent.admin.service.StorageService;
+import com.cogent.admin.service.*;
 import com.cogent.admin.utils.AdminUtils;
 import com.cogent.admin.validator.LoginValidator;
 import com.cogent.persistence.model.*;
@@ -81,6 +78,8 @@ public class AdminServiceImpl implements AdminService {
 
     private final AdminApplicationModuleRepository adminApplicationModuleRepository;
 
+    private final HospitalService hospitalService;
+
     public AdminServiceImpl(Validator validator,
                             AdminRepository adminRepository,
                             AdminProfileRepository adminProfileRepository,
@@ -92,7 +91,8 @@ public class AdminServiceImpl implements AdminService {
                             AdminCategoryService adminCategoryService,
                             StorageService storageService,
                             EmailService emailService,
-                            AdminApplicationModuleRepository adminApplicationModuleRepository) {
+                            AdminApplicationModuleRepository adminApplicationModuleRepository,
+                            HospitalService hospitalService) {
         this.validator = validator;
         this.adminRepository = adminRepository;
         this.adminProfileRepository = adminProfileRepository;
@@ -105,6 +105,7 @@ public class AdminServiceImpl implements AdminService {
         this.storageService = storageService;
         this.emailService = emailService;
         this.adminApplicationModuleRepository = adminApplicationModuleRepository;
+        this.hospitalService = hospitalService;
     }
 
     @Override
@@ -317,7 +318,7 @@ public class AdminServiceImpl implements AdminService {
     public List<AdminSubDepartmentResponseDTO> fetchLoggedInAdminSubDepartmentList(AdminSubDepartmentRequestDTO requestDTO) {
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
-        log.info(FETCHING_PROCESS_STARTED,  ADMIN);
+        log.info(FETCHING_PROCESS_STARTED, ADMIN);
 
         List<AdminSubDepartmentResponseDTO> responseDTO = adminRepository.fetchLoggedInAdminSubdepartmentList(requestDTO);
 
@@ -362,18 +363,27 @@ public class AdminServiceImpl implements AdminService {
             throw new DataDuplicationException(Admin.class, EMAIL_DUPLICATION_MESSAGE, EMAIL_DUPLICATION_DEBUG_MESSAGE);
     }
 
-    public void validateMobileNumber(boolean isMobileNumberExists) {
+    private void validateMobileNumber(boolean isMobileNumberExists) {
         if (isMobileNumberExists)
             throw new DataDuplicationException
                     (Admin.class, MOBILE_NUMBER_DUPLICATION_MESSAGE, MOBILE_NUMBER_DUPLICATION_DEBUG_MESSAGE);
     }
 
-    public Admin save(AdminRequestDTO adminRequestDTO) {
+    private Admin save(AdminRequestDTO adminRequestDTO) {
 
-        AdminCategory adminCategory = adminCategoryService.fetchActiveAdminCategoryById
-                (adminRequestDTO.getAdminCategoryId());
+        AdminCategory adminCategory = fetchAdminCategory(adminRequestDTO.getAdminCategoryId());
 
-        return save(convertAdminRequestDTOToAdmin(adminRequestDTO, adminCategory));
+        Hospital hospital = fetchHospital(adminRequestDTO.getHospitalId());
+
+        return save(convertAdminRequestDTOToAdmin(adminRequestDTO, adminCategory, hospital));
+    }
+
+    private AdminCategory fetchAdminCategory(Long adminCategoryId) {
+        return adminCategoryService.fetchActiveAdminCategoryById(adminCategoryId);
+    }
+
+    private Hospital fetchHospital(Long hospitalId) {
+        return hospitalService.fetchHospital(hospitalId);
     }
 
     private void saveAdminApplicationModule(Long adminId, List<Long> applicationModuleIds) {
@@ -533,10 +543,11 @@ public class AdminServiceImpl implements AdminService {
 
     public void update(AdminUpdateRequestDTO adminRequestDTO, Admin admin) {
 
-        AdminCategory adminCategory = adminCategoryService.fetchActiveAdminCategoryById
-                (adminRequestDTO.getAdminCategoryId());
+        AdminCategory adminCategory = fetchAdminCategory(adminRequestDTO.getAdminCategoryId());
 
-        convertAdminUpdateRequestDTOToAdmin(admin, adminRequestDTO, adminCategory);
+        Hospital hospital = fetchHospital(adminRequestDTO.getHospitalId());
+
+        convertAdminUpdateRequestDTOToAdmin(admin, adminRequestDTO, adminCategory, hospital);
     }
 
     public void updateMacAddressInfo(AdminUpdateRequestDTO adminRequestDTO, Admin admin) {
