@@ -43,6 +43,10 @@ public class Admin implements Serializable {
     @JoinColumn(name = "admin_category_id")
     private AdminCategory adminCategory;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
+
     @Column(name ="remarks")
     private String remarks;
 }

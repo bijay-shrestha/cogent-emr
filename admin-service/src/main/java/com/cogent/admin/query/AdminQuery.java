@@ -67,8 +67,8 @@ public class AdminQuery {
                     " a.status as status," +
                     " a.has_mac_binding as hasMacBinding," +
                     " ac.name as adminCategoryName," +
-                    " ifnull(av.file_uri, '-') as fileUri," +
-                    " ifnull(av.is_default_image, '-') as isDefaultImage";
+                    " av.file_uri as fileUri," +
+                    " av.is_default_image as isDefaultImage";
 
     private static String QUERY_TO_SEARCH_ADMIN_PROFILE(AdminSearchRequestDTO requestDTO) {
         String query = "SELECT ap.admin_id as adminId," +
@@ -121,14 +121,17 @@ public class AdminQuery {
     public static final String QUERY_TO_FETCH_ADMIN_DETAIL =
             SELECT_CLAUSE_TO_FETCH_ADMIN + "," +
                     " ac.id as adminCategoryId," +
-                    " ifnull(a.remarks,'-') as remarks," +
+                    " a.remarks as remarks," +
                     " tbl1.adminProfileId as adminProfileId," +
                     " tbl1.profileId as profileId," +
                     " tbl2.adminApplicationModuleId as adminApplicationModuleId," +
-                    " tbl2.applicationModuleId as applicationModuleId" +
+                    " tbl2.applicationModuleId as applicationModuleId," +
+                    " h.name as hospitalName," +
+                    " h.id as hospitalId" +
                     " FROM admin a" +
                     " LEFT JOIN admin_avatar av ON a.id = av.admin_id" +
                     " LEFT JOIN admin_category ac On ac.id = a.admin_category_id" +
+                    " LEFT JOIN hospital h ON h.id = a.hospital_id" +
                     " LEFT JOIN" +
                     " (" +
                     QUERY_TO_FETCH_ADMIN_PROFILE +
@@ -137,7 +140,8 @@ public class AdminQuery {
                     " (" +
                     QUERY_TO_FETCH_ADMIN_APPLICATION_MODULE +
                     ")tbl2 ON tbl2.adminId = a.id" +
-                    " WHERE a.id = :id";
+                    " WHERE a.id = :id" +
+                    " AND a.status !='D'";
 
     public static final String QUERY_FO_FETCH_MAC_ADDRESS_INFO =
             "SELECT m.id as id," +                                  //[0]

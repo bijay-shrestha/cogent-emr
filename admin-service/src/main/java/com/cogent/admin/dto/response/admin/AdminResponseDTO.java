@@ -36,6 +36,10 @@ public class AdminResponseDTO implements Serializable {
 
     private String remarks;
 
+    private Long hospitalId;
+
+    private String hospitalName;
+
     private List<AdminProfileResponseDTO> adminProfileResponseDTOS;
 
     private List<AdminApplicationModuleResponseDTO> adminApplicationModuleResponseDTOS;
