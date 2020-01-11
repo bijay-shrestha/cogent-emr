@@ -15,6 +15,10 @@ public class ExceptionUtils {
         return LocalDateTime.now();
     }
 
+    public static String generateDataDuplicationMessage(String entity, Map<String, String> searchParams) {
+        return StringUtils.capitalize(entity) + " already exists for " + searchParams;
+    }
+
     public static String generateMessage(Class clazz) {
         return "No " + splitByCharacterTypeCamelCase(clazz.getSimpleName()) + "(s) found.";
     }

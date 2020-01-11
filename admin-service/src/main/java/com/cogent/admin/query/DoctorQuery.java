@@ -86,13 +86,13 @@ public class DoctorQuery {
                     whereClause += " AND c.status='" + searchRequestDTO.getStatus() + "'";
 
                 if (!ObjectUtils.isEmpty(searchRequestDTO.getName()))
-                    whereClause += " AND c.name='" + searchRequestDTO.getName() + "'";
+                    whereClause += " AND c.name LIKE '%" + searchRequestDTO.getName() + "%'";
 
                 if (!ObjectUtils.isEmpty(searchRequestDTO.getCode()))
-                    whereClause += " AND c.code='" + searchRequestDTO.getCode() + "'";
+                    whereClause += " AND c.code LIKE '%" + searchRequestDTO.getCode() + "%'";
 
                 if (!ObjectUtils.isEmpty(searchRequestDTO.getMobileNumber()))
-                    whereClause += " AND c.mobile_number='" + searchRequestDTO.getName() + "'";
+                    whereClause += " AND c.mobile_number LIKE '%" + searchRequestDTO.getMobileNumber() + "%'";
 
                 whereClause += " ORDER BY c.id DESC";
 
@@ -283,17 +283,5 @@ public class DoctorQuery {
                     " WHERE cs.specializationId = :id" +
                     " AND cs.status = 'Y'" +
                     " AND c.status = 'Y'";
-
-    public static String QUERY_TO_FETCH_DOCTOR_BY_DOCTOR_ID =
-            "SELECT" +
-                    " d" +
-                    " c" +
-                    " g"+
-                    " FROM Doctor d" +
-                    " LEFT JOIN Country c On c.id=d.country.id" +
-                    " LEFT JOIN Gender g on g.id=d.gender.id" +
-                    " WHERE d.id=:id" +
-                    " AND d.status='Y'";
-
 
 }

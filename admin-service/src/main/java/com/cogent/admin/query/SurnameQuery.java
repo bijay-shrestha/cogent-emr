@@ -44,7 +44,7 @@ public class SurnameQuery {
                     whereClause += " AND s.status='" + searchRequestDTO.getStatus() + "'";
 
                 if (!ObjectUtils.isEmpty(searchRequestDTO.getName()))
-                    whereClause += " AND s.name='" + searchRequestDTO.getName() + "'";
+                    whereClause += " AND s.name LIKE '%" + searchRequestDTO.getName() + "%'";
 
                 if (!Objects.isNull(searchRequestDTO.getEthnicityId()))
                     whereClause += " AND s.ethnicity.id = " + searchRequestDTO.getEthnicityId();

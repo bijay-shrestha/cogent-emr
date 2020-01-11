@@ -26,7 +26,7 @@ import static com.cogent.admin.constants.WebResourceKeyConstants.API_V1;
 import static com.cogent.admin.constants.WebResourceKeyConstants.AdminConstants.BASE_ADMIN;
 import static com.cogent.admin.constants.WebResourceKeyConstants.ForgotPasswordConstants.BASE_FORGOT_PASSWORD;
 import static com.cogent.admin.constants.WebResourceKeyConstants.ForgotPasswordConstants.VERIFY;
-import static com.cogent.admin.utils.RandomGenerator.generateRandomToken;
+import static com.cogent.admin.utils.RandomNumberGenerator.generateRandomToken;
 import static com.cogent.admin.utils.StringUtil.toUpperCase;
 
 /**

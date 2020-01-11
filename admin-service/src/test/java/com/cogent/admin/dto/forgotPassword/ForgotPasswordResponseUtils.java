@@ -1,6 +1,6 @@
 package com.cogent.admin.dto.forgotPassword;
 
-import com.cogent.admin.utils.RandomGenerator;
+import com.cogent.admin.utils.RandomNumberGenerator;
 import com.cogent.persistence.model.ForgotPasswordVerification;
 import org.joda.time.DateTime;
 
@@ -18,7 +18,7 @@ public class ForgotPasswordResponseUtils {
         verification.setId(1L);
         verification.setAdmin(getAdmin());
         verification.setStatus('Y');
-        verification.setResetCode(String.valueOf(RandomGenerator.generateRandomNumber(7)));
+        verification.setResetCode(String.valueOf(RandomNumberGenerator.generateRandomNumber(7)));
         verification.setExpirationDate(new Date(new Date().getTime() + 86400000));
         return verification;
     }

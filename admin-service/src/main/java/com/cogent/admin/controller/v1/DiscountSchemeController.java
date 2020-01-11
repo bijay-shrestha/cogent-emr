@@ -1,9 +1,9 @@
 package com.cogent.admin.controller.v1;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
-import com.cogent.admin.dto.discountscheme.DiscountSchemeRequestDTO;
-import com.cogent.admin.dto.discountscheme.DiscountSchemeSearchRequestDTO;
-import com.cogent.admin.dto.discountscheme.DiscountSchemeUpdateRequestDTO;
+import com.cogent.admin.dto.request.discountscheme.DiscountSchemeRequestDTO;
+import com.cogent.admin.dto.request.discountscheme.DiscountSchemeSearchRequestDTO;
+import com.cogent.admin.dto.request.discountscheme.DiscountSchemeUpdateRequestDTO;
 import com.cogent.admin.service.DiscountSchemeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

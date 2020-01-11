@@ -31,7 +31,7 @@ public class QualificationQuery {
         String whereClause = " WHERE q.status!='D'";
 
         if (!ObjectUtils.isEmpty(searchRequestDTO.getName()))
-            whereClause += " AND q.name='" + searchRequestDTO.getName() + "'";
+            whereClause += " AND q.name LIKE '%" + searchRequestDTO.getName() + "%'";
 
         if (!ObjectUtils.isEmpty(searchRequestDTO.getUniversity()))
             whereClause += " AND q.university='" + searchRequestDTO.getUniversity() + "'";

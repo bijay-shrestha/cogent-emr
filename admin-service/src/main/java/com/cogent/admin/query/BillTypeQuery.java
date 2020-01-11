@@ -5,7 +5,7 @@ package com.cogent.admin.query;
  */
 public class BillTypeQuery {
 
-    public static final String QUERY_TO_FETCH_ACTIVE_BILLTYPE =
+    public static final String QUERY_TO_FETCH_ACTIVE_BILL_TYPE =
             "SELECT" +
                     " b.id as value," +
                     " b.name as label" +

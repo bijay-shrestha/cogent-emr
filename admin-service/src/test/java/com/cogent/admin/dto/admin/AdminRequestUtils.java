@@ -1,7 +1,7 @@
 package com.cogent.admin.dto.admin;
 
 import com.cogent.admin.dto.request.admin.*;
-import com.cogent.admin.utils.RandomGenerator;
+import com.cogent.admin.utils.RandomNumberGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +121,7 @@ public class AdminRequestUtils {
     }
 
     public static String getConfirmationToken() {
-        return RandomGenerator.generateRandomToken();
+        return RandomNumberGenerator.generateRandomToken();
     }
 
     public static AdminPasswordRequestDTO getPasswordRequestDTO() {

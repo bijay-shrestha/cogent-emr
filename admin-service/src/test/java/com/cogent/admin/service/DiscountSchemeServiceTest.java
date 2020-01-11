@@ -1,8 +1,8 @@
 package com.cogent.admin.service;
 
-import com.cogent.admin.dto.discountscheme.DiscountSchemeRequestDTO;
-import com.cogent.admin.dto.discountscheme.DiscountSchemeSearchRequestDTO;
-import com.cogent.admin.dto.discountscheme.DiscountSchemeUpdateRequestDTO;
+import com.cogent.admin.dto.request.discountscheme.DiscountSchemeRequestDTO;
+import com.cogent.admin.dto.request.discountscheme.DiscountSchemeSearchRequestDTO;
+import com.cogent.admin.dto.request.discountscheme.DiscountSchemeUpdateRequestDTO;
 import com.cogent.admin.dto.response.discountscheme.dropdown.DepartmentDiscountDropDownResponseDTO;
 import com.cogent.admin.dto.response.discountscheme.dropdown.DiscountDropDownResponseDTO;
 import com.cogent.admin.dto.response.discountscheme.dropdown.ServiceDiscountDropDownResponseDTO;
@@ -32,7 +32,7 @@ import java.util.Optional;
 import static com.cogent.admin.dto.CommonRequestUtils.getDeleteRequestDTO;
 import static com.cogent.admin.dto.department.DepartmentTestUtils.getDepartmentInfo;
 import static com.cogent.admin.dto.service.ServiceTestUtils.getServiceInfo;
-import static com.cogent.admin.dto.discountscheme.DiscountSchemeTestUtils.*;
+import static com.cogent.admin.dto.request.discountscheme.DiscountSchemeTestUtils.*;
 import static com.cogent.admin.utils.DiscountSchemeUtils.*;
 import static junit.framework.TestCase.assertTrue;
 import static org.mockito.ArgumentMatchers.any;

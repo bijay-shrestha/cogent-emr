@@ -49,7 +49,7 @@ public class PatientTypeQuery {
             whereClause += " AND p.status='" + searchRequestDTO.getStatus() + "'";
 
         if (!ObjectUtils.isEmpty(searchRequestDTO.getName()))
-            whereClause += " AND p.name='" + searchRequestDTO.getName() + "'";
+            whereClause += " AND p.name LIKE '%" + searchRequestDTO.getName() + "%'";
 
         whereClause += " ORDER BY p.id DESC";
 

@@ -49,7 +49,7 @@ public class AppointmentTypeQuery {
             whereClause += " AND a.status='" + searchRequestDTO.getStatus() + "'";
 
         if (!ObjectUtils.isEmpty(searchRequestDTO.getName()))
-            whereClause += " AND a.name='" + searchRequestDTO.getName() + "'";
+            whereClause += " AND a.name LIKE '%" + searchRequestDTO.getName() + "%'";
 
         whereClause += " ORDER BY a.id DESC";
 

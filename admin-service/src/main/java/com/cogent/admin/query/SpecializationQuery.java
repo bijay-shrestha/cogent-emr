@@ -52,7 +52,7 @@ public class SpecializationQuery {
             whereClause += " AND s.status='" + searchRequestDTO.getStatus() + "'";
 
         if (!ObjectUtils.isEmpty(searchRequestDTO.getName()))
-            whereClause += " AND s.name='" + searchRequestDTO.getName() + "'";
+            whereClause += " AND s.name LIKE '%" + searchRequestDTO.getName() + "%'";
 
         whereClause += " ORDER BY s.id DESC";
 

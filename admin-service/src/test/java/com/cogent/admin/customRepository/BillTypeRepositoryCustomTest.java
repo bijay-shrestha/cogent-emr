@@ -15,7 +15,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 import static com.cogent.admin.dto.billType.BillTypeResponseUtils.fetchActiveBillTypes;
-import static com.cogent.admin.query.BillTypeQuery.QUERY_TO_FETCH_ACTIVE_BILLTYPE;
+import static com.cogent.admin.query.BillTypeQuery.QUERY_TO_FETCH_ACTIVE_BILL_TYPE;
 import static com.cogent.admin.utils.QueryUtil.getQuery;
 import static junit.framework.TestCase.assertFalse;
 
@@ -34,7 +34,7 @@ public class BillTypeRepositoryCustomTest {
 
     @Test
     public void fetchActiveBillType() {
-        Query query = getQuery.apply(testEntityManager, QUERY_TO_FETCH_ACTIVE_BILLTYPE);
+        Query query = getQuery.apply(testEntityManager, QUERY_TO_FETCH_ACTIVE_BILL_TYPE);
 
         List results = query.getResultList();
 

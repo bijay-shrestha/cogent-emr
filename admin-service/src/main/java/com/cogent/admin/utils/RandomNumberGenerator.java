@@ -3,7 +3,7 @@ package com.cogent.admin.utils;
 import java.util.Random;
 import java.util.UUID;
 
-public class RandomGenerator {
+public class RandomNumberGenerator {
 
     private static int[] sizeTable = {0, 9, 99, 999, 9999, 99999, 999999, 9999999,
             99999999, 999999999, Integer.MAX_VALUE};

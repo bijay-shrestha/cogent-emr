@@ -8,12 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import static com.cogent.admin.constants.StatusConstants.ACTIVE;
 import static com.cogent.admin.dto.adminCategory.AdminCategoryResponseUtils.getAdminCategory;
-import static com.cogent.admin.utils.RandomGenerator.generateRandomToken;
+import static com.cogent.admin.utils.RandomNumberGenerator.generateRandomToken;
 
 /**
  * @author smriti on 2019-08-07

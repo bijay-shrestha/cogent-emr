@@ -45,7 +45,7 @@ public class MunicipalityQuery {
             whereClause += " AND m.status='" + searchRequestDTO.getStatus() + "'";
 
         if (!ObjectUtils.isEmpty(searchRequestDTO.getName()))
-            whereClause += " AND m.name='" + searchRequestDTO.getName() + "'";
+            whereClause += " AND m.name LIKE '%" + searchRequestDTO.getName() + "%'";
 
         if (!ObjectUtils.isEmpty(searchRequestDTO.getDistrictId()))
             whereClause += " AND m.district=" + searchRequestDTO.getDistrictId();

@@ -1,6 +1,6 @@
 package com.cogent.admin.query;
 
-import com.cogent.admin.dto.discountscheme.DiscountSchemeSearchRequestDTO;
+import com.cogent.admin.dto.request.discountscheme.DiscountSchemeSearchRequestDTO;
 import org.springframework.util.ObjectUtils;
 
 import java.util.function.Function;
