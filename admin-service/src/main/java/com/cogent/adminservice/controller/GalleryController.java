@@ -1,11 +1,11 @@
 package com.cogent.adminservice.controller;
 
 import com.cogent.adminservice.dto.response.AssignedProfileMenuResponseDTO;
-import com.cogent.adminservice.model.User;
 import com.cogent.adminservice.service.AdminService;
 import com.cogent.adminservice.service.UserService;
+import com.cogent.persistence.model.Admin;
+import com.cogent.persistence.model.Profile;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,12 +45,10 @@ public class GalleryController {
 
         String username = "bijay";
 
-        User user = User.builder()
+        Admin user = Admin.builder()
                 .id(1L)
-                .firstName("Rupak")
-                .lastName("Chaulagain")
                 .email("rupakchaulagain@gmail.com")
-                .username(username)
+                .username(username).profile(new Profile(1L))
                 .build();
 
         userService.save(user);

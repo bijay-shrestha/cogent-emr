@@ -1,6 +1,6 @@
 package com.cogent.authservice.security;
 import com.cogent.authservice.dto.LoginResponse;
-import com.cogent.authservice.model.UserCredentials;
+import com.cogent.authservice.model.JwtRequest;
 
 import com.cogent.contextserver.security.JwtConfig;
 import com.cogent.genericservice.cookies.CookieUtils;
@@ -50,8 +50,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter
         log.info(":::: ------ ===== JwtUsernameAndPasswordAuthenticationFilter.class (auth-server) ====== ------ ::::");
 
         try {
-            UserCredentials creds = new ObjectMapper().readValue(request.getInputStream(),
-                    UserCredentials.class);
+            JwtRequest creds = new ObjectMapper().readValue(request.getInputStream(),
+                    JwtRequest.class);
 
             UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(

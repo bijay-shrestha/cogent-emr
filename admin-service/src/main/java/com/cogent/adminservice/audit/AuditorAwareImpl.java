@@ -1,5 +1,6 @@
 package com.cogent.adminservice.audit;
 
+import com.cogent.persistence.model.Admin;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AuditorAware;
 
@@ -14,8 +15,8 @@ public class AuditorAwareImpl implements AuditorAware<String> {
 //		Object principal =
 //				SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //
-//		if (principal instanceof UserDetails) {
-//			username = ((User)principal).getFirstName();
+//		if (principal instanceof CustomUserDetail) {
+//			username = ((Admin)principal).getUsername();
 //		} else {
 //			username = principal.toString();
 //		}

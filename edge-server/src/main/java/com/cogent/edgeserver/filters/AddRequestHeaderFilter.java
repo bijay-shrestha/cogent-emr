@@ -1,51 +1,46 @@
 package com.cogent.edgeserver.filters;
 
-import com.cogent.contextserver.security.JwtConfig;
-import com.netflix.discovery.converters.Auto;
+import com.cogent.authservice.security.CustomUserDetail;
+import com.cogent.persistence.model.Admin;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.stereotype.Component;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.security.Principal;
 
 @Slf4j
-@Component
 public class AddRequestHeaderFilter extends ZuulFilter {
 
-    @Autowired
-    private JwtConfig jwtConfig;
-
-    public AddRequestHeaderFilter(JwtConfig jwtConfig) {
-        this.jwtConfig = jwtConfig;
-    }
-
+    public static final String USER_HEADER = "X-User-Header";
     @Override
     public String filterType() {
-        return "pre";
+        return FilterConstants.ROUTE_TYPE;
     }
-
-    @Override
-    public boolean shouldFilter() {
-        return true;
-    }
-
-    @Override
-    public Object run() throws ZuulException {
-        log.info("**** ==== INSIDE AddRequestHeaderFilter.class (edge-server) ==== ****");
-        RequestContext ctx = RequestContext.getCurrentContext();
-        String username = (String) ctx.getRequest().getAttribute("username");
-
-        ctx.addZuulRequestHeader("username", username);
-
-        return null;
-    }
-
-
     @Override
     public int filterOrder() {
-        return 0;
+        return FilterConstants.SIMPLE_HOST_ROUTING_FILTER_ORDER - 1;
+    }
+    @Override
+    public boolean shouldFilter() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && authentication.getPrincipal() != null;
+    }
+    @Override
+    public Object run() {
+        String username="";
+        RequestContext requestContext = RequestContext.getCurrentContext();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof CustomUserDetail) {
+			username = ((Admin)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		log.info("USERNAME :: {}", username);
+        requestContext.addZuulRequestHeader(USER_HEADER, username);
+        return null;
     }
 
 }

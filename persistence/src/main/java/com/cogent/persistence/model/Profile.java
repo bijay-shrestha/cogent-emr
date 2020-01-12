@@ -38,4 +38,7 @@ public class Profile {
     @Column(name = "remarks")
     private String remarks;
 
+    public Profile(Long id) {
+        this.id = id;
+    }
 }

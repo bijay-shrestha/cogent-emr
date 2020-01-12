@@ -16,8 +16,21 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableZuulProxy
 public class EdgeServerApplication {
 
+    @Autowired
+    private JwtConfig jwtConfig;
+
     public static void main(String[] args) {
         SpringApplication.run(EdgeServerApplication.class, args);
+    }
+
+//    @Bean
+//    public AddRequestHeaderFilter addRequestHeaderFilter(){
+//        return new AddRequestHeaderFilter(jwtConfig);
+//    }
+
+    @Bean
+    public AddRequestHeaderFilter addRequestHeaderFilter(){
+        return new AddRequestHeaderFilter();
     }
 
 }

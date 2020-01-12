@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Service ("cogentUserDetailsService")
 @Slf4j
@@ -55,7 +56,7 @@ public class CogentUserDetailsService implements UserDetailsService {
     private Collection<? extends GrantedAuthority> getAuthorities(Admin admin) {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        List<Roles> roles = roleRepository.findRolesByAdminId(admin.getId());
+        Set<Roles> roles = roleRepository.findRolesByAdminId(admin.getId());
 
         for (Roles role : roles) {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole()));

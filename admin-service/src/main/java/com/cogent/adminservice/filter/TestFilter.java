@@ -11,6 +11,8 @@ import java.io.IOException;
 @Slf4j
 public class TestFilter implements Filter {
 
+    public static final String USER_HEADER = "X-User-Header";
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -24,6 +26,8 @@ public class TestFilter implements Filter {
 
         log.info("URI ***** {} from {}", request.getMethod(), request.getRequestURI());
         String URI  = request.getRequestURI();
+
+        log.info("Hello hello -----> ", request.getAttribute(USER_HEADER));
 
         log.info(" +++ TEST FILTER ---- **** {}", UserContext.getUsername());
 

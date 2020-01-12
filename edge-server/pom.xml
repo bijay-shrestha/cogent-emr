@@ -64,12 +64,6 @@
 			<version>0.9.1</version>
 			<scope>compile</scope>
 		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>com.cogent</groupId>-->
-			<!--<artifactId>admin-service</artifactId>-->
-			<!--<version>0.0.1-SNAPSHOT</version>-->
-			<!--<scope>compile</scope>-->
-		<!--</dependency>-->
 		<dependency>
 			<groupId>com.cogent</groupId>
 			<artifactId>generic-service</artifactId>
@@ -83,6 +77,12 @@
 		<dependency>
 			<groupId>com.cogent</groupId>
 			<artifactId>admin-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.cogent</groupId>
+			<artifactId>auth-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>

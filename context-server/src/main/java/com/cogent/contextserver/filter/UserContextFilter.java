@@ -34,9 +34,9 @@ public class UserContextFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         log.info("====== INSIDE :UserContextFilter.class  WITH USERNAME AS %s ======",
-                (String) request.getAttribute("username"));
+                (String) request.getAttribute("AUTHENTICATED_USER"));
 
-        String username = (String) request.getAttribute("username");
+        String username = (String) request.getAttribute("AUTHENTICATED_USER");
 
         log.info("ENTERING USER CONTEXT WITH REQUEST HEADER VALUE AS ****: " + username);
         UserContextHolder.getContext().setUsername(username);
