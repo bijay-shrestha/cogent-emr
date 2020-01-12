@@ -1,5 +1,5 @@
 package com.cogent.admin.dto.hospital;
-import com.cogent.admin.dto.response.hospital.HospitalDropdownDTO;
+import com.cogent.admin.dto.response.hospital.HospitalDropDownResponseDTO;
 import com.cogent.admin.dto.response.hospital.HospitalResponseDTO;
 import com.cogent.persistence.model.Hospital;
 import java.util.Arrays;
@@ -30,13 +30,13 @@ public class HospitalResponseUtils {
         );
     }
 
-    public static List<HospitalDropdownDTO> fetchHospitalForDropDown() {
+    public static List<HospitalDropDownResponseDTO> fetchHospitalForDropDown() {
 
-        return Arrays.asList(HospitalDropdownDTO.builder()
+        return Arrays.asList(HospitalDropDownResponseDTO.builder()
                         .value(1L)
                         .label("Nidan Hospital")
                         .build(),
-                HospitalDropdownDTO.builder()
+                HospitalDropDownResponseDTO.builder()
                         .value(2L)
                         .label("Mediciti Hospital")
                         .build()

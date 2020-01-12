@@ -219,7 +219,7 @@ public class HospitalServiceTest {
 
         thrown.expect(NoContentFoundException.class);
 
-        hospitalService.hospitalDropdown();
+        hospitalService.fetchHospitalForDropDown();
 
     }
 
@@ -229,12 +229,12 @@ public class HospitalServiceTest {
         given(hospitalRepository.fetchHospitalForDropDown())
                 .willReturn(HospitalResponseUtils.fetchHospitalForDropDown());
 
-        hospitalService.hospitalDropdown();
+        hospitalService.fetchHospitalForDropDown();
 
-        assertThat(hospitalService.hospitalDropdown(),
+        assertThat(hospitalService.fetchHospitalForDropDown(),
                 hasSize(HospitalResponseUtils.fetchHospitalForDropDown().size()));
 
-        assertThat(hospitalService.hospitalDropdown(),
+        assertThat(hospitalService.fetchHospitalForDropDown(),
                 samePropertyValuesAs(HospitalResponseUtils.fetchHospitalForDropDown()));
 
     }

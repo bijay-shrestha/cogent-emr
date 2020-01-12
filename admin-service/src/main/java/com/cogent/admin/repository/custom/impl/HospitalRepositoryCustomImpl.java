@@ -1,7 +1,7 @@
 package com.cogent.admin.repository.custom.impl;
 
 import com.cogent.admin.dto.request.hospital.HospitalSearchRequestDTO;
-import com.cogent.admin.dto.response.hospital.HospitalDropdownDTO;
+import com.cogent.admin.dto.response.hospital.HospitalDropDownResponseDTO;
 import com.cogent.admin.dto.response.hospital.HospitalResponseDTO;
 import com.cogent.admin.exception.NoContentFoundException;
 import com.cogent.admin.repository.custom.HospitalRepositoryCustom;
@@ -42,11 +42,6 @@ public class HospitalRepositoryCustomImpl implements HospitalRepositoryCustom {
     }
 
     @Override
-    public Hospital findHospital(Long id) {
-        return null;
-    }
-
-    @Override
     public Long findHospitalByIdAndName(Long id, String name) {
 
         Query query = createQuery.apply(entityManager, QUERY_TO_FIND_HOSPITAL_COUNT_BY_ID_AND_NAME)
@@ -54,8 +49,6 @@ public class HospitalRepositoryCustomImpl implements HospitalRepositoryCustom {
                 .setParameter(NAME, name);
 
         return (Long) query.getSingleResult();
-
-
     }
 
     @Override
@@ -77,29 +70,18 @@ public class HospitalRepositoryCustomImpl implements HospitalRepositoryCustom {
     }
 
     @Override
-    public List<HospitalDropdownDTO> fetchActiveHospitalForDropDown() {
-        return null;
-    }
-
-    @Override
     public HospitalResponseDTO fetchDetailsById(Long id) {
         return null;
     }
 
     @Override
-    public Hospital fetchHospitalById(Long id) {
-        return null;
-    }
-
-    @Override
-    public List<HospitalDropdownDTO> fetchHospitalForDropDown() {
+    public List<HospitalDropDownResponseDTO> fetchHospitalForDropDown() {
         Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_HOSPITAL_FOR_DROPDOWN);
 
-        List<HospitalDropdownDTO> results = transformQueryToResultList(query, HospitalDropdownDTO.class);
+        List<HospitalDropDownResponseDTO> results = transformQueryToResultList(query, HospitalDropDownResponseDTO.class);
 
         if (results.isEmpty()) throw HOSPITAL_NOT_FOUND.get();
         else return results;
-
     }
 
     private Supplier<NoContentFoundException> HOSPITAL_NOT_FOUND = () -> new NoContentFoundException(Hospital.class);

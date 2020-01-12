@@ -66,7 +66,7 @@ public class OPDBillingServiceImpl implements OPDBillingService {
                 billingModeRepository.fetchActiveBillingModeById(serviceRequestDTO.getBillingModeId()),
                 referrerRepository.fetchActiveReferrerById(serviceRequestDTO.getReferrerId()),
                 departmentRepository.fetchActiveDepartmentById(serviceRequestDTO.getDepartmentId()),
-                hospitalRepository.fetchActiveHospitalById(serviceRequestDTO.getHospitalId()),
+                hospitalRepository.findActiveHospitalById(serviceRequestDTO.getHospitalId()).get(),
                 discountSchemeRepository.fetchActiveDiscountSchemeById(serviceRequestDTO.getDiscountSchemeId()),
                 specializationRepository.fetchActiveSpecializationById(serviceRequestDTO.getSpecializationId()),
                 paymentTypeRepository.fetchActivepaymentTypeById(serviceRequestDTO.getPaymentTypeId()));

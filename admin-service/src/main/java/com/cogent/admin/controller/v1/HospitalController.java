@@ -38,12 +38,12 @@ public class HospitalController {
     @ApiOperation(SAVE_OPERATION)
     public ResponseEntity<?> save(@Valid @RequestBody HospitalRequestDTO requestDTO) {
         hospitalService.save(requestDTO);
-        return ResponseEntity.created(create(API_V1 + BASE_HOSPITAL + SAVE)).build();
+        return ResponseEntity.created(create(API_V1 + BASE_HOSPITAL)).build();
     }
 
     @PutMapping
     @ApiOperation(UPDATE_OPERATION)
-    public ResponseEntity<?> save(@Valid @RequestBody HospitalUpdateRequestDTO updateRequestDTO) {
+    public ResponseEntity<?> update(@Valid @RequestBody HospitalUpdateRequestDTO updateRequestDTO) {
         hospitalService.updateHospital(updateRequestDTO);
         return ok().build();
     }

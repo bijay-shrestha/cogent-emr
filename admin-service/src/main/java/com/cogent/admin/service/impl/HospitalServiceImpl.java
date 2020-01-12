@@ -4,7 +4,7 @@ import com.cogent.admin.dto.commons.DeleteRequestDTO;
 import com.cogent.admin.dto.request.hospital.HospitalRequestDTO;
 import com.cogent.admin.dto.request.hospital.HospitalSearchRequestDTO;
 import com.cogent.admin.dto.request.hospital.HospitalUpdateRequestDTO;
-import com.cogent.admin.dto.response.hospital.HospitalDropdownDTO;
+import com.cogent.admin.dto.response.hospital.HospitalDropDownResponseDTO;
 import com.cogent.admin.dto.response.hospital.HospitalResponseDTO;
 import com.cogent.admin.exception.DataDuplicationException;
 import com.cogent.admin.exception.NoContentFoundException;
@@ -55,20 +55,6 @@ public class HospitalServiceImpl implements HospitalService {
 
         log.info(SAVING_PROCESS_COMPLETED, HOSPITAL, getDifferenceBetweenTwoTime(startTime));
 
-    }
-
-    @Override
-    public List<HospitalDropdownDTO> hospitalDropdown() {
-
-        Long startTime = getTimeInMillisecondsFromLocalDate();
-
-        log.info(FETCHING_PROCESS_STARTED_FOR_DROPDOWN, HOSPITAL);
-
-        List<HospitalDropdownDTO> responseDTOS = hospitalRepository.fetchActiveHospitalForDropDown();
-
-        log.info(FETCHING_PROCESS_FOR_DROPDOWN_COMPLETED, HOSPITAL, getDifferenceBetweenTwoTime(startTime));
-
-        return responseDTOS;
     }
 
     @Override
@@ -133,18 +119,17 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public List<HospitalDropdownDTO> fetchHospitalForDropDown() {
+    public List<HospitalDropDownResponseDTO> fetchHospitalForDropDown() {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
         log.info(FETCHING_PROCESS_STARTED_FOR_DROPDOWN, HOSPITAL);
 
-        List<HospitalDropdownDTO> responseDTOS = hospitalRepository.fetchHospitalForDropDown();
+        List<HospitalDropDownResponseDTO> responseDTOS = hospitalRepository.fetchHospitalForDropDown();
 
         log.info(FETCHING_PROCESS_FOR_DROPDOWN_COMPLETED, HOSPITAL, getDifferenceBetweenTwoTime(startTime));
 
         return responseDTOS;
-
     }
 
     private void save(Hospital hospital) {
