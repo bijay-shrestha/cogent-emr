@@ -127,7 +127,7 @@ public class HospitalServiceTest {
 
         DeleteRequestDTO deleteRequestDTO = getDeleteRequestDTO();
 
-        given(hospitalRepository.findHospitalStatusById(deleteRequestDTO.getId())).willReturn(Optional.empty());
+        given(hospitalRepository.findHospitalById(deleteRequestDTO.getId())).willReturn(Optional.empty());
 
         thrown.expect(NoContentFoundException.class);
 
@@ -147,7 +147,7 @@ public class HospitalServiceTest {
         given(hospitalRepository.findHospitalByIdAndName(requestDTO.getId(), requestDTO.getName()))
                 .willReturn(1L);
 
-        given(hospitalRepository.findHospitalStatusById(requestDTO.getId()))
+        given(hospitalRepository.findHospitalById(requestDTO.getId()))
                 .willReturn(Optional.of(getHospital()));
 
         thrown.expect(DataDuplicationException.class);
@@ -160,7 +160,7 @@ public class HospitalServiceTest {
 
         HospitalUpdateRequestDTO requestDTO = getHospitalUpdateRequestDTO();
 
-        given(hospitalRepository.findHospitalStatusById(requestDTO.getId())).willReturn(Optional.empty());
+        given(hospitalRepository.findHospitalById(requestDTO.getId())).willReturn(Optional.empty());
 
         thrown.expect(NoContentFoundException.class);
 
@@ -204,7 +204,7 @@ public class HospitalServiceTest {
 
         Hospital hospital = getHospital();
 
-        given(hospitalRepository.findHospitalStatusById(deleteRequestDTO.getId())).willReturn(Optional.of(hospital));
+        given(hospitalRepository.findHospitalById(deleteRequestDTO.getId())).willReturn(Optional.of(hospital));
 
         Hospital expected = HospitalUtils.convertToDeletedHospital(hospital, deleteRequestDTO);
 

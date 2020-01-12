@@ -1,6 +1,5 @@
 package com.cogent.admin.service.impl;
 
-import com.cogent.admin.constants.ErrorMessageConstants;
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
 import com.cogent.admin.dto.request.hospital.HospitalRequestDTO;
 import com.cogent.admin.dto.request.hospital.HospitalSearchRequestDTO;
@@ -21,6 +20,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import static com.cogent.admin.constants.ErrorMessageConstants.HospitalServiceMessages.HOSPITAL_NAME_DUPLICATION_DEBUG_MESSAGE;
+import static com.cogent.admin.constants.ErrorMessageConstants.HospitalServiceMessages.HOSPITAL_NAME_DUPLICATION_MESSAGE;
 import static com.cogent.admin.log.CommonLogConstant.*;
 import static com.cogent.admin.log.constants.HospitalLog.HOSPITAL;
 import static com.cogent.admin.utils.DateUtils.getDifferenceBetweenTwoTime;
@@ -154,11 +154,11 @@ public class HospitalServiceImpl implements HospitalService {
     private void validateName(Long hospital, String name) {
         if (hospital.intValue() > 0)
             throw new DataDuplicationException(
-                    Hospital.class, ErrorMessageConstants.HospitalServiceMessages.HOSPITAL_NAME_DUPLICATION_MESSAGE + name, HOSPITAL_NAME_DUPLICATION_DEBUG_MESSAGE + name);
+                    Hospital.class, HOSPITAL_NAME_DUPLICATION_MESSAGE + name, HOSPITAL_NAME_DUPLICATION_DEBUG_MESSAGE + name);
     }
 
     private Hospital findById(Long id) {
-        return hospitalRepository.findHospitalStatusById(id).orElseThrow(() -> HOSPITAL_NAME_WITH_GIVEN_ID_NOT_FOUND.apply(id));
+        return hospitalRepository.findHospitalById(id).orElseThrow(() -> HOSPITAL_NAME_WITH_GIVEN_ID_NOT_FOUND.apply(id));
     }
 
     private Function<Long, NoContentFoundException> HOSPITAL_NAME_WITH_GIVEN_ID_NOT_FOUND = (id) -> {

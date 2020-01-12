@@ -172,8 +172,8 @@ public class AdminRepositoryCustomImpl implements AdminRepositoryCustom {
     };
 
     private Function<String, NoContentFoundException> ADMIN_NOT_FOUND = (username) -> {
-        throw new NoContentFoundException(Admin.class.getSimpleName() + " '" + username + "' "
-                + AdminServiceMessages.ADMIN_NOT_FOUND, "username/email", username);
+        throw new NoContentFoundException(String.format(AdminServiceMessages.ADMIN_NOT_FOUND, username),
+                "username/email", username);
     };
 }
 

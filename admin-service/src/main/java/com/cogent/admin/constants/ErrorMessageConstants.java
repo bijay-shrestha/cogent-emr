@@ -23,9 +23,9 @@ public class ErrorMessageConstants {
         String ADMIN_DUPLICATION_MESSAGE = " with given username, email and mobile number" +
                 " already exists.";
 
-        String ADMIN_NOT_FOUND = "doesn't exist";
+        String ADMIN_NOT_FOUND = "Admin '%s' doesn't exist";
 
-        String ADMIN_NOT_ACTIVE = "is not active";
+        String ADMIN_NOT_ACTIVE = "Admin '%s' is not active";
 
         String ADMIN_REGISTERED = "Admin is already registered";
 
