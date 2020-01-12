@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,8 +34,8 @@ import java.io.IOException;
 public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("userDetailServiceImpl")
-    private UserDetailsService userDetailsService;
+    @Qualifier("cogentUserDetailsService")
+    private UserDetailsService cogentUserDetailsService;
 
     @Autowired
     private JwtConfig jwtConfig;
@@ -59,7 +58,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(cogentUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -71,7 +70,10 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationEntryPoint authenticationEntryPoint() {
         return new AuthenticationEntryPoint() {
             @Override
-            public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+            public void commence(HttpServletRequest httpServletRequest,
+                                 HttpServletResponse httpServletResponse,
+                                 AuthenticationException e) throws IOException,
+                    ServletException {
 
                 LoginErrorResponse loginResponse = LoginErrorResponse.builder().
                         status(401)

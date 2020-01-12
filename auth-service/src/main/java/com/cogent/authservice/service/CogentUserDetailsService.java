@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Service ("userDetailServiceImpl")
+@Service ("cogentUserDetailsService")
 @Slf4j
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class CogentUserDetailsService implements UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -29,8 +29,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private AdminRepository adminRepository;
     private RoleRepository roleRepository;
 
-    public UserDetailsServiceImpl(AdminRepository adminRepository,
-                                  RoleRepository roleRepository) {
+    public CogentUserDetailsService(AdminRepository adminRepository,
+                                    RoleRepository roleRepository) {
         this.adminRepository = adminRepository;
         this.roleRepository = roleRepository;
     }
@@ -61,7 +61,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole()));
         }
 
-        log.info(" ::::: UserDetailsServiceImpl.class ----- assigned roles {}", authorities);
+        log.info(" ::::: CogentUserDetailsService.class ----- assigned roles {}", authorities);
 
         return authorities;
     }
