@@ -19,8 +19,8 @@ public class WebResourceKeyConstants {
         String AVATAR = "/avatar";
         String VERIFY = "/verify";
         String INFO = "/info";
-        String ADMIN_ID_PATH_VARIABLE_BASE = "/{adminId}";
-        String SUB_DEPARTMENT ="/sub-departments";
+        String ADMIN_META_INFO = "/metaInfo";
+        String ASSIGNED_SUB_DEPARTMENTS = "/assignedSubDepartments";
     }
 
     public interface AppointmentModeConstants {
@@ -68,7 +68,6 @@ public class WebResourceKeyConstants {
     //D
     public static final String DEPARTMENT_ID_PATH_VARIABLE_BASE = "/{departmentId}";
 
-
     public static final String DROPDOWN = "/dropdown";
 
     public static final String DETAILS = "/details";
@@ -94,7 +93,7 @@ public class WebResourceKeyConstants {
     public interface DoctorConstants {
         String BASE_DOCTOR = "/doctor";
         String UPDATE_DETAILS = "/updateDetails";
-        String SPECIALIZATION_ID_PATH_VARIABLE_BASE = "/{specializationId}";
+        String DOCTOR_ID_PATH_VARIABLE_BASE = "/{doctorId}";
     }
 
     public interface DoctorTypeConstants {
@@ -236,7 +235,7 @@ public class WebResourceKeyConstants {
 
     public interface SpecializationConstants {
         String BASE_SPECIALIZATION = "/specialization";
-        String DOCTOR_ID_PATH_VARIABLE_BASE = "/{doctorId}";
+        String SPECIALIZATION_ID_PATH_VARIABLE_BASE = "/{specializationId}";
     }
 
     public interface SubDepartmentConstants {
@@ -254,7 +253,7 @@ public class WebResourceKeyConstants {
     }
 
     //U
-    public static final String USERNAME_VARIABLE_BASE ="/{username}";
+    public static final String USERNAME_VARIABLE_BASE = "/{username}";
 
     public interface UnitConstants {
         String BASE_UNIT = "/units";

@@ -14,7 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class AdminSearchRequestDTO implements Serializable {
 
-    private String metaInfo;
+    private Long adminMetaInfoId;
 
     private Character status;
 

@@ -2,10 +2,7 @@ package com.cogent.admin.service;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
 import com.cogent.admin.dto.request.admin.*;
-import com.cogent.admin.dto.response.admin.AdminDetailResponseDTO;
-import com.cogent.admin.dto.response.admin.AdminInfoByUsernameResponseDTO;
-import com.cogent.admin.dto.response.admin.AdminInfoResponseDTO;
-import com.cogent.admin.dto.response.admin.AdminSubDepartmentResponseDTO;
+import com.cogent.admin.dto.response.admin.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,7 +37,9 @@ public interface AdminService {
 
     AdminInfoByUsernameResponseDTO fetchAdminInfoByUsername(String username);
 
-    List<AdminSubDepartmentResponseDTO> fetchLoggedInAdminSubDepartmentList(AdminSubDepartmentRequestDTO requestDTO);
+    List<AdminSubDepartmentResponseDTO> fetchLoggedInAdminSubDepartmentList(String username);
+
+    List<AdminMetaInfoResponseDTO> fetchAdminMetaInfoResponseDto();
 }
 
 

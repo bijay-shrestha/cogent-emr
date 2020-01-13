@@ -2,10 +2,7 @@ package com.cogent.admin.service.impl;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
 import com.cogent.admin.dto.request.admin.*;
-import com.cogent.admin.dto.response.admin.AdminDetailResponseDTO;
-import com.cogent.admin.dto.response.admin.AdminInfoByUsernameResponseDTO;
-import com.cogent.admin.dto.response.admin.AdminInfoResponseDTO;
-import com.cogent.admin.dto.response.admin.AdminSubDepartmentResponseDTO;
+import com.cogent.admin.dto.response.admin.*;
 import com.cogent.admin.dto.response.files.FileUploadResponseDTO;
 import com.cogent.admin.exception.BadRequestException;
 import com.cogent.admin.exception.DataDuplicationException;
@@ -315,16 +312,31 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<AdminSubDepartmentResponseDTO> fetchLoggedInAdminSubDepartmentList(AdminSubDepartmentRequestDTO requestDTO) {
+    public List<AdminSubDepartmentResponseDTO> fetchLoggedInAdminSubDepartmentList(String username) {
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
         log.info(FETCHING_PROCESS_STARTED, ADMIN);
 
-        List<AdminSubDepartmentResponseDTO> responseDTO = adminRepository.fetchLoggedInAdminSubdepartmentList(requestDTO);
+        List<AdminSubDepartmentResponseDTO> responseDTO =
+                adminRepository.fetchLoggedInAdminSubDepartmentList(username);
+
+        log.info(FETCHING_PROCESS_COMPLETED, ADMIN, getDifferenceBetweenTwoTime(startTime));
+
+        return responseDTO;
+    }
+
+    @Override
+    public List<AdminMetaInfoResponseDTO> fetchAdminMetaInfoResponseDto() {
+        Long startTime = getTimeInMillisecondsFromLocalDate();
+
+        log.info(FETCHING_PROCESS_STARTED, ADMIN_META_INFO);
+
+        List<AdminMetaInfoResponseDTO> metaInfoResponseDTOS =
+                adminMetaInfoRepository.fetchAdminMetaInfoResponseDTOS();
 
         log.info(SAVING_PASSWORD_PROCESS_COMPLETED, getDifferenceBetweenTwoTime(startTime));
 
-        return responseDTO;
+        return metaInfoResponseDTOS;
     }
 
     private void validateStatus(Object status) {

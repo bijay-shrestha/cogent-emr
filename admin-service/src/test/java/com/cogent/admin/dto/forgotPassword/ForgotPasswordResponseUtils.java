@@ -18,7 +18,7 @@ public class ForgotPasswordResponseUtils {
         verification.setId(1L);
         verification.setAdmin(getAdmin());
         verification.setStatus('Y');
-        verification.setResetCode(String.valueOf(RandomNumberGenerator.generateRandomNumber(7)));
+        verification.setResetCode(RandomNumberGenerator.generateRandomNumber(7));
         verification.setExpirationDate(new Date(new Date().getTime() + 86400000));
         return verification;
     }

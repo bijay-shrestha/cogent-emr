@@ -33,6 +33,7 @@ public class SwaggerConstants {
         String FETCH_LOGGED_IN_ADMIN_INFO = "Fetch logged in admin information";
         String FETCH_INFO_BY_USERNAME = "Fetch admin info by username.";
         String FETCH_ASSIGNED_SUB_DEPARTMENTS = "Fetch all sub-departments assigned to an admin";
+        String FETCH_ADMIN_META_INFO = "Fetch active admin meta info for dropdown";
     }
 
     public interface AppointmentConstant {
