@@ -24,7 +24,7 @@ public class DoctorUtils {
                                             Country country) {
         Doctor doctor = new Doctor();
         doctor.setName(toUpperCase(requestDTO.getName()));
-        doctor.setCode(String.valueOf(RandomNumberGenerator.generateRandomNumber(3)));
+        doctor.setCode(RandomNumberGenerator.generateRandomNumber(3));
         doctor.setMobileNumber(requestDTO.getMobileNumber());
         doctor.setDateOfBirth(requestDTO.getDateOfBirth());
         doctor.setNepaliDateOfBirth(requestDTO.getNepaliDateOfBirth());

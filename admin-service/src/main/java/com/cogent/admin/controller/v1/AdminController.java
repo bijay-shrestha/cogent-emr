@@ -146,10 +146,15 @@ public class AdminController {
         return adminService.fetchAdminInfoByUsername(username);
     }
 
-    @PutMapping(SUB_DEPARTMENT)
+    @GetMapping(ASSIGNED_SUB_DEPARTMENTS + USERNAME_VARIABLE_BASE)
     @ApiOperation(FETCH_ASSIGNED_SUB_DEPARTMENTS)
-    public ResponseEntity<?> fetchLoggedInAdminSubDepartmentInfo(@Valid @RequestBody AdminSubDepartmentRequestDTO requestDTO) {
-        return ok(adminService.fetchLoggedInAdminSubDepartmentList(requestDTO));
+    public ResponseEntity<?> fetchLoggedInAdminSubDepartmentInfo(@PathVariable("username") String username) {
+        return ok(adminService.fetchLoggedInAdminSubDepartmentList(username));
     }
 
+    @GetMapping(ADMIN_META_INFO)
+    @ApiOperation(FETCH_ADMIN_META_INFO)
+    public ResponseEntity<?> fetchAdminMetaInfoDropdown() {
+        return ok(adminService.fetchAdminMetaInfoResponseDto());
+    }
 }

@@ -20,11 +20,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static com.cogent.admin.constants.WebResourceKeyConstants.*;
-import static com.cogent.admin.constants.WebResourceKeyConstants.DoctorConstants.*;
+import static com.cogent.admin.constants.WebResourceKeyConstants.DoctorConstants.BASE_DOCTOR;
+import static com.cogent.admin.constants.WebResourceKeyConstants.DoctorConstants.UPDATE_DETAILS;
+import static com.cogent.admin.constants.WebResourceKeyConstants.SpecializationConstants.SPECIALIZATION_ID_PATH_VARIABLE_BASE;
 import static com.cogent.admin.dto.CommonRequestUtils.getDeleteRequestDTO;
 import static com.cogent.admin.dto.doctor.DoctorRequestUtils.*;
-import static com.cogent.admin.dto.files.MultipartFileUtils.getMockMultipartFile;
 import static com.cogent.admin.dto.doctor.DoctorResponseUtils.*;
+import static com.cogent.admin.dto.files.MultipartFileUtils.getMockMultipartFile;
 import static com.cogent.admin.utils.FileUtils.configureMultipartForPutMethod;
 import static com.cogent.admin.utils.ObjectToJSONUtils.writeObjectToJson;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;

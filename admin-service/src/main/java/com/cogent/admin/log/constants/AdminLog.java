@@ -8,6 +8,8 @@ public class AdminLog {
 
     public static final String ADMIN_AVATAR = "ADMIN AVATAR";
 
+    public static final String ADMIN_META_INFO = "ADMIN META INFO";
+
     public static final String FORGOT_PASSWORD_PROCESS_STARTED = ":::: FORGOT PASSWORD PROCESS STARTED ::::";
     public static final String FORGOT_PASSWORD_PROCESS_COMPLETED = ":::: FORGOT PASSWORD PROCESS COMPLETED IN :::: {} ms";
 

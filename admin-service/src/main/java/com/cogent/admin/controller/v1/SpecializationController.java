@@ -16,8 +16,8 @@ import javax.validation.Valid;
 
 import static com.cogent.admin.constants.SwaggerConstants.SpecializationConstant.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.*;
+import static com.cogent.admin.constants.WebResourceKeyConstants.DoctorConstants.DOCTOR_ID_PATH_VARIABLE_BASE;
 import static com.cogent.admin.constants.WebResourceKeyConstants.SpecializationConstants.BASE_SPECIALIZATION;
-import static com.cogent.admin.constants.WebResourceKeyConstants.SpecializationConstants.DOCTOR_ID_PATH_VARIABLE_BASE;
 import static java.net.URI.create;
 import static org.springframework.http.ResponseEntity.created;
 import static org.springframework.http.ResponseEntity.ok;

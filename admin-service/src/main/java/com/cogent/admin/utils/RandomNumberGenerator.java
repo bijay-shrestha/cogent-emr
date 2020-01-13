@@ -10,11 +10,11 @@ public class RandomNumberGenerator {
 
     private static Random random = new Random();
 
-    public static int generateRandomNumber(int digit) {
-        return random.nextInt(sizeTable[digit] + 1);
+    public static String generateRandomNumber(int digit) {
+        return String.valueOf(random.nextInt(sizeTable[digit] + 1));
     }
 
-    public static String generateRandomToken(){
+    public static String generateRandomToken() {
         return UUID.randomUUID().toString();
     }
 

@@ -92,8 +92,8 @@ public class AdminQuery {
         if (!ObjectUtils.isEmpty(searchRequestDTO.getAdminCategoryId()))
             whereClause += " AND a.adminCategory.id=" + searchRequestDTO.getAdminCategoryId();
 
-        if (!ObjectUtils.isEmpty(searchRequestDTO.getMetaInfo()))
-            whereClause += " AND ami.metaInfo LIKE '%" + searchRequestDTO.getMetaInfo() + "%'";
+        if (!ObjectUtils.isEmpty(searchRequestDTO.getAdminMetaInfoId()))
+            whereClause += " AND ami.id=" + searchRequestDTO.getAdminMetaInfoId();
 
         whereClause += " ORDER BY a.id DESC";
 
@@ -166,10 +166,10 @@ public class AdminQuery {
                     " a.username as username," +                                        //[1]
                     " a.fullName as fullName," +                                        //[2]
                     " sd.id as subDepartmentId," +                                      //[3]
-                    " sd.name as subDepartmentName," +
-                    " sd.department.id as departmentId," +                                  //[4]
-                    " p.name as profileName," +                                         //[5]
-                    " p.id as profileId" +                                              //[6]
+                    " sd.name as subDepartmentName," +                                  //[4]
+                    " sd.department.id as departmentId," +                               //[5]
+                    " p.name as profileName," +                                         //[6]
+                    " p.id as profileId" +                                              //[7]
                     " FROM Admin a " +
                     " LEFT JOIN AdminProfile ap ON ap.adminId = a.id" +
                     " LEFT JOIN Profile p ON p.id = ap.profileId" +
@@ -194,13 +194,19 @@ public class AdminQuery {
 
     public static final String QUERY_TO_FETCH_LOGGED_IN_ADMIN_SUB_DEPARTMENT_LIST =
             "SELECT" +
-                    " sd.id as subDepartmentId," +
-                    " sd.name as subDepartmentName," +
-                    " sd.code as subDepartmentCode" +
+                    " sd.id as subDepartmentId," +                              //[0]
+                    " sd.name as subDepartmentName," +                          //[1]
+                    " sd.code as subDepartmentCode" +                           //[2]
                     " FROM SubDepartment sd" +
                     " LEFT JOIN Profile p ON p.subDepartment.id=sd.id" +
                     " LEFT JOIN AdminProfile ap ON ap.profileId=p.id" +
                     " LEFT JOIN Admin a ON a.id=ap.adminId" +
                     " WHERE a.username=:username" +
                     " AND a.status='Y'";
+
+    public static final String QUERY_TO_FETCH_ADMIN_META_INFO =
+            " SELECT a.id as adminMetaInfoId," +                   //[0]
+                    " a.metaInfo as metaInfo" +                   //[1]
+                    " FROM AdminMetaInfo a" +
+                    " WHERE a.admin.status !='D'";
 }

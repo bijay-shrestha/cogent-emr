@@ -10,5 +10,4 @@ import org.springframework.stereotype.Repository;
 @Qualifier("adminConfirmationTokenRepositoryCustom")
 public interface AdminConfirmationTokenRepositoryCustom {
     Object findByConfirmationToken(String token);
-
 }

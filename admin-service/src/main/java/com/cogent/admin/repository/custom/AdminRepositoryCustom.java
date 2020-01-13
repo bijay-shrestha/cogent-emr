@@ -2,7 +2,6 @@ package com.cogent.admin.repository.custom;
 
 import com.cogent.admin.dto.request.admin.AdminInfoRequestDTO;
 import com.cogent.admin.dto.request.admin.AdminSearchRequestDTO;
-import com.cogent.admin.dto.request.admin.AdminSubDepartmentRequestDTO;
 import com.cogent.admin.dto.request.admin.AdminUpdateRequestDTO;
 import com.cogent.admin.dto.response.admin.AdminDetailResponseDTO;
 import com.cogent.admin.dto.response.admin.AdminInfoByUsernameResponseDTO;
@@ -38,6 +37,6 @@ public interface AdminRepositoryCustom {
 
     AdminInfoByUsernameResponseDTO fetchAdminInfoByUsername(String username);
 
-    List<AdminSubDepartmentResponseDTO> fetchLoggedInAdminSubdepartmentList(AdminSubDepartmentRequestDTO requestDTO);
+    List<AdminSubDepartmentResponseDTO> fetchLoggedInAdminSubDepartmentList(String username);
 }
 

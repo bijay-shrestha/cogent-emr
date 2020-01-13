@@ -18,8 +18,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static com.cogent.admin.constants.WebResourceKeyConstants.*;
+import static com.cogent.admin.constants.WebResourceKeyConstants.DoctorConstants.DOCTOR_ID_PATH_VARIABLE_BASE;
 import static com.cogent.admin.constants.WebResourceKeyConstants.SpecializationConstants.BASE_SPECIALIZATION;
-import static com.cogent.admin.constants.WebResourceKeyConstants.SpecializationConstants.DOCTOR_ID_PATH_VARIABLE_BASE;
 import static com.cogent.admin.dto.CommonRequestUtils.getDeleteRequestDTO;
 import static com.cogent.admin.dto.CommonRequestUtils.getInvalidInputForDelete;
 import static com.cogent.admin.dto.doctor.DoctorResponseUtils.fetchDoctorForDropDown;

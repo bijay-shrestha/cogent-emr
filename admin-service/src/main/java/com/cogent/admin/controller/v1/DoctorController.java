@@ -18,7 +18,9 @@ import java.io.IOException;
 
 import static com.cogent.admin.constants.SwaggerConstants.DoctorConstant.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.*;
-import static com.cogent.admin.constants.WebResourceKeyConstants.DoctorConstants.*;
+import static com.cogent.admin.constants.WebResourceKeyConstants.DoctorConstants.BASE_DOCTOR;
+import static com.cogent.admin.constants.WebResourceKeyConstants.DoctorConstants.UPDATE_DETAILS;
+import static com.cogent.admin.constants.WebResourceKeyConstants.SpecializationConstants.SPECIALIZATION_ID_PATH_VARIABLE_BASE;
 import static com.cogent.admin.utils.ObjectMapperUtils.map;
 import static java.net.URI.create;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
