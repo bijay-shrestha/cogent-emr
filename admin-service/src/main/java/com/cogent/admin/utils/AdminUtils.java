@@ -291,16 +291,20 @@ public class AdminUtils {
         final int REMARKS_INDEX = 11;
         final int ADMIN_PROFILE_ID_INDEX = 12;
         final int PROFILE_ID_INDEX = 13;
-        final int ADMIN_APPLICATION_MODULE_ID_INDEX = 14;
-        final int APPLICATION_MODULE_INDEX = 15;
-        final int HOSPITAL_NAME_INDEX = 16;
-        final int HOSPITAL_ID_INDEX = 17;
+        final int PROFILE_NAME_INDEX = 14;
+        final int ADMIN_APPLICATION_MODULE_ID_INDEX = 15;
+        final int APPLICATION_MODULE_ID_INDEX = 16;
+        final int APPLICATION_MODULE_NAME_INDEX = 17;
+        final int HOSPITAL_NAME_INDEX = 18;
+        final int HOSPITAL_ID_INDEX = 19;
 
         String[] adminProfileIds = objects[ADMIN_PROFILE_ID_INDEX].toString().split(COMMA_SEPARATED);
         String[] profileIds = objects[PROFILE_ID_INDEX].toString().split(COMMA_SEPARATED);
+        String[] profileNames = objects[PROFILE_NAME_INDEX].toString().split(COMMA_SEPARATED);
 
         String[] adminApplicationModuleIds = objects[ADMIN_APPLICATION_MODULE_ID_INDEX].toString().split(COMMA_SEPARATED);
-        String[] applicationModuleIds = objects[APPLICATION_MODULE_INDEX].toString().split(COMMA_SEPARATED);
+        String[] applicationModuleIds = objects[APPLICATION_MODULE_ID_INDEX].toString().split(COMMA_SEPARATED);
+        String[] applicationModuleNames = objects[APPLICATION_MODULE_NAME_INDEX].toString().split(COMMA_SEPARATED);
 
         return AdminResponseDTO.builder()
                 .id(Long.parseLong(objects[ADMIN_ID_INDEX].toString()))
@@ -317,32 +321,35 @@ public class AdminUtils {
                         objects[ADMIN_AVATAR_IS_DEFAULT_INDEX].toString().charAt(0))
                 .adminCategoryId(Long.parseLong(objects[ADMIN_CATEGORY_ID_INDEX].toString()))
                 .remarks(Objects.isNull(objects[REMARKS_INDEX]) ? null : objects[REMARKS_INDEX].toString())
-                .adminProfileResponseDTOS(getAdminProfileResponseDTOS(adminProfileIds, profileIds))
-                .adminApplicationModuleResponseDTOS(getAdminApplicationModuleResponseDTOS(
-                        adminApplicationModuleIds, applicationModuleIds))
+                .adminApplicationModuleAndProfileResponseDTOS(
+                        getAdminApplicationModuleResponseDTOS(
+                                adminApplicationModuleIds,
+                                applicationModuleIds,
+                                applicationModuleNames,
+                                adminProfileIds,
+                                profileIds,
+                                profileNames))
                 .hospitalName(objects[HOSPITAL_NAME_INDEX].toString())
                 .hospitalId(Long.parseLong(objects[HOSPITAL_ID_INDEX].toString()))
                 .build();
     };
 
-    private static List<AdminProfileResponseDTO> getAdminProfileResponseDTOS(String[] adminProfileIds,
-                                                                             String[] profileIds) {
-
-        return IntStream.range(0, adminProfileIds.length)
-                .mapToObj(i -> AdminProfileResponseDTO.builder()
-                        .adminProfileId(Long.parseLong(adminProfileIds[i]))
-                        .profileId(Long.parseLong(profileIds[i]))
-                        .build()).collect(Collectors.toList());
-    }
-
-    private static List<AdminApplicationModuleResponseDTO> getAdminApplicationModuleResponseDTOS(
+    private static List<AdminApplicationModuleAndProfileResponseDTO> getAdminApplicationModuleResponseDTOS(
             String[] adminApplicationModuleIds,
-            String[] applicationModuleIds) {
+            String[] applicationModuleIds,
+            String[] applicationModuleNames,
+            String[] adminProfileIds,
+            String[] profileIds,
+            String[] profileNames) {
 
         return IntStream.range(0, adminApplicationModuleIds.length)
-                .mapToObj(i -> AdminApplicationModuleResponseDTO.builder()
+                .mapToObj(i -> AdminApplicationModuleAndProfileResponseDTO.builder()
                         .adminApplicationModuleId(Long.parseLong(adminApplicationModuleIds[i]))
                         .applicationModuleId(Long.parseLong(applicationModuleIds[i]))
+                        .applicationModuleName(applicationModuleNames[i])
+                        .adminProfileId(Long.parseLong(adminProfileIds[i]))
+                        .profileId(Long.parseLong(profileIds[i]))
+                        .profileName(profileNames[i])
                         .build()).collect(Collectors.toList());
     }
 

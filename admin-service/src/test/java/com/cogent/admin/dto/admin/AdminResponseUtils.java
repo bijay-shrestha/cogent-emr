@@ -155,20 +155,7 @@ public class AdminResponseUtils {
                 .fileUri("http://localhost:8081/files/Admin-cogent/test.png")
                 .remarks(null)
                 .hasMacBinding('Y')
-                .adminProfileResponseDTOS(getAdminProfileResponseDTO())
                 .build();
-    }
-
-    private static List<AdminProfileResponseDTO> getAdminProfileResponseDTO() {
-        return Arrays.asList(
-                AdminProfileResponseDTO.builder()
-                        .adminProfileId(1L)
-                        .profileId(1L)
-                        .build(),
-                AdminProfileResponseDTO.builder()
-                        .adminProfileId(2L)
-                        .profileId(2L)
-                        .build());
     }
 
     private static List getMacAddressResponseDTO() {

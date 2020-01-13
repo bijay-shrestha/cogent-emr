@@ -103,7 +103,8 @@ public class AdminQuery {
     private static final String QUERY_TO_FETCH_ADMIN_PROFILE =
             "SELECT ap.admin_id as adminId," +
                     " GROUP_CONCAT(ap.id) as adminProfileId," +
-                    " GROUP_CONCAT(p.id) as profileId" +
+                    " GROUP_CONCAT(p.id) as profileId," +
+                    " GROUP_CONCAT(p.name) as profileName" +
                     " FROM admin_profile ap" +
                     " LEFT JOIN profile p ON p.id = ap.profile_id" +
                     " WHERE ap.status = 'Y'" +
@@ -112,7 +113,8 @@ public class AdminQuery {
     private static final String QUERY_TO_FETCH_ADMIN_APPLICATION_MODULE =
             "SELECT aam.admin_id as adminId," +
                     " GROUP_CONCAT(aam.id) as adminApplicationModuleId," +
-                    " GROUP_CONCAT(aam.id) as applicationModuleId" +
+                    " GROUP_CONCAT(am.id) as applicationModuleId," +
+                    " GROUP_CONCAT(am.name) as applicationModuleName" +
                     " FROM admin_application_module aam" +
                     " LEFT JOIN application_module am ON am.id = aam.application_module_id" +
                     " WHERE aam.status = 'Y'" +
@@ -124,8 +126,10 @@ public class AdminQuery {
                     " a.remarks as remarks," +
                     " tbl1.adminProfileId as adminProfileId," +
                     " tbl1.profileId as profileId," +
+                    " tbl1.profileName as profileName," +
                     " tbl2.adminApplicationModuleId as adminApplicationModuleId," +
                     " tbl2.applicationModuleId as applicationModuleId," +
+                    " tbl2.applicationModuleName as applicationModuleName," +
                     " h.name as hospitalName," +
                     " h.id as hospitalId" +
                     " FROM admin a" +
