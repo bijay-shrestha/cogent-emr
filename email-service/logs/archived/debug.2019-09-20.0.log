@@ -1,0 +1,8 @@
+2019-09-20 11:24:48 [http-nio-8083-exec-1] INFO  c.c.e.service.impl.EmailServiceImpl -:::: SAVING EMAIL TO SEND PROCESS STARTED ::::
+2019-09-20 11:24:48 [http-nio-8083-exec-1] INFO  c.c.e.service.impl.EmailServiceImpl -:::: SAVING EMAIL TO SEND PROCESS COMPLETED IN :::: 56 ms
+2019-09-20 11:24:48 [http-nio-8083-exec-1] INFO  c.c.e.service.impl.EmailServiceImpl -:::: SENDING EMAIL PROCESS STARTED ::::
+2019-09-20 11:24:52 [http-nio-8083-exec-1] INFO  c.c.e.service.impl.EmailServiceImpl -:::: SENDING EMAIL PROCESS COMPLETED IN :::: 4215 ms
+2019-09-20 11:26:13 [http-nio-8083-exec-3] INFO  c.c.e.service.impl.EmailServiceImpl -:::: SAVING EMAIL TO SEND PROCESS STARTED ::::
+2019-09-20 11:26:13 [http-nio-8083-exec-3] INFO  c.c.e.service.impl.EmailServiceImpl -:::: SAVING EMAIL TO SEND PROCESS COMPLETED IN :::: 3 ms
+2019-09-20 11:26:13 [http-nio-8083-exec-3] INFO  c.c.e.service.impl.EmailServiceImpl -:::: SENDING EMAIL PROCESS STARTED ::::
+2019-09-20 11:26:17 [http-nio-8083-exec-3] INFO  c.c.e.service.impl.EmailServiceImpl -:::: SENDING EMAIL PROCESS COMPLETED IN :::: 3553 ms
