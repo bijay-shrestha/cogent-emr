@@ -18,7 +18,8 @@
         <module>context-server</module> <!-- 8081 -->
         <module>auth-service</module> <!-- 8082 -->
         <module>admin-service</module> <!-- 8083 -->
-        <module>cogent-server</module> <!-- 8083 -->
+        <module>cogent-server</module> <!-- 8084 -->
+        <module>email-service</module> <!-- 8085 -->
         <module>pharmacy-server</module> <!-- 8300 -->
     </modules>
 
