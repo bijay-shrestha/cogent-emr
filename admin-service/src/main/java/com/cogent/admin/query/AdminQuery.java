@@ -50,7 +50,7 @@ public class AdminQuery {
                 " LEFT JOIN admin_avatar av ON a.id = av.admin_id" +
                 " LEFT JOIN admin_meta_info ami ON a.id = ami.admin_id" +
                 " LEFT JOIN admin_category ac On ac.id = a.admin_category_id" +
-                " LEFT JOIN" +
+                " JOIN" +
                 " (" +
                 QUERY_TO_SEARCH_ADMIN_PROFILE(searchRequestDTO) +
                 " ) tbl ON tbl.adminId = a.id" +
