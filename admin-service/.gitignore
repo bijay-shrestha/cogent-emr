@@ -35,5 +35,6 @@ build/
 *.log
 **/*.log
 
+/cogent-uploads/**
 ### USE THIS COMMAND TO IGNORE log files -> git rm --cached admin-service/logs/info.log
 
