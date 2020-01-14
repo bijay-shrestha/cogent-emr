@@ -1,5 +1,6 @@
 package com.cogent.admin.dto.response.subdepartment;
 
+import com.cogent.admin.dto.commons.DropDownResponseDTO;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,7 @@ public class SubDepartmentResponseDTO implements Serializable {
 
     private Character status;
 
-    private String departmentName;
+    private DropDownResponseDTO dropDownResponseDTO;
 
     private String remarks;
 

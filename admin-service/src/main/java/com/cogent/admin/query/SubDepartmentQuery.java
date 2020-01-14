@@ -127,7 +127,6 @@ public class SubDepartmentQuery {
                     " sd.name as name," +
                     " sd.code as code," +
                     " sd.status as status," +
-                    " sd.department.name as departmentName," +
                     " sd.remarks as remarks," +
                     " sd.createdDate as createdDate , " +
                     " sd.lastModifiedDate as lastModifiedDate," +
@@ -155,6 +154,14 @@ public class SubDepartmentQuery {
                     " WHERE sd.name =:name" +
                     " OR sd.code =:code" +
                     " AND sd.status != 'D'";
+
+    public final static String FETCH_DEPARTMENT_ID_NAME_BY_SUB_DEPARTMENT_ID =
+            "SELECT " +
+                    " sd.department.id as value," +                        //[0]
+                    " sd.department.name as label" +                         //[1]
+                    " FROM SubDepartment sd" +
+                    " WHERE sd.name =:name" ;
+
 
     public final static String CHECK_SUB_DEPARTMENT_NAME_AND_CODE_IF_EXIST =
             "SELECT" +

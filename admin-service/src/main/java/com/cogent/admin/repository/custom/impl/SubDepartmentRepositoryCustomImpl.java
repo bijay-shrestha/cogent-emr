@@ -1,6 +1,7 @@
 package com.cogent.admin.repository.custom.impl;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
+import com.cogent.admin.dto.commons.DropDownResponseDTO;
 import com.cogent.admin.dto.request.subDepartment.SubDepartmentSearchRequestDTO;
 import com.cogent.admin.dto.response.subdepartment.SubDepartmentDropDownDTO;
 import com.cogent.admin.dto.response.subdepartment.SubDepartmentMinimalResponseDTO;
@@ -122,6 +123,15 @@ public class SubDepartmentRepositoryCustomImpl implements SubDepartmentRepositor
         try {
             SubDepartmentResponseDTO subDepartmentResponseDTO = transformQueryToSingleResult(query,
                     SubDepartmentResponseDTO.class);
+
+            Query query1 = createQuery.apply(entityManager, FETCH_DEPARTMENT_ID_NAME_BY_SUB_DEPARTMENT_ID)
+                    .setParameter(NAME, subDepartmentResponseDTO.getName());
+
+            DropDownResponseDTO dropDownResponseDTO = transformQueryToSingleResult(query1,
+                    DropDownResponseDTO.class);
+
+            subDepartmentResponseDTO.setDropDownResponseDTO(dropDownResponseDTO);
+
             return Optional.of(subDepartmentResponseDTO);
         } catch (
                 NoResultException e) {
