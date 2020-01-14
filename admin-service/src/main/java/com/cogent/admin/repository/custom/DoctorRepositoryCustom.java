@@ -17,7 +17,11 @@ import java.util.List;
 @Repository
 @Qualifier("doctorRepositoryCustom")
 public interface DoctorRepositoryCustom {
-    
+
+    Long validateDoctorDuplicity(String name, String mobileNumber);
+
+    Long validateDoctorDuplicityForUpdate(Long id, String name, String mobileNumber);
+
     List<DoctorMinimalResponseDTO> search(DoctorSearchRequestDTO searchRequestDTO, Pageable pageable);
 
     List<DoctorDropdownDTO> fetchDoctorForDropdown();

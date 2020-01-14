@@ -11,6 +11,19 @@ import java.util.function.Function;
  */
 public class DoctorQuery {
 
+    public static final String QUERY_TO_VALIDATE_DOCTOR_DUPLICITY =
+            "SELECT COUNT(d.id) FROM Doctor d" +
+                    " WHERE d.name =:name" +
+                    " AND d.mobileNumber=:mobileNumber" +
+                    " AND d.status != 'D'";
+
+    public static final String QUERY_TO_VALIDATE_DOCTOR_DUPLICITY_FOR_UPDATE =
+            "SELECT COUNT(d.id) FROM Doctor d" +
+                    " WHERE d.name =:name" +
+                    " AND d.mobileNumber=:mobileNumber" +
+                    " AND d.id!=:id" +
+                    " AND d.status != 'D'";
+
     /*SEARCH*/
     public static String QUERY_TO_SEARCH_DOCTOR(DoctorSearchRequestDTO searchRequestDTO) {
         return " SELECT" +

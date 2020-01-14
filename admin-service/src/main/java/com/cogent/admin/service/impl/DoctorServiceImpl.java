@@ -6,6 +6,7 @@ import com.cogent.admin.dto.response.doctor.DoctorDetailResponseDTO;
 import com.cogent.admin.dto.response.doctor.DoctorDropdownDTO;
 import com.cogent.admin.dto.response.doctor.DoctorMinimalResponseDTO;
 import com.cogent.admin.dto.response.doctor.DoctorUpdateResponseDTO;
+import com.cogent.admin.exception.DataDuplicationException;
 import com.cogent.admin.exception.NoContentFoundException;
 import com.cogent.admin.feign.dto.response.fileserver.FileServerResponseDTO;
 import com.cogent.admin.feign.service.FileServerService;
@@ -25,6 +26,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.cogent.admin.constants.ErrorMessageConstants.NAME_AND_MOBILE_NUMBER_DUPLICATION_MESSAGE;
 import static com.cogent.admin.constants.StatusConstants.YES;
 import static com.cogent.admin.constants.StringConstant.FORWARD_SLASH;
 import static com.cogent.admin.constants.StringConstant.SPACE;
@@ -114,6 +116,10 @@ public class DoctorServiceImpl implements DoctorService {
 
         validateConstraintViolation(validator.validate(requestDTO));
 
+        Long doctorCount = doctorRepository.validateDoctorDuplicity(requestDTO.getName(), requestDTO.getMobileNumber());
+
+        validateDoctor(doctorCount, requestDTO.getName(), requestDTO.getMobileNumber());
+
         Doctor doctor = convertDTOToDoctor(requestDTO,
                 fetchGenderById(requestDTO.getGenderId()),
                 fetchCountryById(requestDTO.getCountryId()));
@@ -148,6 +154,15 @@ public class DoctorServiceImpl implements DoctorService {
         validateConstraintViolation(validator.validate(requestDTO));
 
         Doctor doctor = findById(requestDTO.getUpdateDTO().getId());
+
+        Long doctorCount = doctorRepository.validateDoctorDuplicityForUpdate(
+                requestDTO.getUpdateDTO().getId(),
+                requestDTO.getUpdateDTO().getName(),
+                requestDTO.getUpdateDTO().getMobileNumber());
+
+        validateDoctor(doctorCount,
+                requestDTO.getUpdateDTO().getName(),
+                requestDTO.getUpdateDTO().getMobileNumber());
 
         convertToUpdatedDoctor(
                 requestDTO.getUpdateDTO(),
@@ -555,6 +570,15 @@ public class DoctorServiceImpl implements DoctorService {
     private Function<Long, NoContentFoundException> DOCTOR_WITH_GIVEN_ID_NOT_FOUND = (id) -> {
         throw new NoContentFoundException(Doctor.class, "id", id.toString());
     };
+
+    private void validateDoctor(Long doctorCount, String name, String mobileNumber) {
+
+        if (doctorCount.intValue() > 0)
+            throw new DataDuplicationException(
+                    String.format(NAME_AND_MOBILE_NUMBER_DUPLICATION_MESSAGE, Doctor.class, name, mobileNumber),
+                    "name", name, "mobileNumber", mobileNumber
+            );
+    }
 }
 
 

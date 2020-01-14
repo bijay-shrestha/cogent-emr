@@ -1,7 +1,6 @@
 package com.cogent.admin.exception;
 
 import lombok.Getter;
-import org.springframework.util.StringUtils;
 
 import static com.cogent.admin.exception.utils.ExceptionUtils.*;
 import static org.springframework.http.HttpStatus.CONFLICT;
@@ -35,11 +34,8 @@ public class DataDuplicationException extends RuntimeException {
                 .build();
     }
 
-    public DataDuplicationException(String clazz, String searchParamsMap) {
-        super(generateMessage(clazz, toMap(String.class, String.class, searchParamsMap)));
-        setErrorResponse(
-                (generateMessage(clazz, toMap(String.class, String.class, searchParamsMap))),
-                StringUtils.capitalize("Object returned empty or null for ")
-                        + toMap(String.class, String.class, searchParamsMap));
+    public DataDuplicationException(String errorMessage, String... searchParamsMap) {
+        String debugMessage = "Duplicate entries with" + toMap(String.class, String.class, searchParamsMap);
+        setErrorResponse(errorMessage, debugMessage);
     }
 }

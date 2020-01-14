@@ -125,6 +125,10 @@ public class ErrorMessageConstants {
     public final static String NAME_DUPLICATION_DEBUG_MESSAGE = " entity is not null with given name : ";
     public final static String NAME_DUPLICATION_MESSAGE = " already exists with name : ";
 
+    public static final String NAME_AND_MOBILE_NUMBER_DUPLICATION_MESSAGE = "%s already exists with name '%s' " +
+            "and mobile number '%s': ";
+
+
 
     //O
 
