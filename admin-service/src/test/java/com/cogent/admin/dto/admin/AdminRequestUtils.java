@@ -60,7 +60,7 @@ public class AdminRequestUtils {
 
     public static AdminSearchRequestDTO getAdminSearchRequestDTO() {
         return AdminSearchRequestDTO.builder()
-                .metaInfo("Cogent Health|cogent|9841111112")
+                .adminMetaInfoId(1L)
                 .status('Y')
                 .adminCategoryId(1L)
                 .profileId(1L)
