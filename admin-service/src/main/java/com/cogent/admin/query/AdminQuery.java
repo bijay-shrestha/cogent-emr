@@ -59,16 +59,16 @@ public class AdminQuery {
 
     private static final String SELECT_CLAUSE_TO_FETCH_ADMIN =
             " SELECT" +
-                    " a.id as id," +
-                    " a.full_name as fullName," +
-                    " a.username as username," +
-                    " a.email as email," +
-                    " a.mobile_number as mobileNumber," +
-                    " a.status as status," +
-                    " a.has_mac_binding as hasMacBinding," +
-                    " ac.name as adminCategoryName," +
-                    " av.file_uri as fileUri," +
-                    " av.is_default_image as isDefaultImage";
+                    " a.id as id," +                                            //[0]
+                    " a.full_name as fullName," +                               //[1]
+                    " a.username as username," +                                //[2]
+                    " a.email as email," +                                      //[3]
+                    " a.mobile_number as mobileNumber," +                       //[4]
+                    " a.status as status," +                                    //[5]
+                    " a.has_mac_binding as hasMacBinding," +                    //[6]
+                    " ac.name as adminCategoryName," +                          //[7]
+                    " av.file_uri as fileUri," +                                //[8]
+                    " av.is_default_image as isDefaultImage";                   //[9]
 
     private static String QUERY_TO_SEARCH_ADMIN_PROFILE(AdminSearchRequestDTO requestDTO) {
         String query = "SELECT ap.admin_id as adminId," +

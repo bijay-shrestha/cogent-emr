@@ -24,8 +24,14 @@ public class AdminRequestUtils {
                 .hasMacBinding('Y')
                 .macAddressInfoRequestDTOS(asList("fe80::48c6:851e:3a4a:874d",
                         "fe80::48c6:851e:3a4a:874a"))
-                .profileIds(asList(1L, 2L))
-                .applicationModuleIds(asList(1L, 2L))
+                .adminProfileRequestDTO(getAdminProfileRequestDTO())
+                .build();
+    }
+
+    private static List<AdminProfileRequestDTO> getAdminProfileRequestDTO(){
+        return (List<AdminProfileRequestDTO>) AdminProfileRequestDTO.builder()
+                .profileId(1L)
+                .applicationModuleId(1L)
                 .build();
     }
 
@@ -53,7 +59,6 @@ public class AdminRequestUtils {
                 .adminCategoryId(1L)
                 .status('Y')
                 .hasMacBinding('Y')
-                .profileIds(asList(1L, 2L))
                 .macAddressInfoRequestDTOS(new ArrayList<>())
                 .build();
     }

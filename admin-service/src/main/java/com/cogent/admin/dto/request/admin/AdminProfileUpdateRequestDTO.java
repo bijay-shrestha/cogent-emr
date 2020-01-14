@@ -18,5 +18,7 @@ public class AdminProfileUpdateRequestDTO implements Serializable {
 
     private Long profileId;
 
+    private Long applicationModuleId;
+
     private Character status;
 }

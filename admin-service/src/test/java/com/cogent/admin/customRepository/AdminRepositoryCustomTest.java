@@ -1,11 +1,10 @@
 package com.cogent.admin.customRepository;
 
+import com.cogent.admin.dto.response.admin.AdminDetailResponseDTO;
 import com.cogent.admin.dto.response.admin.AdminDropdownDTO;
 import com.cogent.admin.dto.response.admin.AdminMinimalResponseDTO;
-import com.cogent.admin.dto.response.admin.AdminResponseDTO;
 import com.cogent.admin.dto.response.admin.MacAddressInfoResponseDTO;
 import com.cogent.admin.utils.QueryUtils;
-import com.cogent.persistence.model.Patient;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,7 +71,7 @@ public class AdminRepositoryCustomTest {
         Query query = getQuery.apply(testEntityManager, QUERY_TO_FETCH_ADMIN_DETAIL)
                 .setParameter(ID, 3L);
 
-        List<AdminResponseDTO> result = QueryUtils.transformQueryToResultList(query, AdminResponseDTO.class);
+        List<AdminDetailResponseDTO> result = QueryUtils.transformQueryToResultList(query, AdminDetailResponseDTO.class);
 
         assertFalse(result.isEmpty());
     }

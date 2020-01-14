@@ -2,7 +2,9 @@ package com.cogent.admin.utils;
 
 import com.cogent.admin.dto.commons.DeleteRequestDTO;
 import com.cogent.admin.dto.request.admin.*;
-import com.cogent.admin.dto.response.admin.*;
+import com.cogent.admin.dto.response.admin.AdminDetailResponseDTO;
+import com.cogent.admin.dto.response.admin.AdminInfoByUsernameResponseDTO;
+import com.cogent.admin.dto.response.admin.AdminProfileResponseDTO;
 import com.cogent.admin.dto.response.files.FileUploadResponseDTO;
 import com.cogent.admin.feign.dto.request.email.EmailRequestDTO;
 import com.cogent.persistence.model.*;
@@ -20,7 +22,8 @@ import static com.cogent.admin.constants.EmailConstants.SUBJECT_FOR_ADMIN_VERIFI
 import static com.cogent.admin.constants.EmailConstants.SUBJECT_FOR_UPDATE_ADMIN;
 import static com.cogent.admin.constants.EmailTemplates.ADMIN_VERIFICATION;
 import static com.cogent.admin.constants.EmailTemplates.UPDATE_ADMIN;
-import static com.cogent.admin.constants.StatusConstants.*;
+import static com.cogent.admin.constants.StatusConstants.ACTIVE;
+import static com.cogent.admin.constants.StatusConstants.YES;
 import static com.cogent.admin.constants.StringConstant.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.API_V1;
 import static com.cogent.admin.constants.WebResourceKeyConstants.AdminConstants.BASE_ADMIN;
@@ -66,19 +69,10 @@ public class AdminUtils {
         /*MODIFIED DATE AND MODIFIED BY*/
     }
 
-    public static AdminApplicationModule parseToAdminApplicationModule(Long adminId, Long applicationModuleId) {
-        AdminApplicationModule adminApplicationModule = new AdminApplicationModule();
-        adminApplicationModule.setAdminId(adminId);
-        adminApplicationModule.setApplicationModuleId(applicationModuleId);
-        adminApplicationModule.setStatus(ACTIVE);
-        return adminApplicationModule;
-    }
-
-    public static AdminProfile parseToAdminProfile(Long adminId, Long profileId) {
+    public static AdminProfile parseToAdminProfile(Long adminId, AdminProfileRequestDTO requestDTO) {
         AdminProfile adminProfile = new AdminProfile();
-        adminProfile.setAdminId(adminId);
-        adminProfile.setProfileId(profileId);
-        adminProfile.setStatus(ACTIVE);
+        parseToAdminProfile(adminProfile, adminId, requestDTO.getProfileId(),
+                requestDTO.getApplicationModuleId(), ACTIVE);
         return adminProfile;
     }
 
@@ -87,23 +81,20 @@ public class AdminUtils {
 
         AdminProfile adminProfile = new AdminProfile();
         adminProfile.setId(updateDTO.getAdminProfileId());
-        adminProfile.setAdminId(adminId);
-        adminProfile.setProfileId(updateDTO.getProfileId());
-        adminProfile.setStatus(updateDTO.getStatus());
-
+        parseToAdminProfile(adminProfile, adminId, updateDTO.getProfileId(),
+                updateDTO.getApplicationModuleId(), updateDTO.getStatus());
         return adminProfile;
     }
 
-    public static AdminApplicationModule parseToUpdatedAdminApplicationModule(
-            Long adminId,
-            AdminApplicationModuleUpdateRequestDTO updateDTO) {
-
-        AdminApplicationModule adminApplicationModule = new AdminApplicationModule();
-        adminApplicationModule.setId(updateDTO.getApplicationModuleId());
-        adminApplicationModule.setAdminId(adminId);
-        adminApplicationModule.setApplicationModuleId(updateDTO.getApplicationModuleId());
-        adminApplicationModule.setStatus(updateDTO.getStatus());
-        return adminApplicationModule;
+    private static void parseToAdminProfile(AdminProfile adminProfile,
+                                            Long adminId,
+                                            Long profileId,
+                                            Long applicationModuleId,
+                                            Character status) {
+        adminProfile.setAdminId(adminId);
+        adminProfile.setProfileId(profileId);
+        adminProfile.setApplicationModuleId(applicationModuleId);
+        adminProfile.setStatus(status);
     }
 
     public static MacAddressInfo convertToMACAddressInfo(String macAddress, Admin admin) {
@@ -115,10 +106,16 @@ public class AdminUtils {
         return macAddressInfo;
     }
 
-    public static AdminMetaInfo parseInAdminMetaInfo(Admin admin, AdminMetaInfo adminMetaInfo) {
+    public static AdminMetaInfo parseInAdminMetaInfo(Admin admin) {
+        AdminMetaInfo adminMetaInfo = new AdminMetaInfo();
         adminMetaInfo.setAdmin(admin);
-        adminMetaInfo.setMetaInfo(admin.getFullName() + OR + admin.getUsername() + OR + admin.getMobileNumber());
+        parseMetaInfo(admin, adminMetaInfo);
         return adminMetaInfo;
+    }
+
+    public static void parseMetaInfo(Admin admin,
+                                     AdminMetaInfo adminMetaInfo) {
+        adminMetaInfo.setMetaInfo(admin.getFullName() + OR + admin.getUsername() + OR + admin.getMobileNumber());
     }
 
     public static AdminConfirmationToken parseInAdminConfirmationToken(Admin admin) {
@@ -158,15 +155,7 @@ public class AdminUtils {
         adminAvatar.setFileSize(fileUploadResponseDTO.getFileSize());
         adminAvatar.setFileUri(fileUploadResponseDTO.getFileUri());
         adminAvatar.setFileType(fileUploadResponseDTO.getFileType());
-        adminAvatar.setIsDefaultImage(NO);
-    }
-
-    public static AdminDetailResponseDTO parseToAdminDetailResponseDTO(AdminResponseDTO adminResponseDTO,
-                                                                       List<MacAddressInfoResponseDTO> macAddresses) {
-        return AdminDetailResponseDTO.builder()
-                .adminResponseDTO(adminResponseDTO)
-                .macAddressInfoResponseDTOS(macAddresses)
-                .build();
+        adminAvatar.setStatus(ACTIVE);
     }
 
     public static Admin convertAdminToDeleted(Admin admin, DeleteRequestDTO deleteRequestDTO) {
@@ -275,7 +264,7 @@ public class AdminUtils {
         return admin;
     }
 
-    public static Function<Object[], AdminResponseDTO> parseToAdminResponse = (objects) -> {
+    public static Function<Object[], AdminDetailResponseDTO> parseToAdminDetailResponseDTO = (objects) -> {
 
         final int ADMIN_ID_INDEX = 0;
         final int FULL_NAME_INDEX = 1;
@@ -306,7 +295,7 @@ public class AdminUtils {
         String[] applicationModuleIds = objects[APPLICATION_MODULE_ID_INDEX].toString().split(COMMA_SEPARATED);
         String[] applicationModuleNames = objects[APPLICATION_MODULE_NAME_INDEX].toString().split(COMMA_SEPARATED);
 
-        return AdminResponseDTO.builder()
+        return AdminDetailResponseDTO.builder()
                 .id(Long.parseLong(objects[ADMIN_ID_INDEX].toString()))
                 .fullName(objects[FULL_NAME_INDEX].toString())
                 .username(objects[USERNAME_INDEX].toString())
@@ -321,7 +310,7 @@ public class AdminUtils {
                         objects[ADMIN_AVATAR_IS_DEFAULT_INDEX].toString().charAt(0))
                 .adminCategoryId(Long.parseLong(objects[ADMIN_CATEGORY_ID_INDEX].toString()))
                 .remarks(Objects.isNull(objects[REMARKS_INDEX]) ? null : objects[REMARKS_INDEX].toString())
-                .adminApplicationModuleAndProfileResponseDTOS(
+                .adminProfileResponseDTOS(
                         getAdminApplicationModuleResponseDTOS(
                                 adminApplicationModuleIds,
                                 applicationModuleIds,
@@ -334,7 +323,7 @@ public class AdminUtils {
                 .build();
     };
 
-    private static List<AdminApplicationModuleAndProfileResponseDTO> getAdminApplicationModuleResponseDTOS(
+    private static List<AdminProfileResponseDTO> getAdminApplicationModuleResponseDTOS(
             String[] adminApplicationModuleIds,
             String[] applicationModuleIds,
             String[] applicationModuleNames,
@@ -343,8 +332,8 @@ public class AdminUtils {
             String[] profileNames) {
 
         return IntStream.range(0, adminApplicationModuleIds.length)
-                .mapToObj(i -> AdminApplicationModuleAndProfileResponseDTO.builder()
-                        .adminApplicationModuleId(Long.parseLong(adminApplicationModuleIds[i]))
+                .mapToObj(i -> AdminProfileResponseDTO.builder()
+//                        .adminApplicationModuleId(Long.parseLong(adminApplicationModuleIds[i]))
                         .applicationModuleId(Long.parseLong(applicationModuleIds[i]))
                         .applicationModuleName(applicationModuleNames[i])
                         .adminProfileId(Long.parseLong(adminProfileIds[i]))

@@ -73,8 +73,6 @@ public class AdminServiceImpl implements AdminService {
 
     private final EmailService emailService;
 
-    private final AdminApplicationModuleRepository adminApplicationModuleRepository;
-
     private final HospitalService hospitalService;
 
     public AdminServiceImpl(Validator validator,
@@ -88,7 +86,6 @@ public class AdminServiceImpl implements AdminService {
                             AdminCategoryService adminCategoryService,
                             StorageService storageService,
                             EmailService emailService,
-                            AdminApplicationModuleRepository adminApplicationModuleRepository,
                             HospitalService hospitalService) {
         this.validator = validator;
         this.adminRepository = adminRepository;
@@ -101,7 +98,6 @@ public class AdminServiceImpl implements AdminService {
         this.adminCategoryService = adminCategoryService;
         this.storageService = storageService;
         this.emailService = emailService;
-        this.adminApplicationModuleRepository = adminApplicationModuleRepository;
         this.hospitalService = hospitalService;
     }
 
@@ -122,9 +118,7 @@ public class AdminServiceImpl implements AdminService {
 
         Admin admin = save(adminRequestDTO);
 
-        saveAdminApplicationModule(admin.getId(), adminRequestDTO.getApplicationModuleIds());
-
-        saveAdminProfile(admin, adminRequestDTO.getProfileIds());
+        saveAdminProfile(admin, adminRequestDTO.getAdminProfileRequestDTO());
 
         saveAdminAvatar(admin, files);
 
@@ -240,15 +234,13 @@ public class AdminServiceImpl implements AdminService {
 
         update(updateRequestDTO, admin);
 
-        updateAdminApplicationModule(admin.getId(), updateRequestDTO.getAdminApplicationModuleUpdateRequestDTOS());
-
         updateAdminProfile(admin.getId(), updateRequestDTO.getAdminProfileUpdateRequestDTOS());
 
         updateAvatar(admin, files);
 
-        updateMacAddressInfo(updateRequestDTO, admin);
+        updateMacAddressInfo(updateRequestDTO.getMacAddressInfoUpdateRequestDTOS(), admin);
 
-        saveAdminMetaInfo(admin);
+        updateAdminMetaInfo(admin);
 
         emailService.sendEmail(emailRequestDTO);
 
@@ -398,21 +390,10 @@ public class AdminServiceImpl implements AdminService {
         return hospitalService.fetchHospital(hospitalId);
     }
 
-    private void saveAdminApplicationModule(Long adminId, List<Long> applicationModuleIds) {
-        List<AdminApplicationModule> adminApplicationModules = applicationModuleIds.stream()
-                .map(applicationModuleId -> parseToAdminApplicationModule(adminId, applicationModuleId))
+    private void saveAdminProfile(Admin admin, List<AdminProfileRequestDTO> adminProfileRequestDTOS) {
+        List<AdminProfile> adminProfiles = adminProfileRequestDTOS.stream()
+                .map(requestDTO -> parseToAdminProfile(admin.getId(), requestDTO))
                 .collect(Collectors.toList());
-
-        saveAdminApplicationModule(adminApplicationModules);
-    }
-
-    private void saveAdminProfile(Admin admin, List<Long> profileIds) {
-        List<AdminProfile> adminProfiles = profileIds.stream()
-                .map(profileId -> {
-                    /*VALIDATE IF PROFILE IS ACTIVE*/
-                    fetchProfileById(profileId);
-                    return parseToAdminProfile(admin.getId(), profileId);
-                }).collect(Collectors.toList());
 
         saveAdminProfile(adminProfiles);
     }
@@ -433,14 +414,9 @@ public class AdminServiceImpl implements AdminService {
         if (!Objects.isNull(files)) {
             List<FileUploadResponseDTO> responseList = uploadFiles(admin, new MultipartFile[]{files});
             AdminUtils.setFileProperties(responseList.get(0), adminAvatar);
-        } else {
-            adminAvatar.setIsDefaultImage(YES);
-        }
-        saveAdminAvatar(adminAvatar);
-    }
+        } else adminAvatar.setStatus(INACTIVE);
 
-    private void saveAdminApplicationModule(List<AdminApplicationModule> adminApplicationModules) {
-        adminApplicationModuleRepository.saveAll(adminApplicationModules);
+        saveAdminAvatar(adminAvatar);
     }
 
     private void saveAdminProfile(List<AdminProfile> adminProfile) {
@@ -472,16 +448,14 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public void saveAdminMetaInfo(Admin admin) {
-        AdminMetaInfo adminMetaInfo = adminMetaInfoRepository.findAdminMetaInfoByAdminId(admin.getId());
-
-        if (Objects.isNull(adminMetaInfo))
-            saveAdminMetaInfo(parseInAdminMetaInfo(admin, new AdminMetaInfo()));
-
-        else saveAdminMetaInfo(parseInAdminMetaInfo(admin, adminMetaInfo));
+        adminMetaInfoRepository.save(parseInAdminMetaInfo(admin));
     }
 
-    public void saveAdminMetaInfo(AdminMetaInfo adminMetaInfo) {
-        adminMetaInfoRepository.save(adminMetaInfo);
+    private void updateAdminMetaInfo(Admin admin) {
+        AdminMetaInfo adminMetaInfo = adminMetaInfoRepository.findAdminMetaInfoByAdminId(admin.getId())
+                .orElseThrow(() -> new NoContentFoundException(AdminMetaInfo.class));
+
+        parseMetaInfo(admin, adminMetaInfo);
     }
 
     public AdminConfirmationToken saveAdminConfirmationToken(AdminConfirmationToken adminConfirmationToken) {
@@ -519,31 +493,14 @@ public class AdminServiceImpl implements AdminService {
         });
     }
 
-    private void updateAdminApplicationModule(Long adminId,
-                                              List<AdminApplicationModuleUpdateRequestDTO> updateRequestDTOS) {
-
-        List<AdminApplicationModule> adminApplicationModules = updateRequestDTOS.stream()
-                .map(requestDTO -> parseToUpdatedAdminApplicationModule(adminId, requestDTO))
-                .collect(Collectors.toList());
-
-        saveAdminApplicationModule(adminApplicationModules);
-    }
-
     private void updateAdminProfile(Long adminId,
                                     List<AdminProfileUpdateRequestDTO> adminProfileUpdateRequestDTOS) {
 
         List<AdminProfile> adminProfiles = adminProfileUpdateRequestDTOS.stream()
-                .map(requestDTO -> {
-                    /*VALIDATE IF PROFILE IS ACTIVE*/
-                    fetchProfileById(requestDTO.getProfileId());
-                    return parseToUpdatedAdminProfile(adminId, requestDTO);
-                }).collect(Collectors.toList());
+                .map(requestDTO -> parseToUpdatedAdminProfile(adminId, requestDTO))
+                .collect(Collectors.toList());
 
         saveAdminProfile(adminProfiles);
-    }
-
-    private void fetchProfileById(Long profileId) {
-        profileService.fetchActiveProfileById(profileId);
     }
 
     public void updateAvatar(Admin admin, MultipartFile files) {
@@ -562,10 +519,10 @@ public class AdminServiceImpl implements AdminService {
         convertAdminUpdateRequestDTOToAdmin(admin, adminRequestDTO, adminCategory, hospital);
     }
 
-    public void updateMacAddressInfo(AdminUpdateRequestDTO adminRequestDTO, Admin admin) {
+    public void updateMacAddressInfo(List<MacAddressInfoUpdateRequestDTO> macAddressInfoUpdateRequestDTOS, Admin admin) {
 
         List<MacAddressInfo> macAddressInfos = convertToUpdatedMACAddressInfo(
-                adminRequestDTO.getMacAddressInfoUpdateRequestDTOS(), admin);
+                macAddressInfoUpdateRequestDTOS, admin);
 
         saveMacAddressInfo(macAddressInfos);
     }

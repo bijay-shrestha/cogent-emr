@@ -12,17 +12,12 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminApplicationModuleAndProfileResponseDTO implements Serializable {
-
-    /*APPLICATION MODULE RESPONSE*/
-    private Long adminApplicationModuleId;
+public class AdminProfileResponseDTO implements Serializable {
+    private Long adminProfileId;
 
     private Long applicationModuleId;
 
     private String applicationModuleName;
-
-    /*PROFILE RESPONSE*/
-    private Long adminProfileId;
 
     private Long profileId;
 

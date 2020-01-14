@@ -55,8 +55,5 @@ public class AdminUpdateRequestDTO implements Serializable {
     private List<MacAddressInfoUpdateRequestDTO> macAddressInfoUpdateRequestDTOS;
 
     @NotEmpty
-    private List<AdminApplicationModuleUpdateRequestDTO> adminApplicationModuleUpdateRequestDTOS;
-
-    @NotEmpty
     private List<AdminProfileUpdateRequestDTO> adminProfileUpdateRequestDTOS;
 }

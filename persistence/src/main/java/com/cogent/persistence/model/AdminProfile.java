@@ -22,6 +22,9 @@ public class AdminProfile implements Serializable {
     @Column(name = "admin_id")
     private Long adminId;
 
+    @Column(name = "application_module_id")
+    private Long applicationModuleId;
+
     @Column(name = "profile_id")
     private Long profileId;
 

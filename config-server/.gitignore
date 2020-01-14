@@ -34,4 +34,4 @@ build/
 *.yml
 **/*.yml
 
-config-repo/development.yml
+/config-repo/development.yml

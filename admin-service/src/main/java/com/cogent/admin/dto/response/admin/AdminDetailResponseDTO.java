@@ -14,7 +14,36 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminDetailResponseDTO implements Serializable {
-    private AdminResponseDTO adminResponseDTO;
+
+    private Long id;
+
+    private String fullName;
+
+    private String username;
+
+    private String mobileNumber;
+
+    private String email;
+
+    private Character status;
+
+    private Long adminCategoryId;
+
+    private String adminCategoryName;
+
+    private Character hasMacBinding;
+
+    private String fileUri;
+
+    private Character isDefaultImage;
+
+    private String remarks;
+
+    private Long hospitalId;
+
+    private String hospitalName;
+
+    private List<AdminProfileResponseDTO> adminProfileResponseDTOS;
 
     private List<MacAddressInfoResponseDTO> macAddressInfoResponseDTOS;
 }

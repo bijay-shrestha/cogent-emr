@@ -49,11 +49,8 @@ public class AdminRequestDTO implements Serializable {
     @NotNull
     private Long hospitalId;
 
-    @NotNull
-    private List<Long> applicationModuleIds;
-
     @NotEmpty
-    private List<Long> profileIds;
+    private List<AdminProfileRequestDTO> adminProfileRequestDTO;
 
     private List<String> macAddressInfoRequestDTOS;
 }

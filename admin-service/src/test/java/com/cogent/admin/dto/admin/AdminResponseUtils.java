@@ -1,6 +1,9 @@
 package com.cogent.admin.dto.admin;
 
-import com.cogent.admin.dto.response.admin.*;
+import com.cogent.admin.dto.response.admin.AdminDetailResponseDTO;
+import com.cogent.admin.dto.response.admin.AdminDropdownDTO;
+import com.cogent.admin.dto.response.admin.AdminMinimalResponseDTO;
+import com.cogent.admin.dto.response.admin.MacAddressInfoResponseDTO;
 import com.cogent.admin.dto.response.files.FileUploadResponseDTO;
 import com.cogent.persistence.model.*;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -92,7 +95,7 @@ public class AdminResponseUtils {
         adminAvatar.setFileType("image/png");
         adminAvatar.setFileUri("http://localhost:8081/files/Admin-cogent/test.png");
         adminAvatar.setFileSize(100L);
-        adminAvatar.setIsDefaultImage('N');
+        adminAvatar.setStatus('Y');
         return adminAvatar;
     }
 
@@ -102,7 +105,7 @@ public class AdminResponseUtils {
         adminAvatar.setFileType("image/png");
         adminAvatar.setFileUri("http://localhost:8081/files/Admin-cogent/testUpdate.png");
         adminAvatar.setFileSize(100L);
-        adminAvatar.setIsDefaultImage('N');
+        adminAvatar.setStatus('Y');
         return adminAvatar;
     }
 
@@ -137,13 +140,6 @@ public class AdminResponseUtils {
 
     public static AdminDetailResponseDTO getAdminDetailResponseDTO() {
         return AdminDetailResponseDTO.builder()
-                .adminResponseDTO(getAdminResponseDTO())
-                .macAddressInfoResponseDTOS(getMacAddressResponseDTO())
-                .build();
-    }
-
-    private static AdminResponseDTO getAdminResponseDTO() {
-        return AdminResponseDTO.builder()
                 .id(1L)
                 .fullName("COGENT HEALTH")
                 .username("cogent")
@@ -155,6 +151,7 @@ public class AdminResponseUtils {
                 .fileUri("http://localhost:8081/files/Admin-cogent/test.png")
                 .remarks(null)
                 .hasMacBinding('Y')
+                .macAddressInfoResponseDTOS(getMacAddressResponseDTO())
                 .build();
     }
 

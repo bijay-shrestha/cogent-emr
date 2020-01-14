@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * @author smriti on 2019-08-27
  */
@@ -15,5 +17,5 @@ public interface AdminMetaInfoRepository extends JpaRepository<AdminMetaInfo, Lo
         AdminMetaInfoRepositoryCustom {
 
     @Query("SELECT a FROM AdminMetaInfo a WHERE a.admin.id = :id")
-    AdminMetaInfo findAdminMetaInfoByAdminId(@Param("id") Long id);
+    Optional<AdminMetaInfo> findAdminMetaInfoByAdminId(@Param("id") Long id);
 }

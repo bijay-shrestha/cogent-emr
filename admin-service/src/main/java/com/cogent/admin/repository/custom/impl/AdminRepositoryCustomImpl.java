@@ -16,7 +16,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -26,7 +25,8 @@ import static com.cogent.admin.constants.ErrorMessageConstants.AdminServiceMessa
 import static com.cogent.admin.constants.QueryConstants.*;
 import static com.cogent.admin.constants.StatusConstants.YES;
 import static com.cogent.admin.query.AdminQuery.*;
-import static com.cogent.admin.utils.AdminUtils.*;
+import static com.cogent.admin.utils.AdminUtils.parseToAdminDetailResponseDTO;
+import static com.cogent.admin.utils.AdminUtils.parseToAdminInfoByUsernameResponseDTO;
 import static com.cogent.admin.utils.PageableUtils.addPagination;
 import static com.cogent.admin.utils.QueryUtils.*;
 
@@ -82,10 +82,12 @@ public class AdminRepositoryCustomImpl implements AdminRepositoryCustom {
 
     @Override
     public AdminDetailResponseDTO fetchDetailsById(Long id) {
-        AdminResponseDTO adminResponseDTO = getAdminResponseDTO(id);
+        AdminDetailResponseDTO detailResponseDTO = fetchAdminDetailResponseDTO(id);
 
-        return parseToAdminDetailResponseDTO(adminResponseDTO,
-                adminResponseDTO.getHasMacBinding().equals(YES) ? getMacAddressInfo(id) : new ArrayList<>());
+        if (detailResponseDTO.getHasMacBinding().equals(YES))
+            detailResponseDTO.setMacAddressInfoResponseDTOS(getMacAddressInfo(id));
+
+        return detailResponseDTO;
     }
 
     @Override
@@ -144,7 +146,7 @@ public class AdminRepositoryCustomImpl implements AdminRepositoryCustom {
         return transformQueryToResultList(query, AdminSubDepartmentResponseDTO.class);
     }
 
-    public AdminResponseDTO getAdminResponseDTO(Long id) {
+    public AdminDetailResponseDTO fetchAdminDetailResponseDTO(Long id) {
         Query query = createNativeQuery.apply(entityManager, QUERY_TO_FETCH_ADMIN_DETAIL)
                 .setParameter(ID, id);
 
@@ -153,7 +155,7 @@ public class AdminRepositoryCustomImpl implements AdminRepositoryCustom {
         if (results.isEmpty())
             throw ADMIN_WITH_GIVEN_ID_NOT_FOUND.apply(id);
 
-        return parseToAdminResponse.apply(results.get(0));
+        return parseToAdminDetailResponseDTO.apply(results.get(0));
     }
 
     public List<MacAddressInfoResponseDTO> getMacAddressInfo(Long id) {

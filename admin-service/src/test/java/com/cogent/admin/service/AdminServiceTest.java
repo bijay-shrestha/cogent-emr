@@ -38,7 +38,6 @@ import static com.cogent.admin.dto.adminCategory.AdminCategoryResponseUtils.getA
 import static com.cogent.admin.dto.files.MultipartFileUtils.getMockMultipartFile;
 import static com.cogent.admin.dto.files.MultipartFileUtils.getUpdatedMultipartFile;
 import static com.cogent.admin.dto.hospital.HospitalResponseUtils.getHospital;
-import static com.cogent.admin.dto.profile.ProfileRequestUtils.getProfileInfo;
 import static com.cogent.admin.dto.profile.ProfileResponseUtils.getProfilesForDropdown;
 import static com.cogent.admin.utils.AdminUtils.convertFileToAdminAvatar;
 import static com.cogent.admin.utils.HttpServletRequestUtils.getMockHttpServletRequest;
@@ -91,9 +90,6 @@ public class AdminServiceTest {
     @Mock
     private AdminAvatarRepository adminAvatarRepository;
 
-    @Mock
-    private AdminApplicationModuleRepository adminApplicationModuleRepository;
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -110,10 +106,6 @@ public class AdminServiceTest {
         Should_Throw_Exception_When_AdminCategory_Not_Found();
 
         Should_Successfully_Save_Admin();
-
-        Should_Successfully_Save_Admin_ApplicationModule();
-
-        Should_Throw_Exception_When_Profile_Not_Found();
 
         Should_Successfully_Save_AdminProfile();
 
@@ -170,8 +162,6 @@ public class AdminServiceTest {
 
         Should_Successfully_Update_Admin();
 
-        Should_Update_Admin_Application_Module();
-
         Should_Throw_Exception_When_ProfileIsNotFound();
 
         Should__Save_New_Admin_Avatar();
@@ -209,18 +199,6 @@ public class AdminServiceTest {
         adminService.save(adminRequestDTO, getMockMultipartFile());
     }
 
-    @Test
-    public void Should_Throw_Exception_When_Profile_Not_Found() {
-        AdminRequestDTO adminRequestDTO = getAdminRequestDTO();
-
-        adminRequestDTO.getProfileIds().forEach(
-                id -> given(profileService.fetchActiveProfileById(id)).willThrow(NoContentFoundException.class));
-
-        thrown.expect(NoContentFoundException.class);
-
-        adminService.save(adminRequestDTO, getMockMultipartFile());
-    }
-
     @Test(expected = NoContentFoundException.class)
     public void Should_Throw_Exception_When_AdminCategory_Not_Found() {
         AdminRequestDTO adminRequestDTO = getAdminRequestDTO();
@@ -249,25 +227,13 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void Should_Successfully_Save_Admin_ApplicationModule() {
-        AdminRequestDTO adminRequestDTO = getAdminRequestDTO();
-
-        saveAdmin(adminRequestDTO);
-
-        adminService.save(adminRequestDTO, getMockMultipartFile());
-
-        verify(adminApplicationModuleRepository, times(1)).saveAll(anyIterable());
-    }
-
-    @Test
     public void Should_Successfully_Save_AdminProfile() {
         AdminRequestDTO adminRequestDTO = getAdminRequestDTO();
 
         saveAdmin(adminRequestDTO);
 
-        saveAdminProfile(adminRequestDTO);
-
         adminService.save(adminRequestDTO, getMockMultipartFile());
+
         verify(adminProfileRepository, times(1)).saveAll(anyIterable());
     }
 
@@ -281,11 +247,6 @@ public class AdminServiceTest {
         given(adminRepository.save(any(Admin.class))).willReturn(getAdmin());
     }
 
-    private void saveAdminProfile(AdminRequestDTO adminRequestDTO) {
-        adminRequestDTO.getProfileIds().forEach(
-                id -> given(profileService.fetchActiveProfileById(id)).willReturn(getProfileInfo()));
-    }
-
     @Test
     public void Should_Successfully_Save_AdminAvatar() {
         AdminRequestDTO adminRequestDTO = getAdminRequestDTO();
@@ -294,8 +255,6 @@ public class AdminServiceTest {
         AdminAvatar expected = convertFileToAdminAvatar(getFileUploadResponse().get(0), getAdmin());
 
         saveAdmin(adminRequestDTO);
-
-        saveAdminProfile(adminRequestDTO);
 
         saveAdminAvatar();
 
@@ -317,8 +276,6 @@ public class AdminServiceTest {
         AdminRequestDTO adminRequestDTO = getAdminRequestDTOWithEmptyMACAddressInfo();
 
         saveAdmin(adminRequestDTO);
-
-        saveAdminProfile(adminRequestDTO);
 
         saveAdminAvatar();
 
@@ -346,11 +303,9 @@ public class AdminServiceTest {
     public void Should_Save_AdminMetaInfo() {
         AdminRequestDTO adminRequestDTO = getAdminRequestDTO();
 
-        AdminMetaInfo expected = AdminUtils.parseInAdminMetaInfo(getAdmin(), new AdminMetaInfo());
+        AdminMetaInfo expected = AdminUtils.parseInAdminMetaInfo(getAdmin());
 
         saveAdmin(adminRequestDTO);
-
-        saveAdminProfile(adminRequestDTO);
 
         saveAdminAvatar();
 
@@ -639,17 +594,6 @@ public class AdminServiceTest {
         AdminUpdateRequestDTO updateRequestDTO = getAdminUpdateRequestDTO();
 
         updateAdmin(updateRequestDTO);
-
-        adminService.update(updateRequestDTO, getMockMultipartFile());
-    }
-
-    @Test
-    public void Should_Update_Admin_Application_Module() {
-        AdminUpdateRequestDTO updateRequestDTO = getAdminUpdateRequestDTO();
-
-        updateAdmin(updateRequestDTO);
-
-        verify(adminApplicationModuleRepository, times(1)).saveAll(anyIterable());
 
         adminService.update(updateRequestDTO, getMockMultipartFile());
     }
