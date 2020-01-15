@@ -1,8 +1,6 @@
 package com.cogent.admin.dto.request.admin;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -12,6 +10,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AdminProfileRequestDTO implements Serializable {
 
     private Long applicationModuleId;

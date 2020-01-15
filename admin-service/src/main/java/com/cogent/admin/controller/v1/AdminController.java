@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.List;
 
 import static com.cogent.admin.constants.StringConstant.BACKWARD_SLASH;
 import static com.cogent.admin.constants.SwaggerConstants.AdminConstant;
@@ -57,7 +56,7 @@ public class AdminController {
 
     @GetMapping(DROPDOWN + ACTIVE)
     @ApiOperation(FETCH_DETAILS_FOR_DROPDOWN)
-    public ResponseEntity<List> fetchActiveAdminsForDropdown() {
+    public ResponseEntity<?> fetchActiveAdminsForDropdown() {
         return ok(adminService.fetchActiveAdminsForDropdown());
     }
 
