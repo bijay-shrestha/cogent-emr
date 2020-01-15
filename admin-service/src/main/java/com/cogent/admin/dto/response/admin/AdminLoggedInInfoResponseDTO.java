@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class AdminInfoResponseDTO implements Serializable {
+public class AdminLoggedInInfoResponseDTO implements Serializable {
 
     private Long adminId;
 

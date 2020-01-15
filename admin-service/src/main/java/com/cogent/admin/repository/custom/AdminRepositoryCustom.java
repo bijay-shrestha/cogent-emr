@@ -30,7 +30,7 @@ public interface AdminRepositoryCustom {
 
     Admin fetchAdminByUsernameOrEmail(String username);
 
-    AdminInfoResponseDTO fetchLoggedInAdminInfo(AdminInfoRequestDTO requestDTO);
+    AdminLoggedInInfoResponseDTO fetchLoggedInAdminInfo(AdminInfoRequestDTO requestDTO);
 
     AdminInfoByUsernameResponseDTO fetchAdminInfoByUsername(String username);
 

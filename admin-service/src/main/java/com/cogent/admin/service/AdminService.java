@@ -33,7 +33,7 @@ public interface AdminService {
 
     void savePassword(AdminPasswordRequestDTO requestDTO);
 
-    AdminInfoResponseDTO fetchLoggedInAdminInfo(AdminInfoRequestDTO requestDTO);
+    AdminLoggedInInfoResponseDTO fetchLoggedInAdminInfo(AdminInfoRequestDTO requestDTO);
 
     AdminInfoByUsernameResponseDTO fetchAdminInfoByUsername(String username);
 
