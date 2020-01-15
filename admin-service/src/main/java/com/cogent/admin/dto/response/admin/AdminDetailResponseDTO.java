@@ -35,8 +35,6 @@ public class AdminDetailResponseDTO implements Serializable {
 
     private String fileUri;
 
-    private Character isDefaultImage;
-
     private String remarks;
 
     private Long hospitalId;

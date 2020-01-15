@@ -274,26 +274,11 @@ public class AdminUtils {
         final int STATUS_INDEX = 5;
         final int HAS_MAC_BINDING_INDEX = 6;
         final int ADMIN_CATEGORY_NAME_INDEX = 7;
-        final int ADMIN_AVATAR_FILE_URI_INDEX = 8;
-        final int ADMIN_AVATAR_IS_DEFAULT_INDEX = 9;
-        final int ADMIN_CATEGORY_ID_INDEX = 10;
-        final int REMARKS_INDEX = 11;
-        final int ADMIN_PROFILE_ID_INDEX = 12;
-        final int PROFILE_ID_INDEX = 13;
-        final int PROFILE_NAME_INDEX = 14;
-        final int ADMIN_APPLICATION_MODULE_ID_INDEX = 15;
-        final int APPLICATION_MODULE_ID_INDEX = 16;
-        final int APPLICATION_MODULE_NAME_INDEX = 17;
-        final int HOSPITAL_NAME_INDEX = 18;
-        final int HOSPITAL_ID_INDEX = 19;
-
-        String[] adminProfileIds = objects[ADMIN_PROFILE_ID_INDEX].toString().split(COMMA_SEPARATED);
-        String[] profileIds = objects[PROFILE_ID_INDEX].toString().split(COMMA_SEPARATED);
-        String[] profileNames = objects[PROFILE_NAME_INDEX].toString().split(COMMA_SEPARATED);
-
-        String[] adminApplicationModuleIds = objects[ADMIN_APPLICATION_MODULE_ID_INDEX].toString().split(COMMA_SEPARATED);
-        String[] applicationModuleIds = objects[APPLICATION_MODULE_ID_INDEX].toString().split(COMMA_SEPARATED);
-        String[] applicationModuleNames = objects[APPLICATION_MODULE_NAME_INDEX].toString().split(COMMA_SEPARATED);
+        final int ADMIN_CATEGORY_ID_INDEX = 8;
+        final int REMARKS_INDEX = 9;
+        final int HOSPITAL_NAME_INDEX = 10;
+        final int HOSPITAL_ID_INDEX = 11;
+        final int ADMIN_AVATAR_FILE_URI_INDEX = 12;
 
         return AdminDetailResponseDTO.builder()
                 .id(Long.parseLong(objects[ADMIN_ID_INDEX].toString()))
@@ -304,42 +289,39 @@ public class AdminUtils {
                 .status(objects[STATUS_INDEX].toString().charAt(0))
                 .hasMacBinding(objects[HAS_MAC_BINDING_INDEX].toString().charAt(0))
                 .adminCategoryName(objects[ADMIN_CATEGORY_NAME_INDEX].toString())
-                .fileUri(Objects.isNull(objects[ADMIN_AVATAR_FILE_URI_INDEX]) ? null :
-                        objects[ADMIN_AVATAR_FILE_URI_INDEX].toString())
-                .isDefaultImage(Objects.isNull(objects[ADMIN_AVATAR_IS_DEFAULT_INDEX]) ? null :
-                        objects[ADMIN_AVATAR_IS_DEFAULT_INDEX].toString().charAt(0))
                 .adminCategoryId(Long.parseLong(objects[ADMIN_CATEGORY_ID_INDEX].toString()))
-                .remarks(Objects.isNull(objects[REMARKS_INDEX]) ? null : objects[REMARKS_INDEX].toString())
-                .adminProfileResponseDTOS(
-                        getAdminApplicationModuleResponseDTOS(
-                                adminApplicationModuleIds,
-                                applicationModuleIds,
-                                applicationModuleNames,
-                                adminProfileIds,
-                                profileIds,
-                                profileNames))
                 .hospitalName(objects[HOSPITAL_NAME_INDEX].toString())
                 .hospitalId(Long.parseLong(objects[HOSPITAL_ID_INDEX].toString()))
+                .remarks(Objects.isNull(objects[REMARKS_INDEX]) ? null : objects[REMARKS_INDEX].toString())
+                .fileUri(Objects.isNull(objects[ADMIN_AVATAR_FILE_URI_INDEX]) ? null :
+                        objects[ADMIN_AVATAR_FILE_URI_INDEX].toString())
+                .adminProfileResponseDTOS(getAdminProfileResponseDTOS(objects))
                 .build();
     };
 
-    private static List<AdminProfileResponseDTO> getAdminApplicationModuleResponseDTOS(
-            String[] adminApplicationModuleIds,
-            String[] applicationModuleIds,
-            String[] applicationModuleNames,
-            String[] adminProfileIds,
-            String[] profileIds,
-            String[] profileNames) {
+    private static List<AdminProfileResponseDTO> getAdminProfileResponseDTOS(Object[] object) {
 
-        return IntStream.range(0, adminApplicationModuleIds.length)
+        final int ADMIN_PROFILE_ID_INDEX = 13;
+        final int PROFILE_ID_INDEX = 14;
+        final int PROFILE_NAME_INDEX = 15;
+        final int APPLICATION_MODULE_ID_INDEX = 16;
+        final int APPLICATION_MODULE_NAME_INDEX = 17;
+
+        String[] adminProfileIds = object[ADMIN_PROFILE_ID_INDEX].toString().split(COMMA_SEPARATED);
+        String[] profileIds = object[PROFILE_ID_INDEX].toString().split(COMMA_SEPARATED);
+        String[] profileNames = object[PROFILE_NAME_INDEX].toString().split(COMMA_SEPARATED);
+        String[] applicationModuleIds = object[APPLICATION_MODULE_ID_INDEX].toString().split(COMMA_SEPARATED);
+        String[] applicationModuleNames = object[APPLICATION_MODULE_NAME_INDEX].toString().split(COMMA_SEPARATED);
+
+        return IntStream.range(0, adminProfileIds.length)
                 .mapToObj(i -> AdminProfileResponseDTO.builder()
-//                        .adminApplicationModuleId(Long.parseLong(adminApplicationModuleIds[i]))
-                        .applicationModuleId(Long.parseLong(applicationModuleIds[i]))
-                        .applicationModuleName(applicationModuleNames[i])
                         .adminProfileId(Long.parseLong(adminProfileIds[i]))
                         .profileId(Long.parseLong(profileIds[i]))
                         .profileName(profileNames[i])
-                        .build()).collect(Collectors.toList());
+                        .applicationModuleId(Long.parseLong(applicationModuleIds[i]))
+                        .applicationModuleName(applicationModuleNames[i])
+                        .build())
+                .collect(Collectors.toList());
     }
 
     public static AdminInfoByUsernameResponseDTO parseToAdminInfoByUsernameResponseDTO(Object[] queryResult) {

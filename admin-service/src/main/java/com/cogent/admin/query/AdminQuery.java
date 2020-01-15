@@ -112,46 +112,38 @@ public class AdminQuery {
             "SELECT ap.admin_id as adminId," +
                     " GROUP_CONCAT(ap.id) as adminProfileId," +
                     " GROUP_CONCAT(p.id) as profileId," +
-                    " GROUP_CONCAT(p.name) as profileName" +
+                    " GROUP_CONCAT(p.name) as profileName," +
+                    " GROUP_CONCAT(ap.application_module_id) as applicationModuleId,"+
+                    " GROUP_CONCAT(am.name) as applicationModuleName"+
                     " FROM admin_profile ap" +
                     " LEFT JOIN profile p ON p.id = ap.profile_id" +
+                    " LEFT JOIN application_module am ON am.id = ap.application_module_id"+
                     " WHERE ap.status = 'Y'" +
                     " GROUP BY ap.admin_id";
 
-    private static final String QUERY_TO_FETCH_ADMIN_APPLICATION_MODULE =
-            "SELECT aam.admin_id as adminId," +
-                    " GROUP_CONCAT(aam.id) as adminApplicationModuleId," +
-                    " GROUP_CONCAT(am.id) as applicationModuleId," +
-                    " GROUP_CONCAT(am.name) as applicationModuleName" +
-                    " FROM admin_application_module aam" +
-                    " LEFT JOIN application_module am ON am.id = aam.application_module_id" +
-                    " WHERE aam.status = 'Y'" +
-                    " GROUP BY aam.admin_id";
-
     public static final String QUERY_TO_FETCH_ADMIN_DETAIL =
             SELECT_CLAUSE_TO_FETCH_ADMIN + "," +
-                    " ac.id as adminCategoryId," +
-                    " a.remarks as remarks," +
-                    " tbl1.adminProfileId as adminProfileId," +
-                    " tbl1.profileId as profileId," +
-                    " tbl1.profileName as profileName," +
-                    " tbl2.adminApplicationModuleId as adminApplicationModuleId," +
-                    " tbl2.applicationModuleId as applicationModuleId," +
-                    " tbl2.applicationModuleName as applicationModuleName," +
-                    " h.name as hospitalName," +
-                    " h.id as hospitalId" +
+                    " ac.id as adminCategoryId," +                                                  //[8]
+                    " a.remarks as remarks," +                                                      //[9]
+                    " h.name as hospitalName," +                                                    //[10]
+                    " h.id as hospitalId," +                                                        //[11]
+                    " tbl1.fileUri as fileUri,"+                                                    //[12]
+                    " tbl2.adminProfileId as adminProfileId," +                                     //[13]
+                    " tbl2.profileId as profileId," +                                               //[14]
+                    " tbl2.profileName as profileName," +                                           //[15]
+                    " tbl2.applicationModuleId as applicationModuleId," +                           //[16]
+                    " tbl2.applicationModuleName as applicationModuleName" +                       //[17]
                     " FROM admin a" +
-                    " LEFT JOIN admin_avatar av ON a.id = av.admin_id" +
                     " LEFT JOIN admin_category ac On ac.id = a.admin_category_id" +
                     " LEFT JOIN hospital h ON h.id = a.hospital_id" +
                     " LEFT JOIN" +
                     " (" +
-                    QUERY_TO_FETCH_ADMIN_PROFILE +
+                    QUERY_TO_FETCH_ADMIN_AVATAR +
                     " )tbl1 ON tbl1.adminId = a.id" +
-                    " LEFT JOIN" +
+                    " RIGHT JOIN" +
                     " (" +
-                    QUERY_TO_FETCH_ADMIN_APPLICATION_MODULE +
-                    ")tbl2 ON tbl2.adminId = a.id" +
+                    QUERY_TO_FETCH_ADMIN_PROFILE +
+                    " )tbl2 ON tbl2.adminId = a.id" +
                     " WHERE a.id = :id" +
                     " AND a.status !='D'";
 
