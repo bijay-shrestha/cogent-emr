@@ -15,9 +15,9 @@ public interface AdminService {
 
     void save(AdminRequestDTO adminRequestDTO, MultipartFile files);
 
-    List fetchActiveAdminsForDropdown();
+    List<AdminDropdownDTO> fetchActiveAdminsForDropdown();
 
-    List search(AdminSearchRequestDTO searchRequestDTO, Pageable pageable);
+    List<AdminMinimalResponseDTO> search(AdminSearchRequestDTO searchRequestDTO, Pageable pageable);
 
     AdminDetailResponseDTO fetchDetailsById(Long id);
 

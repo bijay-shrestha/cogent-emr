@@ -65,8 +65,6 @@ public class AdminServiceImpl implements AdminService {
 
     private final AdminConfirmationTokenRepository confirmationTokenRepository;
 
-    private final ProfileService profileService;
-
     private final AdminCategoryService adminCategoryService;
 
     private final StorageService storageService;
@@ -82,7 +80,6 @@ public class AdminServiceImpl implements AdminService {
                             AdminMetaInfoRepository adminMetaInfoRepository,
                             AdminAvatarRepository adminAvatarRepository,
                             AdminConfirmationTokenRepository confirmationTokenRepository,
-                            ProfileService profileService,
                             AdminCategoryService adminCategoryService,
                             StorageService storageService,
                             EmailService emailService,
@@ -94,7 +91,6 @@ public class AdminServiceImpl implements AdminService {
         this.adminMetaInfoRepository = adminMetaInfoRepository;
         this.adminAvatarRepository = adminAvatarRepository;
         this.confirmationTokenRepository = confirmationTokenRepository;
-        this.profileService = profileService;
         this.adminCategoryService = adminCategoryService;
         this.storageService = storageService;
         this.emailService = emailService;
@@ -110,7 +106,7 @@ public class AdminServiceImpl implements AdminService {
 
         validateConstraintViolation(validator.validate(adminRequestDTO));
 
-        List admins = adminRepository.fetchAdminForValidation(adminRequestDTO.getUsername(),
+        List<Object[]> admins = adminRepository.fetchAdminForValidation(adminRequestDTO.getUsername(),
                 adminRequestDTO.getEmail(), adminRequestDTO.getMobileNumber());
 
         validateAdminDuplicity(admins, adminRequestDTO.getUsername(), adminRequestDTO.getEmail(),
@@ -135,12 +131,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List fetchActiveAdminsForDropdown() {
+    public List<AdminDropdownDTO> fetchActiveAdminsForDropdown() {
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
         log.info(FETCHING_PROCESS_STARTED_FOR_DROPDOWN, ADMIN);
 
-        List responseDTOS = adminRepository.fetchActiveAdminsForDropDown();
+        List<AdminDropdownDTO> responseDTOS = adminRepository.fetchActiveAdminsForDropDown();
 
         log.info(FETCHING_PROCESS_FOR_DROPDOWN_COMPLETED, ADMIN, getDifferenceBetweenTwoTime(startTime));
 
@@ -148,12 +144,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List search(AdminSearchRequestDTO searchRequestDTO, Pageable pageable) {
+    public List<AdminMinimalResponseDTO> search(AdminSearchRequestDTO searchRequestDTO, Pageable pageable) {
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
         log.info(SEARCHING_PROCESS_STARTED, ADMIN);
 
-        List responseDTOS = adminRepository.search(searchRequestDTO, pageable);
+        List<AdminMinimalResponseDTO> responseDTOS = adminRepository.search(searchRequestDTO, pageable);
 
         log.info(SEARCHING_PROCESS_STARTED, ADMIN, getDifferenceBetweenTwoTime(startTime));
 
@@ -215,7 +211,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void update(AdminUpdateRequestDTO updateRequestDTO, MultipartFile files) {
+    public void update(@Valid AdminUpdateRequestDTO updateRequestDTO, MultipartFile files) {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
@@ -225,7 +221,7 @@ public class AdminServiceImpl implements AdminService {
 
         Admin admin = findById(updateRequestDTO.getId());
 
-        List admins = adminRepository.fetchAdmin(updateRequestDTO);
+        List<Object[]> admins = adminRepository.fetchAdmin(updateRequestDTO);
 
         validateAdminDuplicity(admins, updateRequestDTO.getEmail(),
                 updateRequestDTO.getMobileNumber());

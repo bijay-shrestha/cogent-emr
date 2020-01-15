@@ -18,7 +18,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @author smriti on 2019-09-20
  */
 @RestController
-@RequestMapping(API_V1 + BASE_FORGOT_PASSWORD)
+@RequestMapping(API_V1 + BASE_PASSWORD)
 @Api(BASE_API_VALUE)
 public class ForgotPasswordController {
 

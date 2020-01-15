@@ -27,7 +27,7 @@ import static com.cogent.admin.constants.StatusConstants.YES;
 import static com.cogent.admin.constants.StringConstant.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.API_V1;
 import static com.cogent.admin.constants.WebResourceKeyConstants.AdminConstants.BASE_ADMIN;
-import static com.cogent.admin.constants.WebResourceKeyConstants.ForgotPasswordConstants.BASE_FORGOT_PASSWORD;
+import static com.cogent.admin.constants.WebResourceKeyConstants.ForgotPasswordConstants.BASE_PASSWORD;
 import static com.cogent.admin.constants.WebResourceKeyConstants.ForgotPasswordConstants.VERIFY;
 import static com.cogent.admin.utils.RandomNumberGenerator.generateRandomToken;
 import static com.cogent.admin.utils.StringUtil.toUpperCase;
@@ -131,7 +131,7 @@ public class AdminUtils {
                                                                        String confirmationToken) {
 
         String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-        String confirmationUrl = fileUri + API_V1 + BASE_ADMIN + BASE_FORGOT_PASSWORD + VERIFY
+        String confirmationUrl = fileUri + API_V1 + BASE_ADMIN + BASE_PASSWORD + VERIFY
                 + "?token =" + confirmationToken;
 
         return EmailRequestDTO.builder()

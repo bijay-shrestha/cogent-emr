@@ -38,7 +38,7 @@ public class ForgotPasswordControllerTest {
     public void createMock() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(forgotPasswordController).build();
-        BASE_URL = API_V1 + BASE_FORGOT_PASSWORD;
+        BASE_URL = API_V1 + BASE_PASSWORD;
     }
 
     @Test

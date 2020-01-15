@@ -35,7 +35,5 @@ public class AdminMinimalResponseDTO implements Serializable {
 
     private String fileUri;
 
-    private Character isDefaultImage;
-
     private Integer totalItems;
 }

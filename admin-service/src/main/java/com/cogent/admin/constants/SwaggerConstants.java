@@ -25,14 +25,19 @@ public class SwaggerConstants {
         String SEARCH_OPERATION = "Search admin according to given request parameters";
         String DETAILS_OPERATION = "Fetch admin details by its id";
         String FETCH_DETAILS_FOR_DROPDOWN = "Fetch minimal admin details (id and name) for dropdown";
-        String CHANGE_PASSWORD = "Validate the requested password with original and update it accordingly.";
+        String CHANGE_PASSWORD = "Validate the requested password with original and update it accordingly" +
+                " (Change password).";
         String UPDATE_AVATAR_OPERATION = "Update admin avatar and if the file size is empty " +
                 "then change the isDefaultImage status as 'Y' else update accordingly.";
-        String VERIFY_ADMIN = "Verify if the confirmation token is valid and admin has not been registered.";
+        String VERIFY_ADMIN = "Verify if the confirmation token sent in email (after successful save) is valid" +
+                " and admin has not been registered.";
         String SAVE_PASSWORD_OPERATION = "Save admin password";
-        String FETCH_LOGGED_IN_ADMIN_INFO = "Fetch logged in admin information";
-        String FETCH_INFO_BY_USERNAME = "Fetch admin info by username.";
-        String FETCH_ASSIGNED_SUB_DEPARTMENTS = "Fetch all sub-departments assigned to an admin";
+        String FETCH_LOGGED_IN_ADMIN_INFO = "Fetch logged in admin information." +
+                " Used to show in top-bar and to validate if the admin updates its own profile";
+        String FETCH_INFO_BY_USERNAME = "Fetch admin info by username. Used in UserDetailsServiceImpl to " +
+                " fetch admin password and its respective assigned modules (sub-department code)";
+        String FETCH_ASSIGNED_SUB_DEPARTMENTS = "Fetch all sub-departments assigned to an admin." +
+                "Used in top-bar and display all assigned sub-departments to facilitate single-sign on feature";
         String FETCH_ADMIN_META_INFO = "Fetch active admin meta info for dropdown";
     }
 
@@ -290,7 +295,7 @@ public class SwaggerConstants {
         String BASE_API_VALUE = "This is Forgot Password Controller";
         String FORGOT_PASSWORD_OPERATION = "Validate admin and send reset code in email";
         String VERIFY_RESET_CODE = "Verify if the reset code is valid and has not expired";
-        String UPDATE_PASSWORD = "Update password of respective admin";
+        String UPDATE_PASSWORD = "Update password of respective admin (Reset password)";
     }
 
     //G

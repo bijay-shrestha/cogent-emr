@@ -136,7 +136,7 @@ public class WebResourceKeyConstants {
     }
 
     public interface ForgotPasswordConstants {
-        String BASE_FORGOT_PASSWORD = "/password";
+        String BASE_PASSWORD = "/password";
         String VERIFY = "/verify";
         String FORGOT = "/forgot";
     }

@@ -44,18 +44,28 @@ public class AdminQuery {
 
     public static String QUERY_TO_SEARCH_ADMIN(AdminSearchRequestDTO searchRequestDTO) {
         return SELECT_CLAUSE_TO_FETCH_ADMIN + "," +
-                " tbl.profileName as profileName" +
+                " tbl1.profileName as profileName," +
+                " tbl2.fileUri as fileUri" +
                 " FROM" +
                 " admin a" +
-                " LEFT JOIN admin_avatar av ON a.id = av.admin_id" +
                 " LEFT JOIN admin_meta_info ami ON a.id = ami.admin_id" +
                 " LEFT JOIN admin_category ac On ac.id = a.admin_category_id" +
-                " JOIN" +
+                " RIGHT JOIN" +
                 " (" +
                 QUERY_TO_SEARCH_ADMIN_PROFILE(searchRequestDTO) +
-                " ) tbl ON tbl.adminId = a.id" +
+                " ) tbl1 ON tbl1.adminId = a.id" +
+                " LEFT JOIN" +
+                " (" +
+                QUERY_TO_FETCH_ADMIN_AVATAR +
+                " )tbl2 ON tbl2.adminId = a.id" +
                 GET_WHERE_CLAUSE_FOR_SEARCH_ADMIN(searchRequestDTO);
     }
+
+    private static final String QUERY_TO_FETCH_ADMIN_AVATAR =
+            " SELECT av.admin_id as adminId," +
+                    " av.file_uri as fileUri" +
+                    " FROM admin_avatar av" +
+                    " WHERE av.status = 'Y'";
 
     private static final String SELECT_CLAUSE_TO_FETCH_ADMIN =
             " SELECT" +
@@ -66,9 +76,7 @@ public class AdminQuery {
                     " a.mobile_number as mobileNumber," +                       //[4]
                     " a.status as status," +                                    //[5]
                     " a.has_mac_binding as hasMacBinding," +                    //[6]
-                    " ac.name as adminCategoryName," +                          //[7]
-                    " av.file_uri as fileUri," +                                //[8]
-                    " av.is_default_image as isDefaultImage";                   //[9]
+                    " ac.name as adminCategoryName";                           //[7]
 
     private static String QUERY_TO_SEARCH_ADMIN_PROFILE(AdminSearchRequestDTO requestDTO) {
         String query = "SELECT ap.admin_id as adminId," +
@@ -182,15 +190,15 @@ public class AdminQuery {
     public static final String QUERY_TO_FETCH_ADMIN_INFO_BY_USERNAME =
             " SELECT GROUP_CONCAT(sd.code)," +                                                              //[0]
                     " a.password" +                                                                         //[1]
-                    " FROM application_module am" +
-                    " LEFT JOIN admin_application_module aam ON aam.application_module_id=am.id" +
+                    " FROM admin_profile ap" +
+                    " LEFT JOIN application_module am ON ap.application_module_id=am.id" +
                     " LEFT JOIN sub_department sd ON sd.id = am.sub_department_id" +
-                    " LEFT JOIN admin a ON a.id = aam.admin_id" +
+                    " LEFT JOIN admin a ON a.id = ap.admin_id" +
                     " WHERE am.status = 'Y'" +
-                    " AND aam.status = 'Y'" +
+                    " AND ap.status = 'Y'" +
                     " AND a.status ='Y'" +
                     " AND (a.username =:username OR a.email =:email)" +
-                    " GROUP BY aam.admin_id";
+                    " GROUP BY ap.admin_id";
 
     public static final String QUERY_TO_FETCH_LOGGED_IN_ADMIN_SUB_DEPARTMENT_LIST =
             "SELECT" +

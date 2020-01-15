@@ -41,7 +41,7 @@ public class AdminRepositoryCustomImpl implements AdminRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public List fetchAdminForValidation(String username, String email, String mobileNumber) {
+    public List<Object[]> fetchAdminForValidation(String username, String email, String mobileNumber) {
 
         Query query = createQuery.apply(entityManager, QUERY_TO_FIND_ADMIN_FOR_VALIDATION)
                 .setParameter(USERNAME, username)
@@ -52,18 +52,18 @@ public class AdminRepositoryCustomImpl implements AdminRepositoryCustom {
     }
 
     @Override
-    public List fetchActiveAdminsForDropDown() {
+    public List<AdminDropdownDTO> fetchActiveAdminsForDropDown() {
 
         Query query = createQuery.apply(entityManager, QUERY_TO_FETCH_ACTIVE_ADMIN_FOR_DROPDOWN);
 
-        List list = transformQueryToResultList(query, AdminDropdownDTO.class);
+        List<AdminDropdownDTO> list = transformQueryToResultList(query, AdminDropdownDTO.class);
 
         if (list.isEmpty()) throw NO_ADMIN_FOUND.get();
         else return list;
     }
 
     @Override
-    public List search(AdminSearchRequestDTO searchRequestDTO, Pageable pageable) {
+    public List<AdminMinimalResponseDTO> search(AdminSearchRequestDTO searchRequestDTO, Pageable pageable) {
         Query query = createNativeQuery.apply(entityManager, QUERY_TO_SEARCH_ADMIN(searchRequestDTO));
 
         int totalItems = query.getResultList().size();
@@ -91,7 +91,7 @@ public class AdminRepositoryCustomImpl implements AdminRepositoryCustom {
     }
 
     @Override
-    public List fetchAdmin(AdminUpdateRequestDTO updateRequestDTO) {
+    public List<Object[]> fetchAdmin(AdminUpdateRequestDTO updateRequestDTO) {
         Query query = createQuery.apply(entityManager, QUERY_TO_FIND_ADMIN_EXCEPT_CURRENT_ADMIN)
                 .setParameter(ID, updateRequestDTO.getId())
                 .setParameter(EMAIL, updateRequestDTO.getEmail())
