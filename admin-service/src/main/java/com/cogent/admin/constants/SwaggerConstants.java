@@ -254,32 +254,9 @@ public class SwaggerConstants {
     }
 
     //F
-    public interface ServiceConstant {
-        String BASE_SERVICE_API_VALUE = "This is Service Controller";
-        String SAVE_SERVICE_OPERATION = "Save new service";
-        String UPDATE_SERVICE_OPERATION = "Update existing service";
-        String DELETE_SERVICE_OPERATION = "Set service status as 'D' when deleted";
-        String SEARCH_OPERATION = "Search service according to given request parameters";
-        String SERVICE_DETAIL_OPERATION = "Fetch service details ";
-        String FETCH_SERVICE_FOR_DROP_DOWN_OPERATION = "Fetch minimal service details (id and name) " +
-                "for dropdown";
-        String FETCH_ACTIVE_SERVICE_FOR_DROP_DOWN_OPERATION = "Fetch minimal active service details" +
-                " (id and name) for dropdown";
-    }
-
-    public interface ServiceChargeConstant {
-        String BASE_SERVICE_CHARGE_API_VALUE = "This is Service-Charge Controller";
-        String SAVE_SERVICE_CHARGE_OPERATION = "Save new service-charge";
-        String UPDATE_SERVICE_CHARGE_OPERATION = "Update existing service-charge";
-        String DELETE_SERVICE_CHARGE_OPERATION = "Set service-charge status as 'D' when deleted";
-        String SEARCH_OPERATION = "Search service-charge according to given request parameters";
-        String SERVICE_CHARGE_DETAIL_OPERATION = "Fetch service-charge details ";
-        String FETCH_SERVICE_CHARGE_FOR_DROP_DOWN_OPERATION = "Fetch minimal service-charge details (id and name) " +
-                "for dropdown";
-        String FETCH_ACTIVE_SERVICE_CHARGE_FOR_DROP_DOWN_OPERATION = "Fetch minimal active service-charge details" +
-                " (id and name) for dropdown";
-        String FETCH_ACTIVE_SERVICE_CHARGE_BY_BILLING_MODE_ID_FOR_DROP_DOWN_OPERATION = "Fetch minimal active service-charge details" +
-                " (id and name) for dropdown by billing mode id";
+    public interface FileConstant {
+        String BASE_API_VALUE = "This is File Controller";
+        String DOWNLOAD_OPERATION = "Download files.";
     }
 
     public interface FollowUpSetupConstant {
@@ -463,6 +440,33 @@ public class SwaggerConstants {
         String FETCH_ASSIGNED_PROFILE_RESPONSE = "Fetch assigned profile response";
     }
 
+    public interface ServiceConstant {
+        String BASE_SERVICE_API_VALUE = "This is Service Controller";
+        String SAVE_SERVICE_OPERATION = "Save new service";
+        String UPDATE_SERVICE_OPERATION = "Update existing service";
+        String DELETE_SERVICE_OPERATION = "Set service status as 'D' when deleted";
+        String SEARCH_OPERATION = "Search service according to given request parameters";
+        String SERVICE_DETAIL_OPERATION = "Fetch service details ";
+        String FETCH_SERVICE_FOR_DROP_DOWN_OPERATION = "Fetch minimal service details (id and name) " +
+                "for dropdown";
+        String FETCH_ACTIVE_SERVICE_FOR_DROP_DOWN_OPERATION = "Fetch minimal active service details" +
+                " (id and name) for dropdown";
+    }
+
+    public interface ServiceChargeConstant {
+        String BASE_SERVICE_CHARGE_API_VALUE = "This is Service-Charge Controller";
+        String SAVE_SERVICE_CHARGE_OPERATION = "Save new service-charge";
+        String UPDATE_SERVICE_CHARGE_OPERATION = "Update existing service-charge";
+        String DELETE_SERVICE_CHARGE_OPERATION = "Set service-charge status as 'D' when deleted";
+        String SEARCH_OPERATION = "Search service-charge according to given request parameters";
+        String SERVICE_CHARGE_DETAIL_OPERATION = "Fetch service-charge details ";
+        String FETCH_SERVICE_CHARGE_FOR_DROP_DOWN_OPERATION = "Fetch minimal service-charge details (id and name) " +
+                "for dropdown";
+        String FETCH_ACTIVE_SERVICE_CHARGE_FOR_DROP_DOWN_OPERATION = "Fetch minimal active service-charge details" +
+                " (id and name) for dropdown";
+        String FETCH_ACTIVE_SERVICE_CHARGE_BY_BILLING_MODE_ID_FOR_DROP_DOWN_OPERATION = "Fetch minimal active service-charge details" +
+                " (id and name) for dropdown by billing mode id";
+    }
 
     public interface SpecializationConstant {
         String BASE_API_VALUE = "This is Specialization Controller";
