@@ -4,14 +4,11 @@ import com.cogent.admin.dto.commons.DeleteRequestDTO;
 import com.cogent.admin.dto.request.admin.*;
 import com.cogent.admin.dto.response.admin.AdminInfoByUsernameResponseDTO;
 import com.cogent.admin.service.AdminService;
-import com.cogent.admin.service.StorageService;
 import com.cogent.admin.utils.ObjectMapperUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 
-import static com.cogent.admin.constants.StringConstant.BACKWARD_SLASH;
 import static com.cogent.admin.constants.SwaggerConstants.AdminConstant;
 import static com.cogent.admin.constants.SwaggerConstants.AdminConstant.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.*;
@@ -36,12 +32,8 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    private final StorageService storageService;
-
-    public AdminController(AdminService adminService,
-                           StorageService storageService) {
+    public AdminController(AdminService adminService) {
         this.adminService = adminService;
-        this.storageService = storageService;
     }
 
     @PostMapping(consumes = MULTIPART_FORM_DATA_VALUE)
@@ -105,18 +97,6 @@ public class AdminController {
         AdminUpdateRequestDTO adminRequestDTO = ObjectMapperUtils.map(request, AdminUpdateRequestDTO.class);
         adminService.update(adminRequestDTO, file);
         return ok().build();
-    }
-
-    @GetMapping(FILE)
-    public ResponseEntity<Resource> downloadFile(@PathVariable String subDirectoryLocation,
-                                                 @PathVariable String filename) {
-
-        Resource file = storageService.loadAsResource(subDirectoryLocation, filename);
-
-        return ok().header(
-                HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=" + BACKWARD_SLASH + file.getFilename() + BACKWARD_SLASH)
-                .body(file);
     }
 
     @GetMapping(VERIFY)
