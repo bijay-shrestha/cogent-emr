@@ -51,4 +51,7 @@ public class DoctorDutyRosterOverride implements Serializable {
 
     @Column(name = "status")
     private Character status;
+
+    @Column(name = "remarks")
+    private String remarks;
 }

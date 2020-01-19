@@ -24,7 +24,8 @@ public class DoctorDutyRosterOverrideQuery {
                     " d.toDate as toDate," +                            //[2]
                     " d.startTime as startTime," +                      //[3]
                     " d.endTime as endTime," +                          //[4]
-                    " d.dayOffStatus as dayOffStatus" +                 //[5]
+                    " d.dayOffStatus as dayOffStatus," +                 //[5]
+                    " d.remarks as remarks"+                            //[6]
                     " FROM DoctorDutyRosterOverride d" +
                     " WHERE" +
                     " d.doctorDutyRosterId.status!= 'D'" +

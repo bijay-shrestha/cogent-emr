@@ -33,5 +33,8 @@ public class DoctorDutyRosterOverrideUpdateRequestDTO implements Serializable {
 
     @NotNull
     private Character status;
+
+    @NotNull
+    private String remarks;
 }
 

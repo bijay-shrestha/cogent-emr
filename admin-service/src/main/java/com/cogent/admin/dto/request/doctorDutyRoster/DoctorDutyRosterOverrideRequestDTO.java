@@ -23,4 +23,6 @@ public class DoctorDutyRosterOverrideRequestDTO implements Serializable {
     private Character dayOffStatus;
 
     private Character status;
+
+    private String remarks;
 }
