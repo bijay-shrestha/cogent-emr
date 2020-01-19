@@ -19,7 +19,9 @@ import java.io.IOException;
 import static com.cogent.admin.constants.SwaggerConstants.AdminConstant;
 import static com.cogent.admin.constants.SwaggerConstants.AdminConstant.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.*;
+import static com.cogent.admin.constants.WebResourceKeyConstants.AdminConstants.CHANGE_PASSWORD;
 import static com.cogent.admin.constants.WebResourceKeyConstants.AdminConstants.*;
+import static com.cogent.admin.constants.WebResourceKeyConstants.AdminConstants.RESET_PASSWORD;
 import static java.net.URI.create;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 import static org.springframework.http.ResponseEntity.created;
@@ -74,10 +76,17 @@ public class AdminController {
         return ok().build();
     }
 
-    @PutMapping(PASSWORD)
+    @PutMapping(CHANGE_PASSWORD)
     @ApiOperation(AdminConstant.CHANGE_PASSWORD)
-    public ResponseEntity<?> changePassword(@Valid @RequestBody UpdatePasswordRequestDTO requestDTO) {
+    public ResponseEntity<?> changePassword(@Valid @RequestBody AdminChangePasswordRequestDTO requestDTO) {
         adminService.changePassword(requestDTO);
+        return ok().build();
+    }
+
+    @PutMapping(RESET_PASSWORD)
+    @ApiOperation(AdminConstant.RESET_PASSWORD)
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody AdminResetPasswordRequestDTO requestDTO) {
+        adminService.resetPassword(requestDTO);
         return ok().build();
     }
 
@@ -106,7 +115,7 @@ public class AdminController {
         return ok().build();
     }
 
-    @PostMapping(PASSWORD)
+    @PostMapping(BASE_PASSWORD)
     @ApiOperation(SAVE_PASSWORD_OPERATION)
     public ResponseEntity<?> savePassword(@Valid @RequestBody AdminPasswordRequestDTO requestDTO) {
         adminService.savePassword(requestDTO);

@@ -15,12 +15,13 @@ public class WebResourceKeyConstants {
 
     public interface AdminConstants {
         String BASE_ADMIN = "/admin";
-        String PASSWORD = "/password";
         String AVATAR = "/avatar";
-        String VERIFY = "/verify";
-        String INFO = "/info";
         String ADMIN_META_INFO = "/metaInfo";
         String ASSIGNED_SUB_DEPARTMENTS = "/assignedSubDepartments";
+        String CHANGE_PASSWORD = "/changePassword";
+        String RESET_PASSWORD = "/resetPassword";
+        String INFO = "/info";
+        String VERIFY = "/verify";
     }
 
     public interface AppointmentModeConstants {
@@ -40,6 +41,8 @@ public class WebResourceKeyConstants {
     }
 
     //B
+    public static final  String BASE_PASSWORD = "/password";
+
     public interface BedConstants {
         String BASE_BED = "/beds";
     }
@@ -136,7 +139,6 @@ public class WebResourceKeyConstants {
     }
 
     public interface ForgotPasswordConstants {
-        String BASE_PASSWORD = "/password";
         String VERIFY = "/verify";
         String FORGOT = "/forgot";
     }

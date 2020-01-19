@@ -26,11 +26,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.cogent.email.constants.EmailConstants.*;
-import static com.cogent.email.constants.EmailParams.AdminVerification.ADMIN_CONFIRMATION_URL;
+import static com.cogent.email.constants.EmailParams.Admin.*;
 import static com.cogent.email.constants.EmailParams.Appointment.*;
 import static com.cogent.email.constants.EmailParams.ForgotPassword.RESET_CODE;
 import static com.cogent.email.constants.EmailParams.USERNAME;
-import static com.cogent.email.constants.EmailParams.UpdateAdmin.*;
 import static com.cogent.email.constants.EmailTemplates.*;
 import static com.cogent.email.constants.StatusConstants.YES;
 import static com.cogent.email.constants.StringConstant.*;
@@ -99,6 +98,12 @@ public class EmailServiceImpl implements EmailService {
                 case ADMIN_VERIFICATION: {
                     parseToAdminVerificationTemplate(emailToSend, model);
                     html = getFreeMarkerContent(model, ADMIN_VERIFICATION_TEMPLATE, html);
+                    break;
+                }
+
+                case RESET_PASSWORD: {
+                    parseToResetPasswordTemplate(emailToSend, model);
+                    html = getFreeMarkerContent(model, ADMIN_RESET_PASSWORD_TEMPLATE, html);
                     break;
                 }
 
@@ -171,6 +176,19 @@ public class EmailServiceImpl implements EmailService {
 
         model.put(USERNAME, paramValues[USERNAME_INDEX]);
         model.put(ADMIN_CONFIRMATION_URL, paramValues[ADMIN_CONFIRMATION_URL_INDEX]);
+    }
+
+    private void parseToResetPasswordTemplate(EmailToSend emailToSend,
+                                              Map<String, Object> model) {
+        final int USERNAME_INDEX = 0;
+        final int PASSWORD_INDEX = 1;
+        final int REMARKS_INDEX = 2;
+
+        String[] paramValues = emailToSend.getParamValue().split(COMMA_SEPARATED);
+
+        model.put(USERNAME, paramValues[USERNAME_INDEX]);
+        model.put(PASSWORD, paramValues[PASSWORD_INDEX]);
+        model.put(REMARKS, paramValues[REMARKS_INDEX]);
     }
 
     private void parseToUpdateAdminTemplate(EmailToSend emailToSend,

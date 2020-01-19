@@ -18,10 +18,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.cogent.admin.constants.EmailConstants.SUBJECT_FOR_ADMIN_VERIFICATION;
-import static com.cogent.admin.constants.EmailConstants.SUBJECT_FOR_UPDATE_ADMIN;
-import static com.cogent.admin.constants.EmailTemplates.ADMIN_VERIFICATION;
-import static com.cogent.admin.constants.EmailTemplates.UPDATE_ADMIN;
+import static com.cogent.admin.constants.EmailConstants.*;
+import static com.cogent.admin.constants.EmailTemplates.*;
 import static com.cogent.admin.constants.StatusConstants.ACTIVE;
 import static com.cogent.admin.constants.StatusConstants.YES;
 import static com.cogent.admin.constants.StringConstant.*;
@@ -54,8 +52,8 @@ public class AdminUtils {
                                                            AdminCategory adminCategory,
                                                            Hospital hospital) {
 
-        admin.setFullName(toUpperCase(adminRequestDTO.getFullName()));
         admin.setEmail(adminRequestDTO.getEmail());
+        admin.setFullName(toUpperCase(adminRequestDTO.getFullName()));
         admin.setMobileNumber(adminRequestDTO.getMobileNumber());
         admin.setStatus(adminRequestDTO.getStatus());
         admin.setHasMacBinding(adminRequestDTO.getHasMacBinding());
@@ -153,17 +151,14 @@ public class AdminUtils {
         adminAvatar.setStatus(ACTIVE);
     }
 
-    public static Admin convertAdminToDeleted(Admin admin, DeleteRequestDTO deleteRequestDTO) {
+    public static void convertAdminToDeleted(Admin admin, DeleteRequestDTO deleteRequestDTO) {
         admin.setStatus(deleteRequestDTO.getStatus());
         admin.setRemarks(deleteRequestDTO.getRemarks());
-
-        return admin;
     }
 
-    public static Admin updateAdminPassword(UpdatePasswordRequestDTO requestDTO, Admin admin) {
-        admin.setPassword(BCrypt.hashpw(requestDTO.getNewPassword(), BCrypt.gensalt()));
-        admin.setRemarks(requestDTO.getRemarks());
-        return admin;
+    public static void updateAdminPassword(String password, String remarks, Admin admin) {
+        admin.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
+        admin.setRemarks(remarks);
     }
 
     private static BiFunction<MacAddressInfoUpdateRequestDTO, Admin, MacAddressInfo> convertToUpdatedMACAddressInfo =
@@ -330,6 +325,18 @@ public class AdminUtils {
         return AdminInfoByUsernameResponseDTO.builder()
                 .assignedApplicationModuleCodes(subDepartmentCodes)
                 .password(queryResult[PASSWORD_INDEX].toString())
+                .build();
+    }
+
+    public static EmailRequestDTO parseToResetPasswordEmailRequestDTO(AdminResetPasswordRequestDTO requestDTO,
+                                                                      String emailAddress) {
+
+        return EmailRequestDTO.builder()
+                .receiverEmailAddress(emailAddress)
+                .subject(SUBJECT_FOR_ADMIN_RESET_PASSWORD)
+                .templateName(RESET_PASSWORD)
+                .paramValue(requestDTO.getUsername() + COMMA_SEPARATED
+                        + requestDTO.getPassword() + COMMA_SEPARATED + requestDTO.getRemarks())
                 .build();
     }
 }

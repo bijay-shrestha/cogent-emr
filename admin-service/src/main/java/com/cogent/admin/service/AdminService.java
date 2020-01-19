@@ -23,7 +23,9 @@ public interface AdminService {
 
     void delete(DeleteRequestDTO deleteRequestDTO);
 
-    void changePassword(UpdatePasswordRequestDTO requestDTO);
+    void changePassword(AdminChangePasswordRequestDTO requestDTO);
+
+    void resetPassword(AdminResetPasswordRequestDTO resetPasswordRequestDTO);
 
     void updateAvatar(MultipartFile files, Long adminId);
 

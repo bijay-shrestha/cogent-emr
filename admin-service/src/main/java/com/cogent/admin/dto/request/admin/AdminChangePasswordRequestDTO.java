@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdatePasswordRequestDTO implements Serializable {
+public class AdminChangePasswordRequestDTO implements Serializable {
 
     @NotNull
     private Long id;

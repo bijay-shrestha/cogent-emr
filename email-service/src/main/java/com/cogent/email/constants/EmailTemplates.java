@@ -50,6 +50,7 @@ public class EmailTemplates {
     //Q
 
     //R
+    public static final String RESET_PASSWORD = "RESET PASSWORD";
 
     //S
 

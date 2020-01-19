@@ -11,7 +11,10 @@ import com.cogent.admin.exception.OperationUnsuccessfulException;
 import com.cogent.admin.feign.dto.request.email.EmailRequestDTO;
 import com.cogent.admin.feign.service.EmailService;
 import com.cogent.admin.repository.*;
-import com.cogent.admin.service.*;
+import com.cogent.admin.service.AdminCategoryService;
+import com.cogent.admin.service.AdminService;
+import com.cogent.admin.service.HospitalService;
+import com.cogent.admin.service.StorageService;
 import com.cogent.admin.utils.AdminUtils;
 import com.cogent.admin.validator.LoginValidator;
 import com.cogent.persistence.model.*;
@@ -125,7 +128,10 @@ public class AdminServiceImpl implements AdminService {
         AdminConfirmationToken adminConfirmationToken =
                 saveAdminConfirmationToken(parseInAdminConfirmationToken(admin));
 
-        sendEmail(adminRequestDTO, adminConfirmationToken.getConfirmationToken());
+        EmailRequestDTO emailRequestDTO = convertAdminRequestToEmailRequestDTO(adminRequestDTO,
+                adminConfirmationToken.getConfirmationToken());
+
+        sendEmail(emailRequestDTO);
 
         log.info(SAVING_PROCESS_COMPLETED, ADMIN, getDifferenceBetweenTwoTime(startTime));
     }
@@ -177,13 +183,13 @@ public class AdminServiceImpl implements AdminService {
 
         Admin admin = findById(deleteRequestDTO.getId());
 
-        save(convertAdminToDeleted(admin, deleteRequestDTO));
+        convertAdminToDeleted(admin, deleteRequestDTO);
 
         log.info(DELETING_PROCESS_COMPLETED, ADMIN, getDifferenceBetweenTwoTime(startTime));
     }
 
     @Override
-    public void changePassword(UpdatePasswordRequestDTO requestDTO) {
+    public void changePassword(AdminChangePasswordRequestDTO requestDTO) {
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
         log.info(UPDATING_PASSWORD_PROCESS_STARTED);
@@ -192,7 +198,22 @@ public class AdminServiceImpl implements AdminService {
 
         validatePassword(admin, requestDTO);
 
-        save(updateAdminPassword(requestDTO, admin));
+        updateAdminPassword(requestDTO.getNewPassword(), requestDTO.getRemarks(), admin);
+
+        log.info(UPDATING_PASSWORD_PROCESS_COMPLETED, getDifferenceBetweenTwoTime(startTime));
+    }
+
+    @Override
+    public void resetPassword(AdminResetPasswordRequestDTO requestDTO) {
+        Long startTime = getTimeInMillisecondsFromLocalDate();
+
+        log.info(UPDATING_PASSWORD_PROCESS_STARTED);
+
+        Admin admin = findByUsername(requestDTO.getUsername());
+
+        updateAdminPassword(requestDTO.getPassword(), requestDTO.getRemarks(), admin);
+
+        sendEmail(parseToResetPasswordEmailRequestDTO(requestDTO, admin.getEmail()));
 
         log.info(UPDATING_PASSWORD_PROCESS_COMPLETED, getDifferenceBetweenTwoTime(startTime));
     }
@@ -238,7 +259,7 @@ public class AdminServiceImpl implements AdminService {
 
         updateAdminMetaInfo(admin);
 
-        emailService.sendEmail(emailRequestDTO);
+        sendEmail(emailRequestDTO);
 
         log.info(UPDATING_PROCESS_COMPLETED, ADMIN, getDifferenceBetweenTwoTime(startTime));
     }
@@ -458,17 +479,18 @@ public class AdminServiceImpl implements AdminService {
         return confirmationTokenRepository.save(adminConfirmationToken);
     }
 
-    public void sendEmail(AdminRequestDTO adminRequestDTO,
-                          String confirmationToken) {
-
-        EmailRequestDTO emailRequestDTO = convertAdminRequestToEmailRequestDTO(
-                adminRequestDTO, confirmationToken);
+    private void sendEmail(EmailRequestDTO emailRequestDTO) {
         emailService.sendEmail(emailRequestDTO);
     }
 
     public Admin findById(Long adminId) {
         return adminRepository.findAdminById(adminId)
                 .orElseThrow(() -> ADMIN_WITH_GIVEN_ID_NOT_FOUND.apply(adminId));
+    }
+
+    public Admin findByUsername(String username) {
+        return adminRepository.findAdminByUsername(username)
+                .orElseThrow(() -> new NoContentFoundException(Admin.class));
     }
 
     private void validateAdminDuplicity(List<Object[]> adminList, String requestEmail,
@@ -533,7 +555,7 @@ public class AdminServiceImpl implements AdminService {
             throw new NoContentFoundException(MacAddressInfo.class);
     };
 
-    private void validatePassword(Admin admin, UpdatePasswordRequestDTO requestDTO) {
+    private void validatePassword(Admin admin, AdminChangePasswordRequestDTO requestDTO) {
 
         if (!LoginValidator.checkPassword(requestDTO.getOldPassword(), admin.getPassword()))
             throw new OperationUnsuccessfulException(PASSWORD_MISMATCH_MESSAGE);
@@ -554,5 +576,4 @@ public class AdminServiceImpl implements AdminService {
     private Function<String, NoContentFoundException> CONFIRMATION_TOKEN_NOT_FOUND = (confirmationToken) -> {
         throw new NoContentFoundException(INVALID_CONFIRMATION_TOKEN, "confirmationToken", confirmationToken);
     };
-
 }

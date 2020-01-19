@@ -3,6 +3,7 @@ package com.cogent.email.constants;
 public class EmailConstants {
     //A
     public static final String ADMIN_VERIFICATION_TEMPLATE = "adminVerification.ftl";
+    public static final String ADMIN_RESET_PASSWORD_TEMPLATE = "resetPassword.ftl";
 
     public static final String APPOINTMENT_TEMPLATE = "appointmentTemplate.ftl";
 

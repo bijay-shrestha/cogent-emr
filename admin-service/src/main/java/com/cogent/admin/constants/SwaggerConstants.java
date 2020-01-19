@@ -27,6 +27,7 @@ public class SwaggerConstants {
         String FETCH_DETAILS_FOR_DROPDOWN = "Fetch minimal admin details (id and name) for dropdown";
         String CHANGE_PASSWORD = "Validate the requested password with original and update it accordingly" +
                 " (Change password).";
+        String RESET_PASSWORD = "Reset password of any admin. This can be done only those admin who has privilege to do so";
         String UPDATE_AVATAR_OPERATION = "Update admin avatar and if the file size is empty " +
                 "then change the isDefaultImage status as 'Y' else update accordingly.";
         String VERIFY_ADMIN = "Verify if the confirmation token sent in email (after successful save) is valid" +

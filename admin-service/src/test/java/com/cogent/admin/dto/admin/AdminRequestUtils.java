@@ -72,8 +72,8 @@ public class AdminRequestUtils {
                 .build();
     }
 
-    public static UpdatePasswordRequestDTO getAdminPasswordRequestDTO() {
-        return UpdatePasswordRequestDTO.builder()
+    public static AdminChangePasswordRequestDTO getAdminPasswordRequestDTO() {
+        return AdminChangePasswordRequestDTO.builder()
                 .id(1L)
                 .newPassword("admin1")
                 .oldPassword("cogent")

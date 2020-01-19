@@ -435,18 +435,12 @@ public class AdminServiceTest {
 
         given(adminRepository.findAdminById(deleteRequestDTO.getId())).willReturn(of(admin));
 
-        Admin expected = AdminUtils.convertAdminToDeleted(admin, deleteRequestDTO);
-
-        given(adminRepository.save(expected)).willReturn(getDeletedAdminInfo());
-
         adminService.delete(deleteRequestDTO);
-
-        Assertions.assertThat(adminRepository.save(expected).getStatus()).isEqualTo('D');
     }
 
     @Test(expected = NoContentFoundException.class)
     public void Should_Throw_Exception_Admin_Is_Null() {
-        UpdatePasswordRequestDTO requestDTO = getAdminPasswordRequestDTO();
+        AdminChangePasswordRequestDTO requestDTO = getAdminPasswordRequestDTO();
         given(adminRepository.findAdminById(requestDTO.getId())).willReturn(Optional.empty());
 
         adminService.changePassword(requestDTO);
@@ -454,7 +448,7 @@ public class AdminServiceTest {
 
     @Test(expected = OperationUnsuccessfulException.class)
     public void Should_Throw_Exception_When_Password_MisMatch() {
-        UpdatePasswordRequestDTO requestDTO = new UpdatePasswordRequestDTO();
+        AdminChangePasswordRequestDTO requestDTO = new AdminChangePasswordRequestDTO();
         requestDTO.setOldPassword("cogent1");
 
         given(adminRepository.findAdminById(requestDTO.getId())).willReturn(Optional.of(getAdmin()));
@@ -465,7 +459,7 @@ public class AdminServiceTest {
     @Test
     public void Should_Throw_Exception_When_Password_Duplicates() {
 
-        UpdatePasswordRequestDTO requestDTO = new UpdatePasswordRequestDTO();
+        AdminChangePasswordRequestDTO requestDTO = new AdminChangePasswordRequestDTO();
         requestDTO.setOldPassword("cogent");
         requestDTO.setNewPassword("cogent");
 
@@ -477,7 +471,7 @@ public class AdminServiceTest {
 
     @Test
     public void Should_Update_Admin_Password() {
-        UpdatePasswordRequestDTO requestDTO = getAdminPasswordRequestDTO();
+        AdminChangePasswordRequestDTO requestDTO = getAdminPasswordRequestDTO();
         given(adminRepository.findAdminById(requestDTO.getId())).willReturn(Optional.of(getAdmin()));
 
         adminService.changePassword(requestDTO);

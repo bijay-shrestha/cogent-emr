@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static com.cogent.admin.constants.WebResourceKeyConstants.API_V1;
+import static com.cogent.admin.constants.WebResourceKeyConstants.BASE_PASSWORD;
 import static com.cogent.admin.constants.WebResourceKeyConstants.ForgotPasswordConstants.*;
 import static com.cogent.admin.dto.forgotPassword.ForgotPasswordRequestUtils.*;
 import static com.cogent.admin.utils.ObjectToJSONUtils.writeObjectToJson;

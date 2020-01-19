@@ -49,6 +49,7 @@ public class EmailConstants {
     public static final String SUBJECT_FOR_ADMIN_VERIFICATION = "Admin Verification";
     public static final String SUBJECT_FOR_FORGOT_PASSWORD = "Forgot Password";
     public static final String SUBJECT_FOR_UPDATE_ADMIN = "Updated Admin Information";
+    public static final String SUBJECT_FOR_ADMIN_RESET_PASSWORD = "Reset Password";
 
 
     //T

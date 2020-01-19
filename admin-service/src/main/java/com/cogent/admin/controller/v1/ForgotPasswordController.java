@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import static com.cogent.admin.constants.SwaggerConstants.ForgotPasswordConstant.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.API_V1;
+import static com.cogent.admin.constants.WebResourceKeyConstants.BASE_PASSWORD;
 import static com.cogent.admin.constants.WebResourceKeyConstants.ForgotPasswordConstants.*;
 import static org.springframework.http.ResponseEntity.ok;
 

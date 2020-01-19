@@ -6,8 +6,13 @@ package com.cogent.email.constants;
 public class EmailParams {
 
     //A
-    public interface AdminVerification {
+    public interface Admin {
         String ADMIN_CONFIRMATION_URL = "CONFIRMATION_URL";
+        String PASSWORD = "password";
+        String REMARKS ="remarks";
+        String HAS_MAC_BINDING = "hasMacBinding";
+        String UPDATED_DATA = "updatedData";
+        String UPDATED_MAC_ADDRESS = "updatedMacAddress";
     }
 
     public interface Appointment {
@@ -65,12 +70,6 @@ public class EmailParams {
 
     //U
     public static final String USERNAME = "username";
-
-    public interface UpdateAdmin {
-        String HAS_MAC_BINDING = "hasMacBinding";
-        String UPDATED_DATA = "updatedData";
-        String UPDATED_MAC_ADDRESS = "updatedMacAddress";
-    }
 
     //V
 
