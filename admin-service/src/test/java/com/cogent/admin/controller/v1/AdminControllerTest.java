@@ -56,13 +56,13 @@ public class AdminControllerTest {
     public void save() throws Exception {
         String URL = BASE_URL;
 
-        doNothing().when(adminService).save(any(AdminRequestDTO.class), any());
+        doNothing().when(adminService).save(any(AdminRequestDTO.class), any(), null);
         mockMvc.perform(MockMvcRequestBuilders.multipart(URL)
                 .param("files", writeObjectToJson(getMockMultipartFile().getBytes()))
                 .param("request", writeObjectToJson(getAdminRequestDTO())))
                 .andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
-        verify(adminService, times(1)).save(any(AdminRequestDTO.class), any());
+        verify(adminService, times(1)).save(any(AdminRequestDTO.class), any(), null);
         verifyNoMoreInteractions(adminService);
     }
 

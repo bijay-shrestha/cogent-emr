@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.Validator;
@@ -101,7 +102,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void save(@Valid AdminRequestDTO adminRequestDTO, MultipartFile files) {
+    public void save(@Valid AdminRequestDTO adminRequestDTO, MultipartFile files,
+                     HttpServletRequest httpServletRequest) {
 
         Long startTime = getTimeInMillisecondsFromLocalDate();
 
@@ -129,7 +131,7 @@ public class AdminServiceImpl implements AdminService {
                 saveAdminConfirmationToken(parseInAdminConfirmationToken(admin));
 
         EmailRequestDTO emailRequestDTO = convertAdminRequestToEmailRequestDTO(adminRequestDTO,
-                adminConfirmationToken.getConfirmationToken());
+                adminConfirmationToken.getConfirmationToken(), httpServletRequest);
 
         sendEmail(emailRequestDTO);
 

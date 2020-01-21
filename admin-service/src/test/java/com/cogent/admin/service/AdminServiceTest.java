@@ -186,7 +186,7 @@ public class AdminServiceTest {
         AdminRequestDTO adminRequestDTO = getAdminRequestDTOWithInValidInput();
 
         given(validator.validate(adminRequestDTO)).willThrow(ConstraintViolationException.class);
-        adminService.save(adminRequestDTO, getMockMultipartFile());
+        adminService.save(adminRequestDTO, getMockMultipartFile(), null);
     }
 
     @Test(expected = DataDuplicationException.class)
@@ -196,7 +196,7 @@ public class AdminServiceTest {
         given(adminRepository.fetchAdminForValidation(adminRequestDTO.getUsername(), adminRequestDTO.getEmail(),
                 adminRequestDTO.getMobileNumber())).willReturn(getAdminObjectWithDuplicateUsername());
 
-        adminService.save(adminRequestDTO, getMockMultipartFile());
+        adminService.save(adminRequestDTO, getMockMultipartFile(), null);
     }
 
     @Test(expected = NoContentFoundException.class)
@@ -206,7 +206,7 @@ public class AdminServiceTest {
         given(adminCategoryService.fetchActiveAdminCategoryById(adminRequestDTO.getAdminCategoryId()))
                 .willThrow(new NoContentFoundException(Admin.class));
 
-        adminService.save(adminRequestDTO, getMockMultipartFile());
+        adminService.save(adminRequestDTO, getMockMultipartFile(), null);
     }
 
     @Test
@@ -218,7 +218,7 @@ public class AdminServiceTest {
 
         saveAdmin(adminRequestDTO);
 
-        adminService.save(adminRequestDTO, getMockMultipartFile());
+        adminService.save(adminRequestDTO, getMockMultipartFile(), null);
 
         verify(adminRepository, times(1)).save(any(Admin.class));
 
@@ -232,7 +232,7 @@ public class AdminServiceTest {
 
         saveAdmin(adminRequestDTO);
 
-        adminService.save(adminRequestDTO, getMockMultipartFile());
+        adminService.save(adminRequestDTO, getMockMultipartFile(), null);
 
         verify(adminProfileRepository, times(1)).saveAll(anyIterable());
     }
@@ -258,7 +258,7 @@ public class AdminServiceTest {
 
         saveAdminAvatar();
 
-        adminService.save(adminRequestDTO, files);
+        adminService.save(adminRequestDTO, files, null);
 
         verify(adminAvatarRepository, times(1)).save(any(AdminAvatar.class));
 
@@ -281,7 +281,7 @@ public class AdminServiceTest {
 
         thrown.expect(NoContentFoundException.class);
 
-        adminService.save(adminRequestDTO, getMockMultipartFile());
+        adminService.save(adminRequestDTO, getMockMultipartFile(), null);
     }
 
     @Test
@@ -294,7 +294,7 @@ public class AdminServiceTest {
 
         given(macAddressInfoRepository.saveAll(anyIterable())).willReturn(getAdminMacAddress());
 
-        adminService.save(adminRequestDTO, getMockMultipartFile());
+        adminService.save(adminRequestDTO, getMockMultipartFile(), null);
 
         verify(macAddressInfoRepository, times(1)).saveAll(anyIterable());
     }
@@ -313,7 +313,7 @@ public class AdminServiceTest {
 
         given(adminMetaInfoRepository.save(any(AdminMetaInfo.class))).willReturn(getAdminMetaInfo());
 
-        adminService.save(adminRequestDTO, getMockMultipartFile());
+        adminService.save(adminRequestDTO, getMockMultipartFile(), null);
 
         verify(adminMetaInfoRepository, times(1)).save(any(AdminMetaInfo.class));
 
@@ -339,7 +339,7 @@ public class AdminServiceTest {
 
         getMockHttpServletRequest();
 
-        adminService.save(adminRequestDTO, getMockMultipartFile());
+        adminService.save(adminRequestDTO, getMockMultipartFile(), null);
 
         verify(confirmationTokenRepository, times(1))
                 .save(any(AdminConfirmationToken.class));

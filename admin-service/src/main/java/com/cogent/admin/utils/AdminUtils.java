@@ -10,8 +10,8 @@ import com.cogent.admin.feign.dto.request.email.EmailRequestDTO;
 import com.cogent.persistence.model.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -122,10 +122,11 @@ public class AdminUtils {
     }
 
     public static EmailRequestDTO convertAdminRequestToEmailRequestDTO(AdminRequestDTO adminRequestDTO,
-                                                                       String confirmationToken) {
+                                                                       String confirmationToken,
+                                                                       HttpServletRequest httpServletRequest) {
 
-        String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-        String confirmationUrl = fileUri + "/savePassword" + "?token =" + confirmationToken;
+        String origin = httpServletRequest.getHeader("origin");
+        String confirmationUrl = origin + "/#"+ "/savePassword" + "?token =" + confirmationToken;
 
         return EmailRequestDTO.builder()
                 .receiverEmailAddress(adminRequestDTO.getEmail())
