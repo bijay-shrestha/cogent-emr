@@ -27,7 +27,6 @@ public class CookieUtils {
         cookie1.setPath(defaultPath);
         cookie1.setComment(comment);
 
-
         httpServletResponse.addCookie(cookie);
 
         httpServletResponse.addCookie(cookie1);

@@ -43,31 +43,19 @@ zuul:
       path: /pharmacy/**
       serviceId: PHARMACY-SERVICE
 
+    email-server:
+      path: /**
+      serviceId: EMAIL-SERVER
+
+
     hystrix:
       command:
         default:
           execution:
             isolation:
+              strategy: THREAD
               thread:
-                timeoutInMilliseconds:  15000
+                timeoutInMilliseconds:  1500000
             timeout:
               enabled: false
-
-  ribbon:
-    PoolMaxThreads: 500
-    MaxTotalConnections: 500
-    MaxConnectionsPerHost: 50
-    ReadTimeout: 2000
-    ConnectTimeout: 2000
-    MaxHttpConnectionsPerHost: 50
-    MaxTotalHttpConnections: 500
-    MaxAutoRetries: 0
-    MaxAutoRetriesNextServer: 0
-
-
-    ribbon:
-      ConnectTimeout: 10000
-      ReadTimeout: 10000
-
-
 

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 
@@ -20,8 +21,8 @@ import static com.cogent.admin.constants.SwaggerConstants.AdminConstant;
 import static com.cogent.admin.constants.SwaggerConstants.AdminConstant.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.AdminConstants.CHANGE_PASSWORD;
-import static com.cogent.admin.constants.WebResourceKeyConstants.AdminConstants.*;
 import static com.cogent.admin.constants.WebResourceKeyConstants.AdminConstants.RESET_PASSWORD;
+import static com.cogent.admin.constants.WebResourceKeyConstants.AdminConstants.*;
 import static java.net.URI.create;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 import static org.springframework.http.ResponseEntity.created;
@@ -41,10 +42,11 @@ public class AdminController {
     @PostMapping(consumes = MULTIPART_FORM_DATA_VALUE)
     @ApiOperation(SAVE_OPERATION)
     public ResponseEntity<?> save(@RequestParam(value = "file", required = false) MultipartFile file,
-                                  @RequestParam("request") String request) throws IOException {
+                                  @RequestParam("request") String request,
+                                  HttpServletRequest httpServletRequest) throws IOException {
 
         AdminRequestDTO adminRequestDTO = ObjectMapperUtils.map(request, AdminRequestDTO.class);
-        adminService.save(adminRequestDTO, file);
+        adminService.save(adminRequestDTO, file, httpServletRequest);
         return created(create(API_V1 + BASE_ADMIN)).build();
     }
 

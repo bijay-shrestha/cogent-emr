@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "zuul.ribbon.eureka.enable",
+      "type": "java.lang.String",
+      "description": "Description for zuul.ribbon.eureka.enable."
+  }
+] }
