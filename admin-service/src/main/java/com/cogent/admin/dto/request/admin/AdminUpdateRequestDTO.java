@@ -52,6 +52,8 @@ public class AdminUpdateRequestDTO implements Serializable {
     @NotEmpty
     private String remarks;
 
+    private Character isAvatarUpdate;
+
     private List<MacAddressInfoUpdateRequestDTO> macAddressInfoUpdateRequestDTOS;
 
     @NotEmpty

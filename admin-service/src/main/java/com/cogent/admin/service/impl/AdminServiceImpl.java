@@ -255,7 +255,8 @@ public class AdminServiceImpl implements AdminService {
 
         updateAdminProfile(admin.getId(), updateRequestDTO.getAdminProfileUpdateRequestDTOS());
 
-        updateAvatar(admin, files);
+        if (updateRequestDTO.getIsAvatarUpdate().equals(YES))
+            updateAvatar(admin, files);
 
         updateMacAddressInfo(updateRequestDTO.getMacAddressInfoUpdateRequestDTOS(), admin);
 
