@@ -25,7 +25,27 @@ eureka:
 zuul:
   strip-prefix: false
   ignored-services: '*'
+  host:
+    connect-timeout-millis: 60000 # starting the connection
+    socket-timeout-millis: 60000  # monitor the continuous incoming data flow
   routes:
+    hystrix:
+      command:
+        default:
+          execution:
+            isolation:
+              thread:
+                timeoutInMilliseconds: 15000
+
+
+    ribbon:
+      eureka:
+        enabled: true
+      ReadTimeout: 80000
+      ConnectTimeout: 80000
+      MaxTotalHttpConnections: 500
+      MaxConnectionsPerHost: 100
+
     auth-service:
       path: /auth/**
       serviceId: AUTH-SERVICE
@@ -35,6 +55,13 @@ zuul:
     admin-service:
       path: /admin/**
       serviceId: ADMIN-SERVICE
+      ribbon:
+        ReadTimeout: 80000
+        ConnectTimeout: 80000
+        MaxTotalHttpConnections: 500
+        MaxConnectionsPerHost: 100
+
+
     cogent-server:
       path: /**
       serviceId: COGENT-SERVER
@@ -44,18 +71,10 @@ zuul:
       serviceId: PHARMACY-SERVICE
 
     email-server:
-      path: /**
+      path:  /email-server/**
       serviceId: EMAIL-SERVER
-
-
-    hystrix:
-      command:
-        default:
-          execution:
-            isolation:
-              strategy: THREAD
-              thread:
-                timeoutInMilliseconds:  1500000
-            timeout:
-              enabled: false
-
+      ribbon:
+        ReadTimeout: 80000
+        ConnectTimeout: 80000
+        MaxTotalHttpConnections: 500
+        MaxConnectionsPerHost: 100

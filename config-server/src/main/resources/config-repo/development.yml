@@ -12,6 +12,15 @@ spring:
       ddl-auto: update
       generate_statistics: true
       format_sql: true
+
+
+
+
+
+
+
+
+
       temp.use_jdbc_metadata_defaults: false
     show-sql: true
     generate-ddl: true
