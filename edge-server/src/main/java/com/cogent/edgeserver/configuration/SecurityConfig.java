@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
                 .antMatchers(HttpMethod.GET, jwtConfig.getUri()).permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/admin/verify").permitAll()
                 .antMatchers(Modules.ACCOUNTING).hasRole(ApplicationModules.ACCOUNTING_APPLICATION_MODULE)
                 .antMatchers(Modules.PHARMACY).hasRole(ApplicationModules.PHARMACY_APPLICATION_MODULE)
                 .antMatchers(Modules.SUPER_ADMIN_APPLICATION).hasRole(ApplicationModules.SUPER_ADMIN_APPLICATION_MODULE)
@@ -54,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JwtConfig jwtConfig(){
+    public JwtConfig jwtConfig() {
         return new JwtConfig();
     }
 }
