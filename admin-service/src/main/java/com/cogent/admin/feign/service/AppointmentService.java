@@ -1,7 +1,7 @@
 package com.cogent.admin.feign.service;
 
 import com.cogent.admin.feign.dto.request.appointment.AppointmentCountRequestDTO;
-import com.cogent.admin.feign.dto.response.appointment.AppointmentDateResponseDTO;
+import com.cogent.admin.feign.dto.response.appointment.AppointmentBookedDateResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,5 +21,5 @@ import static com.cogent.admin.constants.MicroServiceConstants.AppointmentMicroS
 public interface AppointmentService {
 
     @PutMapping(FETCH_APPOINTMENT_DATES)
-    List<AppointmentDateResponseDTO> fetchAppointmentDates(@RequestBody AppointmentCountRequestDTO requestDTO);
+    List<AppointmentBookedDateResponseDTO> fetchAppointmentDates(@RequestBody AppointmentCountRequestDTO requestDTO);
 }

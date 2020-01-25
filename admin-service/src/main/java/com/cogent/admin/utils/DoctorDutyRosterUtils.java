@@ -6,7 +6,9 @@ import com.cogent.admin.dto.request.doctorDutyRoster.DoctorDutyRosterUpdateReque
 import com.cogent.admin.dto.request.doctorDutyRoster.DoctorWeekDaysDutyRosterRequestDTO;
 import com.cogent.admin.dto.request.doctorDutyRoster.DoctorWeekDaysDutyRosterUpdateRequestDTO;
 import com.cogent.admin.dto.response.doctorDutyRoster.*;
+import com.cogent.admin.exception.BadRequestException;
 import com.cogent.admin.feign.dto.request.appointment.AppointmentCountRequestDTO;
+import com.cogent.admin.feign.dto.response.appointment.AppointmentBookedDateResponseDTO;
 import com.cogent.persistence.model.*;
 
 import java.time.LocalDate;
@@ -15,6 +17,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.cogent.admin.constants.ErrorMessageConstants.AppointmentServiceMessage.APPOINTMENT_EXISTS_MESSAGE;
 import static com.cogent.admin.constants.StringConstant.COMMA_SEPARATED;
 import static com.cogent.admin.constants.StringConstant.HYPHEN;
 import static com.cogent.admin.utils.DateUtils.convertDateToLocalDate;
@@ -60,6 +63,22 @@ public class DoctorDutyRosterUtils {
         weekDaysDutyRoster.setDoctorDutyRosterId(doctorDutyRoster);
         weekDaysDutyRoster.setWeekDaysId(weekDays);
         return weekDaysDutyRoster;
+    }
+
+    public static void filterUpdatedWeekDaysRosterAndAppointment(
+            List<DoctorWeekDaysDutyRosterUpdateRequestDTO> unmatchedWeekDaysRosterList,
+            List<AppointmentBookedDateResponseDTO> appointmentBookedDateResponseDTO) {
+
+        unmatchedWeekDaysRosterList.forEach(unmatchedList ->
+                appointmentBookedDateResponseDTO
+                        .stream()
+                        .map(appointmentDates ->
+                                convertDateToLocalDate(appointmentDates.getAppointmentDate()).getDayOfWeek().toString())
+                        .filter(weekName ->
+                                unmatchedList.getWeekName().equals(weekName))
+                        .forEachOrdered(weekName -> {
+                            throw new BadRequestException(APPOINTMENT_EXISTS_MESSAGE);
+                        }));
     }
 
     public static void parseToUpdatedDoctorDutyRoster(DoctorDutyRoster doctorDutyRoster,

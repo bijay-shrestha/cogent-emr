@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class AppointmentDateResponseDTO implements Serializable {
+public class AppointmentBookedDateResponseDTO implements Serializable {
 
     private Date appointmentDate;
 }
