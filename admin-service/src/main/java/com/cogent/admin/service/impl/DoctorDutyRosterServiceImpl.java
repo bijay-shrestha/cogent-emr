@@ -12,7 +12,6 @@ import com.cogent.admin.exception.NoContentFoundException;
 import com.cogent.admin.feign.dto.request.appointment.AppointmentCountRequestDTO;
 import com.cogent.admin.feign.dto.response.appointment.AppointmentDateResponseDTO;
 import com.cogent.admin.feign.service.AppointmentService;
-import com.cogent.admin.feign.service.EmailService;
 import com.cogent.admin.repository.DoctorDutyRosterOverrideRepository;
 import com.cogent.admin.repository.DoctorDutyRosterRepository;
 import com.cogent.admin.repository.DoctorWeekDaysDutyRosterRepository;
@@ -61,8 +60,6 @@ public class DoctorDutyRosterServiceImpl implements DoctorDutyRosterService {
 
     private final DoctorDutyRosterOverrideRepository doctorDutyRosterOverrideRepository;
 
-    private final EmailService emailService;
-
     private final AppointmentService appointmentService;
 
     public DoctorDutyRosterServiceImpl(DoctorDutyRosterRepository doctorDutyRosterRepository,
@@ -72,7 +69,6 @@ public class DoctorDutyRosterServiceImpl implements DoctorDutyRosterService {
                                        WeekDaysService weekDaysService,
                                        DoctorWeekDaysDutyRosterRepository doctorWeekDaysDutyRosterRepository,
                                        DoctorDutyRosterOverrideRepository doctorDutyRosterOverrideRepository,
-                                       EmailService emailService,
                                        AppointmentService appointmentService) {
         this.doctorDutyRosterRepository = doctorDutyRosterRepository;
         this.doctorService = doctorService;
@@ -81,7 +77,6 @@ public class DoctorDutyRosterServiceImpl implements DoctorDutyRosterService {
         this.weekDaysService = weekDaysService;
         this.doctorWeekDaysDutyRosterRepository = doctorWeekDaysDutyRosterRepository;
         this.doctorDutyRosterOverrideRepository = doctorDutyRosterOverrideRepository;
-        this.emailService = emailService;
         this.appointmentService = appointmentService;
     }
 

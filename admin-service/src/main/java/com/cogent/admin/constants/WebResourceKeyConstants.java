@@ -76,7 +76,7 @@ public class WebResourceKeyConstants {
     public static final String DETAILS = "/details";
 
     public interface DepartmentConstants {
-        String BASE_DEPARTMENT = "/departments";
+        String BASE_DEPARTMENT = "/department";
     }
 
     public interface DiscountSchemeConstants {
