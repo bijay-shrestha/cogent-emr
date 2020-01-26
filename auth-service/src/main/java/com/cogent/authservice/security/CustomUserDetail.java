@@ -4,7 +4,6 @@ import com.cogent.persistence.model.Admin;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
 import java.util.Set;
 
 public class CustomUserDetail implements UserDetails {
@@ -13,13 +12,12 @@ public class CustomUserDetail implements UserDetails {
     private Admin admin;
     Set<GrantedAuthority> authorities=null;
 
-
     public void setAuthorities(Set<GrantedAuthority> authorities){
         this.authorities=authorities;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Set<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 

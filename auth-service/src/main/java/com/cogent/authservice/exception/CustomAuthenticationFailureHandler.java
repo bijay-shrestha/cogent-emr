@@ -25,6 +25,7 @@ public class CustomAuthenticationFailureHandler
             AuthenticationException exception)
             throws IOException, ServletException {
 
+        System.out.println("----- **** AUTHENTICATION FAILURE **** -----S");
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         Map<String, Object> data = new HashMap<>();
         data.put(

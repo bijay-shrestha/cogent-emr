@@ -1,11 +1,14 @@
 package com.cogent.adminservice.controller;
 
 import com.cogent.adminservice.dto.response.AssignedProfileMenuResponseDTO;
+import com.cogent.adminservice.filter.UserContext;
+import com.cogent.adminservice.filter.UserContextHolder;
 import com.cogent.adminservice.service.AdminService;
 import com.cogent.adminservice.service.UserService;
 import com.cogent.persistence.model.Admin;
 import com.cogent.persistence.model.Profile;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +20,9 @@ import java.util.ArrayList;
 
 import static org.springframework.http.ResponseEntity.ok;
 
+//import com.cogent.persistence.model.Admin;
+//import com.cogent.persistence.model.Profile;
+
 @RestController
 @RequestMapping("/gallery")
 @Slf4j
@@ -25,16 +31,27 @@ public class GalleryController {
     private UserService userService;
     private AdminService adminService;
 
+
+    @Autowired
+    private HttpServletRequest request;
+
     public GalleryController(UserService userService, AdminService adminService) {
         this.userService = userService;
         this.adminService = adminService;
     }
 
+    @GetMapping("/super")
+    public String testing(){
+        return request.getHeader("username");
+    }
 
     @GetMapping("/test")
     public ResponseEntity<?> index(HttpServletRequest request, HttpServletResponse servletResponse) {
 
-        System.out.println("inside gallery controller-------------------" + request.getHeader("username"));
+        log.info("REQUEST HEADER AS {} AND USER-CONTEXT USERNAME AS {}",
+                request.getHeader("AUTHENTICATED_USER"),
+                UserContext.getUsername());
+        UserContext userContext = UserContextHolder.getContext();
         AssignedProfileMenuResponseDTO assignedProfileMenuResponseDTO =
                 adminService.getAssignedRoles(request.getHeader("username"));
         return ok().body(assignedProfileMenuResponseDTO);
@@ -43,22 +60,26 @@ public class GalleryController {
     @GetMapping("/user")
     public ResponseEntity<?> home() {
 
-        String username = "bijay";
+        String username = UserContext.getUsername();
 
+        System.out.println(1/0);
         Admin user = Admin.builder()
                 .id(1L)
-                .email("rupakchaulagain@gmail.com")
+                .email("bijay.shrestha@gmail.com")
                 .username(username).profile(new Profile(1L))
                 .build();
 
         userService.save(user);
 
         return ok().body("Welcome to the Gallery Server " + user);
+//        return ok().body("helo world");
 
     }
 
     @GetMapping("/hello")
     public String getGallery(){
+
+        log.info("wakaa waakkkaa {}", UserContext.getUsername());
         return  "Bijay :: is running ...";
     }
 

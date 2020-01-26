@@ -1,6 +1,9 @@
 package com.cogent.persistence.model;
 
+import com.cogent.auditservice.audit.Auditable;
 import lombok.*;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +15,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
-public class Admin implements Serializable{
+@EntityListeners(AuditingEntityListener.class)
+public class Admin extends Auditable<String> implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

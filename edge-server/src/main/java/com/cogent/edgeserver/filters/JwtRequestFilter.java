@@ -37,8 +37,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
-
-        log.info(" :::::: ===== JwtRequestFilter.class (edge-server) ====== ::::::");
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
 
@@ -81,22 +79,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(auth);
 
-            log.info(String.format("%s REQUEST TO %s", request.getMethod(), request.getRequestURL().
-                    toString()) + " " + request.getHeader(jwtConfig.getHeader()));
+            log.info(String.format("%s REQUEST TO %s WITH HEADER %s AND USERNAME %s",
+                    request.getMethod(),
+                    request.getRequestURL().
+                    toString(),
+                    request.getHeader(jwtConfig.getHeader()),
+                    username) + " " + request);
 
-
-            Object principal =
-                    SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-            if (principal instanceof UserDetails) {
-                username = ((UserDetails) principal).getUsername();
-            } else {
-                username = principal.toString();
-            }
-
-            log.info("NAME ((^.^)) {}", username);
-
-            request.setAttribute("AUTHENTICATED_USER", username);
+            request.setAttribute("username", username);
             chain.doFilter(request, response);
         }
     }

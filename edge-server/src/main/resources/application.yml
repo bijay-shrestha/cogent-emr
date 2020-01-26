@@ -32,13 +32,16 @@ zuul:
     admin-service:
       path: /admin/**
       serviceId: ADMIN-SERVICE
-      sensitiveHeaders:
+      sensitiveHeaders: Cookie
     cogent-server:
       path: /cogent/**
       serviceId: COGENT-SERVER
       sensitiveHeaders:
   retryable: true
   ignored-services: '*'
+  host:
+    connect-timeout-millis: 500000
+    socket-timeout-millis: 1000000
 
 
 

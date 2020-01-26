@@ -1,4 +1,4 @@
-package com.cogent.adminservice.audit;
+package com.cogent.auditservice.audit;
 
 import lombok.Getter;
 import lombok.Setter;

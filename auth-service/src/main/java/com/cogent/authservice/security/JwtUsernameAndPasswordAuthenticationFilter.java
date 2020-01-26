@@ -47,8 +47,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter
                                                 HttpServletResponse response)
             throws AuthenticationException {
 
-        log.info(":::: ------ ===== JwtUsernameAndPasswordAuthenticationFilter.class (auth-server) ====== ------ ::::");
-
         try {
             JwtRequest creds = new ObjectMapper().readValue(request.getInputStream(),
                     JwtRequest.class);
@@ -58,7 +56,10 @@ public class JwtUsernameAndPasswordAuthenticationFilter
                             creds.getUsername(),
                             creds.getPassword(),
                             Collections.emptyList());
-            return authManager.authenticate(authToken);
+            Authentication  authObj = authManager.authenticate(authToken);
+            log.info("CONGRATULATIONS, USERNAME AND PASSWORD IS A MATCH ====" +
+                    " AUTHENTICATION SUCCESSFUL ++++ (auth-service)");
+            return authObj;
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -72,11 +73,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter
                                             FilterChain chain,
                                             Authentication auth) throws IOException {
 
-        log.info("Header :: " + jwtConfig.getHeader());
-        log.info("Prefix :: " + jwtConfig.getPrefix());
-        log.info("Secret :: " + jwtConfig.getSecret());
-        log.info("Expiration Time :: " + jwtConfig.getExpiration());
-        log.info("Authorities :: "+ auth.getAuthorities().stream()
+        log.info("Granted Authorities {} "+ auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList()));
 

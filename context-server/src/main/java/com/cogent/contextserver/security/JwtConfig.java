@@ -2,10 +2,10 @@ package com.cogent.contextserver.security;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 @Getter
-@Component
 public class JwtConfig {
 
     @Value("${security.jwt.uri:/auth/**}")

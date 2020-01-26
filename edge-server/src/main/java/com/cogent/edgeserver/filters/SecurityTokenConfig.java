@@ -3,10 +3,9 @@ package com.cogent.edgeserver.filters;
 import com.cogent.contextserver.security.JwtConfig;
 import com.cogent.edgeserver.modules.Modules;
 import com.cogent.edgeserver.modules.Roles;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,22 +14,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.http.HttpServletResponse;
 
-import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan({
-        "com.cogent.contextserver.security"
-})
+@Import(JwtConfig.class)
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private JwtConfig jwtConfig;
 
     public SecurityTokenConfig(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -53,10 +49,5 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(Modules.PHARMACY).hasRole(Roles.PHARMACY_ROLE)
                 .anyRequest().authenticated();
     }
-//
-//    @Bean
-//    public AddRequestHeaderFilter addRequestHeaderFilter(JwtConfig jwtConfig) {
-//        return new AddRequestHeaderFilter(jwtConfig);
-//    }
 
 }

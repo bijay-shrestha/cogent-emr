@@ -72,18 +72,7 @@
 		<dependency>
 			<groupId>com.cogent</groupId>
 			<artifactId>context-server</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.cogent</groupId>
-			<artifactId>admin-service</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.cogent</groupId>
-			<artifactId>auth-service</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
@@ -108,5 +97,13 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
 
 </project>

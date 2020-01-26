@@ -60,6 +60,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.cogent</groupId>-->
+			<!--<artifactId>auth-service</artifactId>-->
+			<!--<version>0.0.1-SNAPSHOT</version>-->
+		<!--</dependency>-->
 	</dependencies>
 
 	<dependencyManagement>
