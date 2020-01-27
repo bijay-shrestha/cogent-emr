@@ -62,10 +62,11 @@ public class GalleryController {
 
         String username = UserContext.getUsername();
         Admin user = Admin.builder()
-                .id(1L)
-                .email("bijay.shrestha@f1soft.com")
+                .id(3L)
+                .email("dullo.shrestha@f1soft.com")
                 .password("$2a$10$wJOicd./zCyF7b0KBRAyIOPi/VI1DD4aLrubJz5JO2Vq2UurkTQ1.")
-                .username(username).profile(new Profile(1L))
+                .username(username)
+                .profile(new Profile(1L))
                 .build();
 
         userService.save(user);
