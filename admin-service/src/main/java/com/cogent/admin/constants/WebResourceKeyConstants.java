@@ -122,17 +122,8 @@ public class WebResourceKeyConstants {
     public static final String EXCEL = "/excel";
 
     //F
-    public static final String SERVICE_ID_PATH_VARIABLE_BASE = "/{serviceId}";
 
     public static final String FILE = "/files/{subDirectoryLocation}/{filename:.+}";
-
-    public interface ServiceConstants {
-        String BASE_SERVICE = "/services";
-    }
-
-    public interface ServiceChargeConstants {
-        String BASE_SERVICE_CHARGE = "/service-charges";
-    }
 
     public interface FollowUpSetupConstants {
         String BASE_FOLLOW_UP_SETUP = "/followUpSetup";
@@ -231,6 +222,8 @@ public class WebResourceKeyConstants {
     public static final String SAVE = "/save";
     public static final String SEARCH = "/search";
 
+    public static final String SERVICE_ID_PATH_VARIABLE_BASE = "/{serviceId}";
+
     public interface SidebarConstants {
         String BASE_SIDE_BAR = "/sidebar";
     }
@@ -247,6 +240,14 @@ public class WebResourceKeyConstants {
 
     public interface SurnameConstants {
         String BASE_SURNAME = "/surnames";
+    }
+
+    public interface ServiceConstants {
+        String BASE_SERVICE = "/services";
+    }
+
+    public interface ServiceChargeConstants {
+        String BASE_SERVICE_CHARGE = "/service-charges";
     }
 
     //T
