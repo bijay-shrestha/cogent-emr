@@ -61,11 +61,10 @@ public class GalleryController {
     public ResponseEntity<?> home() {
 
         String username = UserContext.getUsername();
-
-        System.out.println(1/0);
         Admin user = Admin.builder()
                 .id(1L)
-                .email("bijay.shrestha@gmail.com")
+                .email("bijay.shrestha@f1soft.com")
+                .password("$2a$10$wJOicd./zCyF7b0KBRAyIOPi/VI1DD4aLrubJz5JO2Vq2UurkTQ1.")
                 .username(username).profile(new Profile(1L))
                 .build();
 
