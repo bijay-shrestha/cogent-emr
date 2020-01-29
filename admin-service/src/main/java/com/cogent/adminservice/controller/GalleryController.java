@@ -30,8 +30,6 @@ public class GalleryController {
 
     private UserService userService;
     private AdminService adminService;
-
-
     @Autowired
     private HttpServletRequest request;
 
@@ -60,18 +58,28 @@ public class GalleryController {
     @GetMapping("/user")
     public ResponseEntity<?> home() {
 
-        String username = UserContext.getUsername();
+        Admin admin = adminService.findAdminById(4L);
+        admin.setEmail("muloo.shrestha@gmail.com");
+
+        userService.save(admin);
+
+        return ok().body("Welcome to the Gallery Server " + admin);
+    }
+
+    @GetMapping("/create")
+    public ResponseEntity<?> createAdmin() {
+
         Admin user = Admin.builder()
-                .id(3L)
-                .email("dullo.shrestha@f1soft.com")
+                .id(4L)
+                .email("rupak.chapagain@f1soft.com")
                 .password("$2a$10$wJOicd./zCyF7b0KBRAyIOPi/VI1DD4aLrubJz5JO2Vq2UurkTQ1.")
-                .username(username)
+                .username("rupak")
                 .profile(new Profile(1L))
                 .build();
 
         userService.save(user);
 
-        return ok().body("Welcome to the Gallery Server " + user);
+        return ok().body("Admin created successfully " + user.getUsername());
 //        return ok().body("helo world");
 
     }

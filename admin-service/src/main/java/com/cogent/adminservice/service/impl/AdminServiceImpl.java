@@ -6,6 +6,7 @@ import com.cogent.adminservice.dto.response.ChildMenusResponseDTO;
 import com.cogent.adminservice.dto.response.ProfileMenuResponseDTO;
 import com.cogent.adminservice.repository.AdminRepository;
 import com.cogent.adminservice.service.AdminService;
+import com.cogent.persistence.model.Admin;
 import com.cogent.persistence.model.ProfileMenu;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -142,5 +143,10 @@ public class AdminServiceImpl implements AdminService {
 
         return assignedProfileMenuResponseDTO;
 
+    }
+
+    @Override
+    public Admin findAdminById(Long id) {
+        return adminRepository.findAdminById(id);
     }
 }

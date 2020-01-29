@@ -35,11 +35,10 @@ public class ResponseFilter extends ZuulFilter {
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
 
-        log.debug("Adding the username the outbound headers. {}", filterUtils.getUsername());
+        log.info("Adding the username to the outbound headers. {}", filterUtils.getUsername());
         ctx.getResponse().addHeader(FilterUtils.USERNAME, filterUtils.getUsername());
 
-        log.debug("Completing outgoing request for {}.", ctx.getRequest().getRequestURI());
-
+        log.info("Completing outgoing request for {}.", ctx.getRequest().getRequestURI());
         return null;
     }
 }
