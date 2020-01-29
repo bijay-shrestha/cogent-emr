@@ -3,6 +3,8 @@ package com.cogent.adminservice.audit;
 import com.cogent.adminservice.filter.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AuditorAware;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
@@ -21,7 +23,6 @@ public class AuditorAwareImpl implements AuditorAware<String> {
 //		} else {
 //			username = principal.toString();
 //		}
-//
 //		return Optional.of(username);
 		return Optional.of(UserContext.getUsername());
     }

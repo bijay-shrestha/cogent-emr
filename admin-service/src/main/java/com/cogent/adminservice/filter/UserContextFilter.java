@@ -1,5 +1,6 @@
 package com.cogent.adminservice.filter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class UserContextFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(UserContextFilter.class);
 
@@ -21,6 +23,8 @@ public class UserContextFilter implements Filter {
         String username = httpServletRequest.getHeader(UserContext.USERNAME);
 
         UserContextHolder.getContext().setUsername(username);
+
+        log.info("MA YEHI CHU, MA YEHI CHU");
 
         logger.debug("Service Incoming USERNAME: {}" , UserContextHolder.getContext().getUsername());
         filterChain.doFilter(httpServletRequest, servletResponse);

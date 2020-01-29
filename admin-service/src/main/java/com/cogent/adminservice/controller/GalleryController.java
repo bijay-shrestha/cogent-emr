@@ -47,7 +47,7 @@ public class GalleryController {
     public ResponseEntity<?> index(HttpServletRequest request, HttpServletResponse servletResponse) {
 
         log.info("REQUEST HEADER AS {} AND USER-CONTEXT USERNAME AS {}",
-                request.getHeader("AUTHENTICATED_USER"),
+                request.getHeader(UserContext.USERNAME),
                 UserContext.getUsername());
         UserContext userContext = UserContextHolder.getContext();
         AssignedProfileMenuResponseDTO assignedProfileMenuResponseDTO =
@@ -59,7 +59,7 @@ public class GalleryController {
     public ResponseEntity<?> home() {
 
         Admin admin = adminService.findAdminById(4L);
-        admin.setEmail("muloo.shrestha@gmail.com");
+        admin.setEmail("duul.shrestha@gmail.com");
 
         userService.save(admin);
 

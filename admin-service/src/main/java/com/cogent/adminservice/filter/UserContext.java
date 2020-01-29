@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class UserContext {
     public static final String USERNAME = "username";
 
-    public static String username = new String();
+    public static String username = "";
 
     public static String getUsername() { return username;}
     public void setUsername(String username) {
