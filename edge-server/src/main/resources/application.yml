@@ -22,6 +22,11 @@ eureka:
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${eureka.instance.secure-port}/eureka/
 
+#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+
 zuul:
   strip-prefix: false
   ignored-services: '*'
@@ -35,7 +40,7 @@ zuul:
           execution:
             isolation:
               thread:
-                timeoutInMilliseconds: 15000
+                timeoutInMilliseconds: 160000
 
 
     ribbon:
