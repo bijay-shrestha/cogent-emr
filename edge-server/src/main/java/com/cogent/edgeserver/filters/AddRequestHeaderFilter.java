@@ -30,21 +30,19 @@ public class AddRequestHeaderFilter extends ZuulFilter {
     public boolean shouldFilter() {
         return SHOULD_FILTER;
     }
-    public static final String USER_HEADER = "username";
-
 
     @Override
     public Object run() {
         String username = "";
 
-        RequestContext requestContext = RequestContext.getCurrentContext();
+        RequestContext ctx = RequestContext.getCurrentContext();
+
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        log.info("PRINCIPAL USERNAME AS {}", principal.toString());
-        if(principal!=null){
-            username = principal.toString();
-        }
-        log.info("USERNAME :: {}", (String) requestContext.getRequest().getAttribute("username"));
-        requestContext.addZuulRequestHeader(USER_HEADER, username);
+        username = principal.toString();
+
+        log.info("USERNAME :: {}", (String) ctx.getRequest().getAttribute("username"));
+        ctx.addZuulRequestHeader(FilterUtils.USERNAME, username);
+
         return null;
     }
 

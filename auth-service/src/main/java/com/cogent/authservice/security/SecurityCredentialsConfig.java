@@ -2,7 +2,7 @@ package com.cogent.authservice.security;
 
 import com.cogent.authservice.dto.LoginErrorResponse;
 
-import com.cogent.contextserver.security.JwtConfig;
+import com.cogent.genericservice.config.JwtConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,7 +31,7 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 @EntityScan(basePackages = {"com.cogent.persistence.model"})
-@ComponentScan({"com.cogent.contextserver.security"})
+@Import(JwtConfig.class)
 public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

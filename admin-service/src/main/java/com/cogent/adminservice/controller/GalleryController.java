@@ -59,7 +59,7 @@ public class GalleryController {
     public ResponseEntity<?> home() {
 
         Admin admin = adminService.findAdminById(4L);
-        admin.setEmail("duul.shrestha@gmail.com");
+        admin.setEmail("guul.shrestha@gmail.com");
 
         userService.save(admin);
 
@@ -86,9 +86,7 @@ public class GalleryController {
 
     @GetMapping("/hello")
     public String getGallery(){
-
-        log.info("wakaa waakkkaa {}", UserContext.getUsername());
-        return  "Bijay :: is running ...";
+        return  UserContext.getUsername() + " is running perfectly ...";
     }
 
     // Function to remove duplicates from an ArrayList

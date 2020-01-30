@@ -38,6 +38,7 @@ public class ResponseFilter extends ZuulFilter {
         log.info("Adding the username to the outbound headers. {}", filterUtils.getUsername());
         ctx.getResponse().addHeader(FilterUtils.USERNAME, filterUtils.getUsername());
 
+
         log.info("Completing outgoing request for {}.", ctx.getRequest().getRequestURI());
         return null;
     }

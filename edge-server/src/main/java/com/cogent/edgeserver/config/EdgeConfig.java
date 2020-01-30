@@ -4,7 +4,7 @@
 //
 //import com.cogent.adminservice.filter.TestFilter;
 //import com.cogent.contextserver.filter.UserContextFilter;
-//import com.cogent.contextserver.security.JwtConfig;
+//import com.cogent.genericservice.config.JwtConfig;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.web.servlet.FilterRegistrationBean;
 //import org.springframework.context.annotation.Bean;

@@ -13,7 +13,6 @@
         <module>name-server</module> <!-- 8761 -->
         <module>config-server</module> <!-- 8888 -->
         <module>generic-service</module> <!-- 8889 -->
-        <module>context-server</module> <!-- 8081 -->
         <module>edge-server</module> <!-- 8762 -->
         <module>audit-service</module> <!-- 8085-->
         <module>persistence</module>

@@ -1,6 +1,6 @@
 package com.cogent.edgeserver.filters;
 
-import com.cogent.contextserver.security.JwtConfig;
+import com.cogent.genericservice.config.JwtConfig;
 import com.cogent.edgeserver.checkpoint.CookieCheckpoint;
 import com.cogent.edgeserver.checkpoint.JwtTokenCheckpoint;
 import com.cogent.genericservice.cookies.CookieUtils;
@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;

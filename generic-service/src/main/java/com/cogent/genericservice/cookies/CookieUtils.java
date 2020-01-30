@@ -19,10 +19,6 @@ public class CookieUtils {
         cookie.setPath(defaultPath);
         cookie.setComment(comment);
 
-        //cookie.setSecure(true);
-        //cookie.setDomain(domain);
-        //cookie.setVersion(0);
-
         httpServletResponse.addCookie(cookie);
         return cookie;
     }

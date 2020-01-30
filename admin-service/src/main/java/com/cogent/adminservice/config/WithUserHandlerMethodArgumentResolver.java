@@ -2,7 +2,7 @@
 //
 //import com.cogent.adminservice.annotation.WithUser;
 //import com.cogent.adminservice.utils.UserInfo;
-//import com.cogent.contextserver.security.JwtConfig;
+//import com.cogent.genericservice.config.JwtConfig;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.core.MethodParameter;
 //import org.springframework.web.bind.support.WebDataBinderFactory;

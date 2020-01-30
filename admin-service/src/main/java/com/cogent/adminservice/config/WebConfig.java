@@ -1,6 +1,6 @@
 //package com.cogent.adminservice.config;
 //
-//import com.cogent.contextserver.security.JwtConfig;
+//import com.cogent.genericservice.config.JwtConfig;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.annotation.ComponentScan;
 //import org.springframework.context.annotation.Configuration;

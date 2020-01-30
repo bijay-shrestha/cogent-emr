@@ -1,9 +1,8 @@
 package com.cogent.edgeserver.filters;
 
-import com.cogent.contextserver.security.JwtConfig;
+import com.cogent.genericservice.config.JwtConfig;
 import com.cogent.edgeserver.modules.Modules;
 import com.cogent.edgeserver.modules.Roles;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

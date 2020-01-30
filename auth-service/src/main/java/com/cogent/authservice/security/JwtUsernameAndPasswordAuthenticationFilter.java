@@ -2,7 +2,7 @@ package com.cogent.authservice.security;
 import com.cogent.authservice.dto.LoginResponse;
 import com.cogent.authservice.model.JwtRequest;
 
-import com.cogent.contextserver.security.JwtConfig;
+import com.cogent.genericservice.config.JwtConfig;
 import com.cogent.genericservice.cookies.CookieUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,6 +1,6 @@
 package com.cogent.edgeserver.checkpoint;
 
-import com.cogent.contextserver.security.JwtConfig;
+import com.cogent.genericservice.config.JwtConfig;
 import com.cogent.edgeserver.exception.InvalidCredentialException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
