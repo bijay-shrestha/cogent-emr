@@ -1,4 +1,4 @@
-package com.cogent.auditservice.audit;
+package com.cogent.persistence.audit;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +11,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.Date;
+
+import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Getter
 @Setter
@@ -24,14 +25,14 @@ public abstract class Auditable<U> {
     protected U createdBy;
 
     @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TIMESTAMP)
     protected Date createdDate;
 
     @LastModifiedBy
     protected U lastModifiedBy;
 
     @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TIMESTAMP)
     protected Date lastModifiedDate;
 
 }

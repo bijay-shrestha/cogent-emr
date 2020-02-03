@@ -1,10 +1,10 @@
-package com.cogent.auditservice;
+package com.cogent.persistence;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AuditServiceApplicationTests {
+class PersistenceApplicationTests {
 
 	@Test
 	void contextLoads() {

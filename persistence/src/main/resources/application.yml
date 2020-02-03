@@ -1,9 +1,9 @@
 server:
-  port: 8085
+  port: 8086
 
 spring:
   application:
-    name: audit-service
+    name: persistence
   cloud:
     config:
       uri: http://localhost:8888

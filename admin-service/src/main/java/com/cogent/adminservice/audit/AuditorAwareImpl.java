@@ -12,7 +12,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
 
     @Override
     public Optional<String> getCurrentAuditor() {
-        log.info("AUDITOR :: {}", UserContext.getUsername());
+        log.info("CURRENT AUDITOR :: {}", UserContext.getUsername());
 		return Optional.of(UserContext.getUsername());
     }
 

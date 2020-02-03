@@ -1,9 +1,8 @@
 package com.cogent.persistence.model;
 
-import com.cogent.auditservice.audit.Auditable;
+import com.cogent.persistence.listener.AdminEntityListener;
+import com.cogent.persistence.audit.Auditable;
 import lombok.*;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +14,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AdminEntityListener.class)
 public class Admin extends Auditable<String> implements Serializable{
 
     @Id
@@ -35,4 +34,14 @@ public class Admin extends Auditable<String> implements Serializable{
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", profile=" + profile.getName() +
+                '}';
+    }
 }

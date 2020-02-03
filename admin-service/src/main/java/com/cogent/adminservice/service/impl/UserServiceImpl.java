@@ -21,9 +21,8 @@ public class UserServiceImpl implements UserService<Admin, Long> {
     }
 
     @Override
-    public void save(Admin user) {
-        repository.save(user);
-
+    public void saveAndFlush(Admin admin) {
+        repository.saveAndFlush(admin);
     }
 
     @Override

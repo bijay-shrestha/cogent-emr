@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface UserService<User,Long> {
 
-    void save(User t);
+    void saveAndFlush(User t);
     User getByID(Long t);
     List<User> getAll();
 }
