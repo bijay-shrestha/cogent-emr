@@ -13,6 +13,7 @@ public class BeanUtil implements ApplicationContextAware {
 
     private static ApplicationContext CONTEXT = null;
 
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         CONTEXT = applicationContext;
     }

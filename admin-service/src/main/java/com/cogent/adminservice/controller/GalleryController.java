@@ -59,15 +59,15 @@ public class GalleryController {
         return ok().body(assignedProfileMenuResponseDTO);
     }
 
-    @GetMapping("/user")
+    @GetMapping("/update")
     public ResponseEntity<?> home() {
 
-        Admin admin = adminService.findAdminById(1L);
-        admin.setEmail("buulbuul.shrestha@gmail.com");
+        Admin admin = adminService.findAdminById(3L);
+        admin.setEmail("dhanusha@gmail.com");
 
         userService.saveAndFlush(admin);
 
-        return ok().body("Welcome to the Gallery Server " + admin);
+        return ok().body("Email successfully updated for ..." + admin.getUsername());
     }
 
     @GetMapping("/create")
